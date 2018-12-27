@@ -20,15 +20,43 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){  // actionPerformed is triggered when JComponents are triggered.
-		
+		if(evt.getSource() == thetimer){ // If timer is going off, 60 FPS in this case, panel will repaint itself.
+			thepanel.repaint();
+		}
 	}
 	
 	public void keyReleased(KeyEvent evt){ // keyReleased is triggered when you release the key.
-		
+		if(evt.getKeyCode() == 37){ // Left Arrow Key
+			thepanel.blnLeft = false; 
+		}
+		else if(evt.getKeyCode() == 38){ // Up Arrow Key
+			thepanel.blnUp = false;
+		}
+		else if(evt.getKeyCode() == 39){ // Right Arrow Key
+			thepanel.blnRight = false;
+		}
+		else if(evt.getKeyCode() == 40){ // Down Arrow Key
+			thepanel.blnDown = false;
+		}
 	}
+	
 	public void keyPressed(KeyEvent evt){ // keyPressed is triggered when you press the key.
-		
+		if(evt.getKeyCode() == 37){ // Left Arrow Key
+			thepanel.blnLeft = true; 
+		}
+		else if(evt.getKeyCode() == 38){ // Up Arrow Key
+			thepanel.blnUp = true;
+			System.out.println("up");
+		}
+		else if(evt.getKeyCode() == 39){ // Right Arrow Key
+			thepanel.blnRight = true;
+			System.out.println("right");
+		}
+		else if(evt.getKeyCode() == 40){ // Down Arrow Key
+			thepanel.blnDown = true;
+		}
 	}
+	
 	public void keyTyped(KeyEvent evt){ // keyTyped is triggered when you press and release the key. 
 		
 	}
