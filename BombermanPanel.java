@@ -13,6 +13,7 @@ public class BombermanPanel extends JPanel{
 	boolean blnRight = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
+	boolean blnMainMenu = true;
 	
 	BufferedImage up1;
 	BufferedImage up2;
@@ -26,37 +27,45 @@ public class BombermanPanel extends JPanel{
 	BufferedImage left1;
 	BufferedImage left2;
 	BufferedImage left3;
+	BufferedImage mainmenu;
 	
 	// Methods
 	public void paintComponent(Graphics g){
-		// Set Background
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 1280, 720); 
-		
-		// Bomberman
-		if(blnUp == true){
-			intY = intY - 5;
-			g.drawImage(up2, intX, intY, null);
-			g.drawImage(up3, intX, intY, null);
-		}
-		else if(blnRight == true){
-			intX = intX + 5;
-			g.drawImage(right1, intX, intY, null); 
-			g.drawImage(right2, intX, intY, null); 
-		}
-		else if(blnDown == true){
-			intY = intY + 5;
-			g.drawImage(down2, intX, intY, null); 
-			g.drawImage(down3, intX, intY, null); 
+		// Main Menu
+		if(blnMainMenu == true){
+			g.drawImage(mainmenu, 0, 0, null);
 		}
 		
-		else if(blnLeft == true){
-			intX = intX - 5;
-			g.drawImage(left1, intX, intY, null); 
-			g.drawImage(left2, intX, intY, null); 
-		}
+		else if(blnMainMenu == false){
+			// Set Background
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, 1280, 720); 
+			
+			// Bomberman
+			if(blnUp == true){
+				intY = intY - 5;
+				g.drawImage(up2, intX, intY, null);
+				g.drawImage(up3, intX, intY, null);
+			}
+			else if(blnRight == true){
+				intX = intX + 5;
+				g.drawImage(right1, intX, intY, null); 
+				g.drawImage(right2, intX, intY, null); 
+			}
+			else if(blnDown == true){
+				intY = intY + 5;
+				g.drawImage(down2, intX, intY, null); 
+				g.drawImage(down3, intX, intY, null); 
+			}
 		
-		g.drawImage(down1, intX, intY, null); // Default stance
+			else if(blnLeft == true){
+				intX = intX - 5;
+				g.drawImage(left1, intX, intY, null); 
+				g.drawImage(left2, intX, intY, null); 
+			}
+		
+			g.drawImage(down1, intX, intY, null); // Default stance
+		}
 	}
 	
 	// Constructors
@@ -75,6 +84,8 @@ public class BombermanPanel extends JPanel{
 			left1 = ImageIO.read(new File("left1.png")); 
 			left2 = ImageIO.read(new File("left2.png")); 
 			left3 = ImageIO.read(new File("left3.png")); 
+			mainmenu = ImageIO.read(new File("mainmenu.png"));
+			
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
