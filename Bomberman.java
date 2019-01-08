@@ -17,15 +17,27 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 	JFrame theframe;
 	BombermanPanel thepanel;
 	Timer thetimer;
-	JButton StartGame;
+	JButton button_startgame;
+	JButton button_highscores;
+	JButton button_help;
+	JButton button_quit;
 
 	// Methods
 	public void actionPerformed(ActionEvent evt){  // actionPerformed is triggered when JComponents are triggered.
 		if(evt.getSource() == thetimer){ // If timer is going off, 60 FPS in this case, panel will repaint itself.
 			thepanel.repaint();
 		}
-		else if(evt.getSource() == StartGame){
-			// Something happens when user clicks Start Game button...
+		else if(evt.getSource() == button_startgame){ // Start Game Button
+			System.out.println("Start Game");
+		}
+		else if(evt.getSource() == button_highscores){
+			System.out.println("Highscores");
+		}
+		else if(evt.getSource() == button_help){
+			System.out.println("Help");
+		}
+		else if(evt.getSource() == button_quit){
+			System.out.println("Quit");
 		}
 	}
 
@@ -94,12 +106,49 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
 		
-		// Add JButton
-		StartGame = new JButton("Start Game");
-		StartGame.setSize(200, 100);
-		StartGame.setLocation(400,400);
-		StartGame.addActionListener(this);
-		thepanel.add(StartGame);
+		// Add JButtons
+		button_startgame = new JButton("Start Game");
+		button_startgame.setSize(200, 50);
+		button_startgame.setLocation(540, 230);
+		button_startgame.addActionListener(this);
+		button_startgame.setFocusPainted(false);
+		button_startgame.setContentAreaFilled(false);
+		button_startgame.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_startgame.setForeground(Color.WHITE);
+		thepanel.add(button_startgame);
+		
+		button_highscores = new JButton("Highscores");
+		button_highscores.setSize(200, 50);
+		button_highscores.setLocation(540, 300);
+		button_highscores.addActionListener(this);
+		button_highscores.setFocusPainted(false);
+		button_highscores.setContentAreaFilled(false);
+		button_highscores.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_highscores.setForeground(Color.WHITE);
+		thepanel.add(button_highscores);
+		
+		button_help = new JButton("Help");
+		button_help.setSize(200, 50);
+		button_help.setLocation(540, 370);
+		button_help.addActionListener(this);
+		button_help.setFocusPainted(false);
+		button_help.setContentAreaFilled(false);
+		button_help.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_help.setForeground(Color.WHITE);
+		thepanel.add(button_help);
+		
+		button_quit = new JButton("Quit");
+		button_quit.setSize(200, 50);
+		button_quit.setLocation(540, 440);
+		button_quit.addActionListener(this);
+		button_quit.setFocusPainted(false);
+		button_quit.setContentAreaFilled(false);
+		button_quit.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_quit.setForeground(Color.WHITE);
+		thepanel.add(button_quit);
+		
+		
+		
 	}
 
 	// Main Methods
