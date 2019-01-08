@@ -17,11 +17,15 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 	JFrame theframe;
 	BombermanPanel thepanel;
 	Timer thetimer;
+	JButton StartGame;
 
 	// Methods
 	public void actionPerformed(ActionEvent evt){  // actionPerformed is triggered when JComponents are triggered.
 		if(evt.getSource() == thetimer){ // If timer is going off, 60 FPS in this case, panel will repaint itself.
 			thepanel.repaint();
+		}
+		else if(evt.getSource() == StartGame){
+			// Something happens when user clicks Start Game button...
 		}
 	}
 
@@ -89,6 +93,13 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 		// Add Timer Object
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
+		
+		// Add JButton
+		StartGame = new JButton("Start Game");
+		StartGame.setSize(200, 100);
+		StartGame.setLocation(400,400);
+		StartGame.addActionListener(this);
+		thepanel.add(StartGame);
 	}
 
 	// Main Methods
