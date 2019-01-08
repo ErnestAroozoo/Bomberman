@@ -85,7 +85,6 @@ public class BombermanPanel extends JPanel{
 			left2 = ImageIO.read(new File("left2.png")); 
 			left3 = ImageIO.read(new File("left3.png")); 
 			mainmenu = ImageIO.read(new File("mainmenu.png"));
-			
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
