@@ -13,7 +13,7 @@ public class BombermanPanel extends JPanel{
 	boolean blnRight = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
-	boolean blnMainMenu = true;
+	boolean blnStartGame = false;
 	BufferedImage up1;
 	BufferedImage up2;
 	BufferedImage right1;
@@ -27,11 +27,11 @@ public class BombermanPanel extends JPanel{
 	// Methods
 	public void paintComponent(Graphics g){
 		// Main Menu
-		if(blnMainMenu == true){
+		if(blnStartGame == false){
 			g.drawImage(mainmenu, 0, 0, null);
 		}
-		
-		else if(blnMainMenu == false){
+		// Start Game
+		else if(blnStartGame == true){
 			// Set Background
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, 1280, 720); 

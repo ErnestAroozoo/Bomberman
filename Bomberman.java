@@ -29,15 +29,35 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 		}
 		else if(evt.getSource() == button_startgame){ // Start Game Button
 			System.out.println("Start Game");
+			// Remove Buttons
+			button_startgame.setVisible(false);
+			button_highscores.setVisible(false);
+			button_help.setVisible(false);
+			button_quit.setVisible(false);
+			// Start Game
+			thepanel.blnStartGame = true;
+			theframe.requestFocus();
 		}
-		else if(evt.getSource() == button_highscores){
+		else if(evt.getSource() == button_highscores){ // Highscores Button
 			System.out.println("Highscores");
+			// Remove Buttons
+			button_startgame.setVisible(false);
+			button_highscores.setVisible(false);
+			button_help.setVisible(false);
+			button_quit.setVisible(false);
 		}
-		else if(evt.getSource() == button_help){
+		else if(evt.getSource() == button_help){ // Help Button
 			System.out.println("Help");
+			// Remove Buttons
+			button_startgame.setVisible(false);
+			button_highscores.setVisible(false);
+			button_help.setVisible(false);
+			button_quit.setVisible(false);
 		}
-		else if(evt.getSource() == button_quit){
+		else if(evt.getSource() == button_quit){ // Quit Button
 			System.out.println("Quit");
+			// Exit Program
+			System.exit(0);
 		}
 	}
 
@@ -146,9 +166,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 		button_quit.setFont(new Font("Arial", Font.PLAIN, 20));
 		button_quit.setForeground(Color.WHITE);
 		thepanel.add(button_quit);
-		
-		
-		
 	}
 
 	// Main Methods
