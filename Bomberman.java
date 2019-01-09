@@ -118,13 +118,13 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	}
 	public void mouseClicked(MouseEvent evt){
 		System.out.println("Clicked in the panel");
-		if(evt.getX() > 100 && evt.getX() < 300 && evt.getY() > 200 && evt.getY() < 400){
+		if(evt.getX() > 100 && evt.getX() < 400 && evt.getY() > 200 && evt.getY() < 500){
 			System.out.println("Clicked Mouse");
 			thepanel.blnMouse = true;
 			thepanel.blnStartGame = true;
 			theframe.requestFocus();
 
-		}else if(evt.getX() > 600 && evt.getX() < 800 && evt.getY() > 200 && evt.getY() < 400){
+		}else if(evt.getX() > 600 && evt.getX() < 900 && evt.getY() > 200 && evt.getY() < 500){
 			System.out.println("Clicked Keys");
 			thepanel.blnKeys = true;
 			thepanel.blnStartGame = true;
