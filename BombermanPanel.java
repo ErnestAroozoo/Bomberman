@@ -14,6 +14,8 @@ public class BombermanPanel extends JPanel{
 	boolean blnDown = false;
 	boolean blnLeft = false;
 	boolean blnStartGame = false;
+	boolean blnMouse = false;
+	boolean blnKeys = false;
 	BufferedImage up1;
 	BufferedImage up2;
 	BufferedImage right1;
@@ -23,19 +25,28 @@ public class BombermanPanel extends JPanel{
 	BufferedImage left1;
 	BufferedImage left2;
 	BufferedImage mainmenu;
+	BufferedImage keys;
+	BufferedImage mouse;
+	String strMoveOption;
 	
 	// Methods
 	public void paintComponent(Graphics g){
 		// Main Menu
 		if(blnStartGame == false){
 			g.drawImage(mainmenu, 0, 0, null);
+			
 		}
 		// Start Game
 		else if(blnStartGame == true){
 			// Set Background
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, 1280, 720); 
-			
+			g.drawImage(mouse, 100, 200, null);
+			g.drawImage(keys, 600, 200, null);
+			if(blnStartGame == true && blnMouse == true || blnStartGame == true && blnKeys == true){
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, 1280, 720); 
+			g.drawImage(down1, intX, intY, null); // Default stance
 			// Bomberman
 			if(blnUp == true){
 				intY = intY - 5;
@@ -58,8 +69,8 @@ public class BombermanPanel extends JPanel{
 				g.drawImage(left1, intX, intY, null); 
 				g.drawImage(left2, intX, intY, null); 
 			}
-		
-			g.drawImage(down1, intX, intY, null); // Default stance
+		}
+			
 		}
 	}
 	
@@ -77,6 +88,8 @@ public class BombermanPanel extends JPanel{
 			left1 = ImageIO.read(new File("left1.png")); 
 			left2 = ImageIO.read(new File("left2.png"));  
 			mainmenu = ImageIO.read(new File("mainmenu.png"));
+			mouse = ImageIO.read(new File("mouse.png"));
+			keys = ImageIO.read(new File("keys.png"));
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
