@@ -29,15 +29,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		}
 		else if(evt.getSource() == button_startgame){ // Start Game Button
 			System.out.println("Start Game");
-
 			// Remove Buttons
 			button_startgame.setVisible(false);
 			button_highscores.setVisible(false);
 			button_help.setVisible(false);
 			button_quit.setVisible(false);
-			// Start Game
-			
+			// Play Style Menu
 			thepanel.blnStartGame = true;
+			theframe.requestFocus(); 
 		}
 		else if(evt.getSource() == button_highscores){ // Highscores Button
 			System.out.println("Highscores");
@@ -101,35 +100,29 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	public void mouseMoved(MouseEvent evt){ // mouseMoved is triggered when mouse is moved.
 
 	}
+	
 	public void mouseDragged(MouseEvent evt){ // mouseDragged is triggered when mouse is dragged.
 
 	}
+	
 	public void mouseExited(MouseEvent evt){
 		
 	}
+	
 	public void mouseEntered(MouseEvent evt){
 		
 	}
+	
 	public void mousePressed(MouseEvent evt){
 		
 	}
+	
 	public void mouseReleased(MouseEvent evt){
 		
 	}
+	
 	public void mouseClicked(MouseEvent evt){
-		System.out.println("Clicked in the panel");
-		if(evt.getX() > 100 && evt.getX() < 400 && evt.getY() > 200 && evt.getY() < 500){
-			System.out.println("Clicked Mouse");
-			thepanel.blnMouse = true;
-			thepanel.blnStartGame = true;
-			theframe.requestFocus();
 
-		}else if(evt.getX() > 600 && evt.getX() < 900 && evt.getY() > 200 && evt.getY() < 500){
-			System.out.println("Clicked Keys");
-			thepanel.blnKeys = true;
-			thepanel.blnStartGame = true;
-			theframe.requestFocus();
-		}
 	}
 
 	// Constructors
