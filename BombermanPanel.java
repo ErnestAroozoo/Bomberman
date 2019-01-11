@@ -13,39 +13,37 @@ public class BombermanPanel extends JPanel{
 	boolean blnRight = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
-	boolean blnMainMenu = true;
-	
+	boolean blnStartGame = false;
+	boolean blnMouse = false;
+	boolean blnKeys = false;
 	BufferedImage up1;
 	BufferedImage up2;
-	BufferedImage up3;
 	BufferedImage right1;
 	BufferedImage right2;
-	BufferedImage right3;
 	BufferedImage down1;
 	BufferedImage down2;
-	BufferedImage down3;
 	BufferedImage left1;
 	BufferedImage left2;
-	BufferedImage left3;
 	BufferedImage mainmenu;
 	
 	// Methods
 	public void paintComponent(Graphics g){
 		// Main Menu
-		if(blnMainMenu == true){
+		if(blnStartGame == false){
 			g.drawImage(mainmenu, 0, 0, null);
 		}
-		
-		else if(blnMainMenu == false){
-			// Set Background
+		// Start Game
+		else if(blnStartGame == true){			
+			// Set White Background
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, 1280, 720); 
-			
-			// Bomberman
+	
+			// Bomberman Movement
+			g.drawImage(down1, intX, intY, null); // Default stance
 			if(blnUp == true){
 				intY = intY - 5;
+				g.drawImage(up1, intX, intY, null);
 				g.drawImage(up2, intX, intY, null);
-				g.drawImage(up3, intX, intY, null);
 			}
 			else if(blnRight == true){
 				intX = intX + 5;
@@ -54,8 +52,8 @@ public class BombermanPanel extends JPanel{
 			}
 			else if(blnDown == true){
 				intY = intY + 5;
+				g.drawImage(down1, intX, intY, null); 
 				g.drawImage(down2, intX, intY, null); 
-				g.drawImage(down3, intX, intY, null); 
 			}
 		
 			else if(blnLeft == true){
@@ -63,27 +61,22 @@ public class BombermanPanel extends JPanel{
 				g.drawImage(left1, intX, intY, null); 
 				g.drawImage(left2, intX, intY, null); 
 			}
-		
-			g.drawImage(down1, intX, intY, null); // Default stance
 		}
 	}
 	
 	// Constructors
 	public BombermanPanel(){
 		super();
+		// Add Images
 		try{
 			up1 = ImageIO.read(new File("up1.png")); 
 			up2 = ImageIO.read(new File("up2.png")); 
-			up3 = ImageIO.read(new File("up3.png")); 
 			right1 = ImageIO.read(new File("right1.png")); 
 			right2 = ImageIO.read(new File("right2.png")); 
-			right3 = ImageIO.read(new File("right3.png")); 
 			down1 = ImageIO.read(new File("down1.png")); 
 			down2 = ImageIO.read(new File("down2.png")); 
-			down3 = ImageIO.read(new File("down3.png")); 
 			left1 = ImageIO.read(new File("left1.png")); 
-			left2 = ImageIO.read(new File("left2.png")); 
-			left3 = ImageIO.read(new File("left3.png")); 
+			left2 = ImageIO.read(new File("left2.png"));  
 			mainmenu = ImageIO.read(new File("mainmenu.png"));
 		}
 		catch(IOException e){

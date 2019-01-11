@@ -15,21 +15,26 @@ import java.io.*;
 public class Bomberman implements ActionListener, KeyListener, MouseMotionListener{
 	// Properties
 	JFrame theframe;
-	BombermanPanel thepanel;
+	GamePanel thepanel;
 	Timer thetimer;
 	JButton StartGame;
-
+	
+	
 	// Methods
 	public void actionPerformed(ActionEvent evt){  // actionPerformed is triggered when JComponents are triggered.
+		
 		if(evt.getSource() == thetimer){ // If timer is going off, 60 FPS in this case, panel will repaint itself.
 			thepanel.repaint();
 		}
 		else if(evt.getSource() == StartGame){
 			// Something happens when user clicks Start Game button...
+			thepanel.blnStartGame = true;
+			StartGame.setVisible(false);
 		}
 	}
 
 	public void keyReleased(KeyEvent evt){ // keyReleased is triggered when you release the key.
+		System.out.println(evt.getKeyCode());
 		if(evt.getKeyCode() == 37){ // Left Arrow Key
 			thepanel.blnLeft = false;
 		}
@@ -62,7 +67,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 	}
 
 	public void keyTyped(KeyEvent evt){ // keyTyped is triggered when you press and release the key.
-
+		if(evt.getKeyCode() == 32){
+			thepanel.blnplacebomb = true;
+		}
 	}
 
 	public void mouseMoved(MouseEvent evt){ // mouseMoved is triggered when mouse is moved.
@@ -76,7 +83,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseMotionListen
 	public Bomberman(){
 		// Create GUI Window
 		theframe = new JFrame("Bomberman");
-		thepanel = new BombermanPanel();
+		thepanel = new GamePanel();
 		thepanel.setLayout(null);
 		thepanel.setPreferredSize(new Dimension(1280, 720));
 		theframe.setContentPane(thepanel);
