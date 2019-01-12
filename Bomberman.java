@@ -17,6 +17,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JFrame theframe;
 	BombermanPanel bombermanpanel;
 	MainMenuPanel mainmenupanel;
+	SuperSocketMaster ssm;
 	Timer thetimer;
 	JButton button_startgame;
 	JButton button_highscores;
@@ -106,6 +107,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				System.out.println("Multiplayer: Host");
 				button_host.setVisible(false);
 				button_guest.setVisible(false);
+				ssm = new SuperSocketMaster(1337, this); // Setup Host SuperSocketMaster
+				System.out.println(ssm.getMyAddress());
+				ssm.connect(); 
 				blnMultiplayerMenu = false;
 				blnHostMenu = true; // Change to HostMenu
 			}
@@ -121,7 +125,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		
 		// [Host Menu]
 		if(blnHostMenu == true){
-			// Display Host's IP address
+			
 		}
 		
 		
@@ -231,6 +235,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// JFrame
 		theframe = new JFrame("Bomberman");
 		theframe.setContentPane(mainmenupanel);
+		theframe.setResizable(false);
 		theframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		theframe.pack();
 		theframe.setVisible(true);

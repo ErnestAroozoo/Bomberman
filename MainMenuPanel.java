@@ -7,6 +7,7 @@ import java.io.*;
 
 public class MainMenuPanel extends JPanel{ 
 	// Properties
+	SuperSocketMaster ssm;
 	BufferedImage mainmenu;
 	BufferedImage usernamemenu;
 	BufferedImage playstylemenu;
@@ -39,6 +40,8 @@ public class MainMenuPanel extends JPanel{
 		// Host Menu
 		else if(Bomberman.blnHostMenu == true){
 			g.drawImage(hostmenu, 0, 0, null);
+			//g.drawString("IP: " + ssm.getMyAddress(), 50, 50); // Display Host's IP address onto screen
+			
 		}
 		
 		// Guest menu
