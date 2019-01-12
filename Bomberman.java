@@ -23,33 +23,86 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JButton button_help;
 	JButton button_quit;
 	JTextField textfield_username;
+	JButton button_usernameconfirm;
+	JButton button_mouse;
+	JButton button_keyboard;
+	JButton button_host;
+	JButton button_guest;
 	static boolean blnStartGame = false; // blnStartGame = true when we want to switch over to BombermanPanel (actual game)
 	static boolean blnUsernameMenu = false;
 	static String strUsername;
+	static boolean blnPlayStyleMenu = false;
+	static boolean blnIsKeyboard = false;
+	static boolean blnIsMouse = false;
+	static boolean blnMultiplayerMenu = false;
 	
 
 	// Methods
-	public void actionPerformed(ActionEvent evt){  
-		if(evt.getSource() == thetimer && blnStartGame == true){ // Refresh BombermanPanel (actual game) 60 FPS
+	public void actionPerformed(ActionEvent evt){
+		// Game Panel Refresh 60 FPS
+		if(evt.getSource() == thetimer && blnStartGame == true){
 			bombermanpanel.repaint();
 		}
 		
-		else if(evt.getSource() == button_startgame){ // Start Game Button
+		// [Start Game Button]
+		if(evt.getSource() == button_startgame){ // Start Game Button
 			System.out.println("Start Game");
-			button_startgame.setVisible(false);
-			button_highscores.setVisible(false);
-			button_help.setVisible(false);
-			button_quit.setVisible(false);
+			button_startgame.setVisible(false); // Hide button_startgame
+			button_highscores.setVisible(false); // Hide button_highscores
+			button_help.setVisible(false); // Hide button_help
+			button_quit.setVisible(false); // Hide button_quit
 			mainmenupanel.repaint();
-			// Username Menu
 			blnUsernameMenu = true; // Change to UsernameMenu image
-			textfield_username.setVisible(true); 
-			textfield_username.grabFocus(); 
-			strUsername = textfield_username.getText(); // Grab username
-			System.out.println("Username: " + strUsername);
+		}
+			
+		// [Username Menu]
+		if(blnUsernameMenu == true){
+			textfield_username.setVisible(true); // Unhide textfield_username
+			button_usernameconfirm.setVisible(true); // Unhide button_usernameconfirm
+			textfield_username.grabFocus(); // Grab text focus onto textfield_username
+				if(evt.getSource() == button_usernameconfirm){ // Username Confirm Button
+					strUsername = textfield_username.getText(); // Grab username when button_usernameconfirm is clicked
+					System.out.println("Username: " + strUsername);
+					textfield_username.setVisible(false); // Hide textfield_username
+					button_usernameconfirm.setVisible(false); // Hide button_usernameconfirm 
+					mainmenupanel.repaint();
+					blnUsernameMenu = false; 
+					blnPlayStyleMenu = true; // Change to PlayStyleMenu
+				}
+			}
+		// [Play Style Menu]
+		if(blnPlayStyleMenu == true){
+			button_mouse.setVisible(true); // Unhide button_mouse
+			button_keyboard.setVisible(true); // Unhide button_keyboard
+				if(evt.getSource() == button_mouse){ // Choose Mouse or Keyboard
+					blnIsMouse = true; 
+					System.out.println("Play Style: Mouse");
+					button_mouse.setVisible(false);
+					button_keyboard.setVisible(false);
+					mainmenupanel.repaint();
+					blnPlayStyleMenu = false;
+					blnMultiplayerMenu = true; // Change to MultiplayerMenu
+				}
+				else if(evt.getSource() == button_keyboard){
+					blnIsKeyboard = true;
+					System.out.println("Play Style: Keyboard");
+					button_mouse.setVisible(false);
+					button_keyboard.setVisible(false);
+					mainmenupanel.repaint();
+					blnPlayStyleMenu = false; 
+					blnMultiplayerMenu = true; // Change to MultiplayerMenu
+				}
 		}
 		
-		else if(evt.getSource() == button_highscores){ // Highscores Button
+		// [Multiplayer Menu]
+		if(blnMultiplayerMenu == true){
+			button_host.setVisible(true); // Unhide button_host
+			button_guest.setVisible(true); // Unhide button_guest
+		}
+		
+		
+		// [Highscores Button]
+		if(evt.getSource() == button_highscores){ 
 			System.out.println("Highscores");
 			// Remove Buttons
 			button_startgame.setVisible(false);
@@ -57,7 +110,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			button_help.setVisible(false);
 			button_quit.setVisible(false);
 		}
-		else if(evt.getSource() == button_help){ // Help Button
+		
+		// [Help Button]
+		if(evt.getSource() == button_help){
 			System.out.println("Help");
 			// Remove Buttons
 			button_startgame.setVisible(false);
@@ -65,7 +120,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			button_help.setVisible(false);
 			button_quit.setVisible(false);
 		}
-		else if(evt.getSource() == button_quit){ // Quit Button
+		
+		// [Quit Button]
+		if(evt.getSource() == button_quit){ 
 			System.out.println("Quit");
 			// Exit Program
 			System.exit(0);
@@ -160,7 +217,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		theframe.addKeyListener(this);
 		theframe.addMouseListener(this);
 		
-
 		// Add Timer Object
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
@@ -208,11 +264,67 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		
 		textfield_username = new JTextField();
 		textfield_username.setOpaque(false);
+		textfield_username.setFont(new Font("Arial", Font.PLAIN, 20));
 		textfield_username.setSize(400, 35);
 		textfield_username.setLocation(440,325);
 		textfield_username.addActionListener(this);
 		mainmenupanel.add(textfield_username);
 		textfield_username.setVisible(false); // Hide textfield_username initially
+		
+		button_usernameconfirm = new JButton("Continue");
+		button_usernameconfirm.setSize(200, 50);
+		button_usernameconfirm.setLocation(540, 440);
+		button_usernameconfirm.addActionListener(this);
+		button_usernameconfirm.setFocusPainted(false);
+		button_usernameconfirm.setContentAreaFilled(false);
+		button_usernameconfirm.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_usernameconfirm.setForeground(Color.WHITE);
+		mainmenupanel.add(button_usernameconfirm);
+		button_usernameconfirm.setVisible(false); // Hide button_usernameconfirm initially
+		
+		button_mouse = new JButton("Mouse");
+		button_mouse.setSize(200, 50);
+		button_mouse.setLocation(360, 450);
+		button_mouse.addActionListener(this);
+		button_mouse.setFocusPainted(false);
+		button_mouse.setContentAreaFilled(false);
+		button_mouse.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_mouse.setForeground(Color.WHITE);
+		mainmenupanel.add(button_mouse);
+		button_mouse.setVisible(false); // Hide button_mouse initially
+		
+		button_keyboard = new JButton("Keyboard");
+		button_keyboard.setSize(200, 50);
+		button_keyboard.setLocation(721, 450);
+		button_keyboard.addActionListener(this);
+		button_keyboard.setFocusPainted(false);
+		button_keyboard.setContentAreaFilled(false);
+		button_keyboard.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_keyboard.setForeground(Color.WHITE);
+		mainmenupanel.add(button_keyboard);
+		button_keyboard.setVisible(false); // Hide button_keyboard initially
+		//
+		button_host = new JButton("Host");
+		button_host.setSize(200, 50);
+		button_host.setLocation(355, 490);
+		button_host.addActionListener(this);
+		button_host.setFocusPainted(false);
+		button_host.setContentAreaFilled(false);
+		button_host.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_host.setForeground(Color.WHITE);
+		mainmenupanel.add(button_host);
+		button_host.setVisible(false); // Hide button_host initially
+		
+		button_guest = new JButton("Guest");
+		button_guest.setSize(200, 50);
+		button_guest.setLocation(730, 490);
+		button_guest.addActionListener(this);
+		button_guest.setFocusPainted(false);
+		button_guest.setContentAreaFilled(false);
+		button_guest.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_guest.setForeground(Color.WHITE);
+		mainmenupanel.add(button_guest);
+		button_guest.setVisible(false); // Hide button_guest initially
 		
 	}
 
