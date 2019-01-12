@@ -291,8 +291,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		mainmenupanel.add(button_quit);
 		
 		textfield_username = new JTextField();
-		textfield_username.setOpaque(false);
-		textfield_username.setFont(new Font("Arial", Font.PLAIN, 20));
+		textfield_username.setOpaque(false); // Make textfield_username transparent
+		textfield_username.setHorizontalAlignment(JTextField.CENTER); // Make textfield_username align center
+		textfield_username.setFont(new Font("Arial", Font.PLAIN, 20)); // Change font and text size of textfield_username
 		textfield_username.setSize(400, 35);
 		textfield_username.setLocation(440,325);
 		textfield_username.addActionListener(this);
