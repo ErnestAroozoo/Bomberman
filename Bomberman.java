@@ -29,32 +29,37 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JButton button_host;
 	JButton button_guest;
 	static boolean blnStartGame = false; // blnStartGame = true when we want to switch over to BombermanPanel (actual game)
+	static boolean blnMainMenu = true;
 	static boolean blnUsernameMenu = false;
 	static String strUsername;
 	static boolean blnPlayStyleMenu = false;
 	static boolean blnIsKeyboard = false;
 	static boolean blnIsMouse = false;
 	static boolean blnMultiplayerMenu = false;
+	static boolean blnIsHost = false;
+	static boolean blnIsGuest = false;
+	static boolean blnHostMenu = false;
+	static boolean blnGuestMenu = false;
 	
 
 	// Methods
 	public void actionPerformed(ActionEvent evt){
-		// Game Panel Refresh 60 FPS
-		if(evt.getSource() == thetimer && blnStartGame == true){
+		// JPanel Refresh 60 FPS
+		if(evt.getSource() == thetimer){
+			mainmenupanel.repaint();
 			bombermanpanel.repaint();
 		}
-		
 		// [Start Game Button]
 		if(evt.getSource() == button_startgame){ // Start Game Button
+			blnMainMenu = false;
 			System.out.println("Start Game");
 			button_startgame.setVisible(false); // Hide button_startgame
 			button_highscores.setVisible(false); // Hide button_highscores
 			button_help.setVisible(false); // Hide button_help
 			button_quit.setVisible(false); // Hide button_quit
-			mainmenupanel.repaint();
 			blnUsernameMenu = true; // Change to UsernameMenu image
 		}
-			
+
 		// [Username Menu]
 		if(blnUsernameMenu == true){
 			textfield_username.setVisible(true); // Unhide textfield_username
@@ -65,30 +70,28 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 					System.out.println("Username: " + strUsername);
 					textfield_username.setVisible(false); // Hide textfield_username
 					button_usernameconfirm.setVisible(false); // Hide button_usernameconfirm 
-					mainmenupanel.repaint();
 					blnUsernameMenu = false; 
 					blnPlayStyleMenu = true; // Change to PlayStyleMenu
 				}
 			}
+			
 		// [Play Style Menu]
 		if(blnPlayStyleMenu == true){
 			button_mouse.setVisible(true); // Unhide button_mouse
 			button_keyboard.setVisible(true); // Unhide button_keyboard
-				if(evt.getSource() == button_mouse){ // Choose Mouse or Keyboard
-					blnIsMouse = true; 
+				if(evt.getSource() == button_mouse){ // Mouse Selection
+					blnIsMouse = true;
 					System.out.println("Play Style: Mouse");
 					button_mouse.setVisible(false);
 					button_keyboard.setVisible(false);
-					mainmenupanel.repaint();
 					blnPlayStyleMenu = false;
 					blnMultiplayerMenu = true; // Change to MultiplayerMenu
 				}
-				else if(evt.getSource() == button_keyboard){
+				else if(evt.getSource() == button_keyboard){ // Keyboard Selection
 					blnIsKeyboard = true;
 					System.out.println("Play Style: Keyboard");
 					button_mouse.setVisible(false);
 					button_keyboard.setVisible(false);
-					mainmenupanel.repaint();
 					blnPlayStyleMenu = false; 
 					blnMultiplayerMenu = true; // Change to MultiplayerMenu
 				}
@@ -98,11 +101,32 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		if(blnMultiplayerMenu == true){
 			button_host.setVisible(true); // Unhide button_host
 			button_guest.setVisible(true); // Unhide button_guest
+			if(evt.getSource() == button_host){ // Host Selection
+				blnIsHost = true;
+				System.out.println("Multiplayer: Host");
+				button_host.setVisible(false);
+				button_guest.setVisible(false);
+				blnMultiplayerMenu = false;
+				blnHostMenu = true; // Change to HostMenu
+			}
+			else if(evt.getSource() == button_guest){ // Guest Selection
+				blnIsGuest = true;
+				System.out.println("Multiplayer: Guest");
+				button_host.setVisible(false);
+				button_guest.setVisible(false);
+				blnMultiplayerMenu = false;
+				blnGuestMenu = true; // Change to GuestMenu
+			}
+		}
+		
+		// [Host Menu]
+		if(blnHostMenu == true){
+			// Display Host's IP address
 		}
 		
 		
 		// [Highscores Button]
-		if(evt.getSource() == button_highscores){ 
+		else if(evt.getSource() == button_highscores){ 
 			System.out.println("Highscores");
 			// Remove Buttons
 			button_startgame.setVisible(false);
@@ -112,7 +136,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		}
 		
 		// [Help Button]
-		if(evt.getSource() == button_help){
+		else if(evt.getSource() == button_help){
 			System.out.println("Help");
 			// Remove Buttons
 			button_startgame.setVisible(false);
@@ -122,7 +146,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		}
 		
 		// [Quit Button]
-		if(evt.getSource() == button_quit){ 
+		else if(evt.getSource() == button_quit){ 
 			System.out.println("Quit");
 			// Exit Program
 			System.exit(0);
@@ -196,9 +220,13 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	// Constructors
 	public Bomberman(){
 		// JPanel
-		mainmenupanel = new MainMenuPanel();
+		mainmenupanel = new MainMenuPanel(); // First Panel
 		mainmenupanel.setLayout(null);
 		mainmenupanel.setPreferredSize(new Dimension(1280, 720));
+		
+		bombermanpanel = new BombermanPanel(); // Second Panel
+		bombermanpanel.setLayout(null);
+		bombermanpanel.setPreferredSize(new Dimension(1280, 720));
 		
 		// JFrame
 		theframe = new JFrame("Bomberman");
@@ -303,7 +331,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		button_keyboard.setForeground(Color.WHITE);
 		mainmenupanel.add(button_keyboard);
 		button_keyboard.setVisible(false); // Hide button_keyboard initially
-		//
+		
 		button_host = new JButton("Host");
 		button_host.setSize(200, 50);
 		button_host.setLocation(355, 490);

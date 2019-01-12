@@ -11,30 +11,41 @@ public class MainMenuPanel extends JPanel{
 	BufferedImage usernamemenu;
 	BufferedImage playstylemenu;
 	BufferedImage multiplayermenu;
+	BufferedImage hostmenu;
+	BufferedImage guestmenu;
 	
 	// Methods
 	public void paintComponent(Graphics g){
 		// Main Menu
-		g.drawImage(mainmenu, 0, 0, null);
+		if(Bomberman.blnMainMenu == true){
+			g.drawImage(mainmenu, 0, 0, null);
+		}
 		
 		// Username Menu
-		if(Bomberman.blnUsernameMenu == true){
+		else if(Bomberman.blnUsernameMenu == true){
 			g.drawImage(usernamemenu, 0, 0, null);
 		}
 		
 		// Play Style Menu
-		if(Bomberman.blnPlayStyleMenu == true){
+		else if(Bomberman.blnPlayStyleMenu == true){
 			g.drawImage(playstylemenu, 0, 0, null);
 		}
 		
 		// Multiplayer Menu
-		if(Bomberman.blnMultiplayerMenu == true){
+		else if(Bomberman.blnMultiplayerMenu == true){
 			g.drawImage(multiplayermenu, 0, 0, null);
 		}
 		
+		// Host Menu
+		else if(Bomberman.blnHostMenu == true){
+			g.drawImage(hostmenu, 0, 0, null);
+		}
 		
+		// Guest menu
+		else if(Bomberman.blnGuestMenu == true){
+			g.drawImage(guestmenu, 0, 0, null);
+		}
 	}
-	
 	
 	// Constructors
 	public MainMenuPanel(){
@@ -45,6 +56,8 @@ public class MainMenuPanel extends JPanel{
 			usernamemenu = ImageIO.read(new File("usernamemenu.png"));
 			playstylemenu = ImageIO.read(new File("playstylemenu.png"));
 			multiplayermenu = ImageIO.read(new File("multiplayermenu.png"));
+			hostmenu = ImageIO.read(new File("hostmenu.png"));
+			guestmenu = ImageIO.read(new File("guestmenu.png"));
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
