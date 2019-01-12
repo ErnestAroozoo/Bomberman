@@ -31,7 +31,7 @@ public class BombermanPanel extends JPanel{
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 1280, 720); 
 	
-		// Bomberman Movement
+		// Bomberman Movement **We Need to add BlnColor to identify the Bomberman chosen**
 		g.drawImage(down1, intX, intY, null); // Default stance
 		if(blnUp == true){
 			intY = intY - 5;
