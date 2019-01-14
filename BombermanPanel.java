@@ -45,6 +45,9 @@ public class BombermanPanel extends JPanel{
 	BufferedImage multiplayermenu;
 	BufferedImage playstylemenu;
 	BufferedImage usernamemenu;
+	BufferedImage helpmenu;
+	BufferedImage highscoresmenu;
+	BufferedImage characterselectionmenu;
 
 	///JButton test;
 	///GamePanel thepanel;
@@ -59,11 +62,11 @@ public class BombermanPanel extends JPanel{
 			}
 			// HighscoresMenu 
 			else if(Bomberman.intMenu == 2){ 
-				
+				g.drawImage(highscoresmenu, 0, 0, null);
 			}
 			// HelpMenu
 			else if(Bomberman.intMenu == 3){ 
-				
+				g.drawImage(helpmenu, 0, 0, null);
 			}
 			// UsernameMenu
 			else if(Bomberman.intMenu == 4){
@@ -88,7 +91,10 @@ public class BombermanPanel extends JPanel{
 			else if(Bomberman.intMenu == 8){ 
 				g.drawImage(guestmenu, 0, 0, null);
 			}
-			
+			// CharacterSelectionMenu
+			else if(Bomberman.intMenu == 9){
+				g.drawImage(characterselectionmenu, 0, 0, null);
+			}
 		}
 		
 		// Start Bomberman Game
@@ -117,7 +123,6 @@ public class BombermanPanel extends JPanel{
 				g.drawImage(bomb_item,intX,intY,null);
 			}
 			
-			
 	}
 }
 	
@@ -143,7 +148,6 @@ public class BombermanPanel extends JPanel{
 			fire_horizontal = ImageIO.read(new File("fire_horizontal.png"));
 			bomb_active = ImageIO.read(new File("bomb_active.png"));
 			bomb_item = ImageIO.read(new File("bomb_item.png"));
-			
 			flameitem = ImageIO.read(new File("flame item.jpg"));
 			multiplebombitem = ImageIO.read(new File("multiplebombitem.jpg"));
 			ground_stan = ImageIO.read(new File("stan.ground.jpg"));
@@ -151,22 +155,16 @@ public class BombermanPanel extends JPanel{
 			breakwall_stan = ImageIO.read(new File("stan.wallbreakable.jpg"));
 			ground_win = ImageIO.read(new File("win.ground.jpg"));
 			wall_win = ImageIO.read(new File("win.wall.jpg"));
-			
-			
-			
-			
-			
-			
-
-			
-	
-			
 			mainmenu = ImageIO.read(new File("mainmenu.png"));
 			usernamemenu = ImageIO.read(new File("usernamemenu.png"));
 			playstylemenu = ImageIO.read(new File("playstylemenu.png"));
 			multiplayermenu = ImageIO.read(new File("multiplayermenu.png"));
 			hostmenu = ImageIO.read(new File("hostmenu.png"));
 			guestmenu = ImageIO.read(new File("guestmenu.png"));
+			helpmenu = ImageIO.read(new File("helpmenu.png"));
+			highscoresmenu = ImageIO.read(new File("highscores.png"));
+			characterselectionmenu = ImageIO.read(new File("characterselectionmenu.png"));
+			
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.

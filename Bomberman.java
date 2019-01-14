@@ -32,6 +32,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JButton button_hostcontinue;
 	JButton button_guestcontinue;
 	JTextField textfield_ip;
+	JButton button_blue;
+	JButton button_yellow;
+	JButton button_white;
+	JButton button_red;
 	static String strUsername = "";
 	static boolean blnMainMenu = true; // Start actual game when blnMainMenu = false
 	static int intMenu = 1; // Default menu card to MainMenu (intMenu = 1)
@@ -87,6 +91,25 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			else if(evt.getSource() == button_quit){ 
 				System.out.println("Quit");
 				System.exit(0); // Exit program
+			}
+		}
+		
+		// HighscoresMenu (intMenu == 2)
+		else if(intMenu == 2){
+			button_back.setVisible(true); // Unhide necessary JComponents
+			// [Back Button]
+			if(evt.getSource() == button_back){
+				intMenu = 1;
+				button_back.setVisible(false); // Hide necessary JComponents
+			}
+		}
+		
+		// Help Menu (intMenu == 3)
+		else if(intMenu == 3){
+			button_back.setVisible(true); // Unhide necessary JComponents
+			if(evt.getSource() == button_back){
+				intMenu = 1;
+				button_back.setVisible(false); // Hide necessary JComponents
 			}
 		}
 		
@@ -191,7 +214,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			}
 			// [Host Continue Button]
 			else if(evt.getSource() == button_hostcontinue){
-				intMenu = 9;
+				button_hostcontinue.setVisible(false); // Hide unecessary JComponents
+				button_back.setVisible(false); 
+				intMenu = 9; // Change to CharacterSelectionMenu
 			}
 		}
 		
@@ -205,19 +230,23 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			if(evt.getSource() == button_back){
 				intMenu = 6;
 				button_guestcontinue.setVisible(false); // Hide unecessary JComponents
+				button_back.setVisible(false); 
 				textfield_ip.setVisible(false);
 			}
 			else if(evt.getSource() == button_guestcontinue){
-				
+				button_guestcontinue.setVisible(false); // Hide unecessary JComponents
+				button_back.setVisible(false); 
+				textfield_ip.setVisible(false);
+				intMenu = 9; // Change to CharacterSelectionMenu
 			}
 		}
 		
 		// CharacterSelectionMenu (intMenu == 9)
 		else if(intMenu == 9){
+			System.out.println("CharacterSelectionMenu");
 			
 			
 		}
-		
 		
 	}
 
