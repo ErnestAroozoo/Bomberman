@@ -20,6 +20,7 @@ public class GamePanel extends JPanel{
 	boolean blnplacebomb = false;
 	boolean blnHelp = false;
 	boolean blnHighScores = false;
+	String strAddress;
 
 	BufferedImage up1;
 	BufferedImage up2;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel{
 		}
 		if(intHost == 1){
 			g.drawImage(hostmenu,0,0,null);
+			g.drawString(strAddress,400,200);
 		}else if(intHost == 2){
 			g.drawImage(guestmenu,0,0,null);
 		}
@@ -73,10 +75,11 @@ public class GamePanel extends JPanel{
 		}
 		
 		if(intStartGame == 1){
-			g.drawImage(usernamemenu, 0, 0, null);
+			g.drawImage(mainmenu, 0, 0, null);
 		}
 		// Screen 2
 		else if(intStartGame == 2){
+			System.out.println("Start Game 2");
 			g.drawImage(usernamemenu,0,0,null);
 		}else if(intStartGame == 3){
 			g.drawImage(playstylemenu,0,0,null);
