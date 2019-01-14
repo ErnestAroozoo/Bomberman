@@ -13,10 +13,14 @@ public class GamePanel extends JPanel{
 	boolean blnRight = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
-	boolean blnStartGame = false;
+    int intStartGame = 1;
+    int intHost = 0;
 	boolean blnMouse = false;
 	boolean blnKeys = false;
 	boolean blnplacebomb = false;
+	boolean blnHelp = false;
+	boolean blnHighScores = false;
+
 	BufferedImage up1;
 	BufferedImage up2;
 	BufferedImage right1;
@@ -44,18 +48,44 @@ public class GamePanel extends JPanel{
 	BufferedImage bomb_active;
 	BufferedImage multiplebombitem;
 	BufferedImage flameitem;
-	
+	BufferedImage guestmenu;
+	BufferedImage hostmenu;
+	BufferedImage multiplayermenu;
+	BufferedImage playstylemenu;
+	BufferedImage usernamemenu;
 
+	///JButton test;
+	///GamePanel thepanel;
 	
 	// Methods
 	public void paintComponent(Graphics g){
 		// Main Menu
-		if(blnStartGame == false){
-			g.drawImage(mainmenu, 0, 0, null);
+		if(blnHighScores){
 			
 		}
+		if(intHost == 1){
+			g.drawImage(hostmenu,0,0,null);
+		}else if(intHost == 2){
+			g.drawImage(guestmenu,0,0,null);
+		}
+		if(blnHelp){
+			//g.drawImage(,0,0,null);
+		}
+		
+		if(intStartGame == 1){
+			g.drawImage(usernamemenu, 0, 0, null);
+		}
+		// Screen 2
+		else if(intStartGame == 2){
+			g.drawImage(usernamemenu,0,0,null);
+		}else if(intStartGame == 3){
+			g.drawImage(playstylemenu,0,0,null);
+		}else if(intStartGame == 4){
+			g.drawImage(multiplayermenu,0,0,null);
+		}
 		// Start Game
-		else if(blnStartGame == true){
+		else if(intStartGame == 5){
+				
 			// Set Background
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, 1280, 720); 
@@ -84,14 +114,13 @@ public class GamePanel extends JPanel{
 			if(blnplacebomb == true){
 				g.drawImage(bomb_item,intX,intY,null);
 			}
-		//}
-		
 	}
 }
 	
 	// Constructors
 	public GamePanel(){
 		super();
+		
 		// Add Images
 		try{
 			up1 = ImageIO.read(new File("up1.png")); 
@@ -121,9 +150,16 @@ public class GamePanel extends JPanel{
 			bomb_item = ImageIO.read(new File("bomb_item.png"));
 			flameitem = ImageIO.read(new File("flame item.jpg"));
 			multiplebombitem = ImageIO.read(new File("multiplebombitem.jpg"));
+			mainmenu = ImageIO.read(new File("mainmenu.png"));
+			usernamemenu = ImageIO.read(new File("usernamemenu.png"));
+			playstylemenu = ImageIO.read(new File("playstylemenu.png"));
+			multiplayermenu = ImageIO.read(new File("multiplayermenu.png"));
+			hostmenu = ImageIO.read(new File("hostmenu.png"));
+			guestmenu = ImageIO.read(new File("guestmenu.png"));
 		}
 		catch(IOException e){
 			System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
 		}
 	}
+	
 }
