@@ -53,29 +53,39 @@ public class BombermanPanel extends JPanel{
 	public void paintComponent(Graphics g){
 		// Start Main Menu
 		if(Bomberman.blnMainMenu == true){
-			if(Bomberman.intMenu == 1){ // Main Menu
+			// Main Menu
+			if(Bomberman.intMenu == 1){ 
 				g.drawImage(mainmenu, 0, 0, null); 
 			}
-			else if(Bomberman.intMenu == 2){ // HighscoresMenu 
+			// HighscoresMenu 
+			else if(Bomberman.intMenu == 2){ 
 				
 			}
-			else if(Bomberman.intMenu == 3){ // HelpMenu
+			// HelpMenu
+			else if(Bomberman.intMenu == 3){ 
 				
 			}
-			else if(Bomberman.intMenu == 4){ // UsernameMenu
+			// UsernameMenu
+			else if(Bomberman.intMenu == 4){
 				g.drawImage(usernamemenu, 0, 0, null);
 			}
-			else if(Bomberman.intMenu == 5){  // PlayStyleMenu
+			// PlayStyleMenu
+			else if(Bomberman.intMenu == 5){ 
 				g.drawImage(playstylemenu, 0, 0, null);
 			}
-			else if(Bomberman.intMenu == 6){ // MultiplayerMenu
+			// MultiplayerMenu
+			else if(Bomberman.intMenu == 6){ 
 				g.drawImage(multiplayermenu, 0, 0, null);
 			}
-			else if(Bomberman.intMenu == 7){ // HostMenu
+			// HostMenu
+			else if(Bomberman.intMenu == 7){ 
 				g.drawImage(hostmenu, 0, 0, null);
+				g.setFont(new Font("Arial", Font.PLAIN, 20)); 
+				g.drawString(Bomberman.strIP, 580, 480); // Draw IP Adress on screen
 				
 			}
-			else if(Bomberman.intMenu == 8){ // GuestMenu
+			// GuestMenu
+			else if(Bomberman.intMenu == 8){ 
 				g.drawImage(guestmenu, 0, 0, null);
 			}
 			

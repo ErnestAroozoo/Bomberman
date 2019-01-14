@@ -39,6 +39,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnIsMouse = false;
 	static boolean blnIsHost = false;
 	static boolean blnIsGuest = false;
+	static String strIP = "";
 	
 	
 	// Methods
@@ -158,6 +159,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				button_guest.setVisible(false);
 				ssm = new SuperSocketMaster(1337, this); // Setup SuperSocketMaster Server
 				System.out.println(ssm.getMyAddress());
+				strIP = ssm.getMyAddress(); // Convert IP Address into String strIP
 				ssm.connect(); 
 				intMenu = 7; // Change to HostMenu
 			}
@@ -181,9 +183,11 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// HostMenu (intMenu == 7)
 		else if(intMenu == 7){
 			System.out.println("HostMenu");
+			button_hostcontinue.setVisible(true); // Unhide necessary JComponents
 			// [Back Button]
 			if(evt.getSource() == button_back){
 				intMenu = 6;
+				button_hostcontinue.setVisible(false); // Hide unecessary JComponents
 			}
 			// [Host Continue Button]
 			else if(evt.getSource() == button_hostcontinue){
@@ -208,10 +212,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			}
 		}
 		
-		// CharacterSelectionMenu
+		// CharacterSelectionMenu (intMenu == 9)
 		else if(intMenu == 9){
-			
-			
 			
 			
 		}
@@ -458,7 +460,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		textfield_ip.addActionListener(this);
 		bombermanpanel.add(textfield_ip);
 		textfield_ip.setVisible(false); // Hide textfield_ip initially
-		
 	}
 
 	// Main Methods
