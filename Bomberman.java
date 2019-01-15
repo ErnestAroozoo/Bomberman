@@ -44,6 +44,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnIsHost = false;
 	static boolean blnIsGuest = false;
 	static String strIP = "";
+	static boolean blnFileFail = false;
+	static FileReader thefile = null;
+	static BufferedReader thefiledata = null;
+	static String strLine = "";
+	static int intCount2 = 0;
+	static int intCount = 0;
+	static String strSplit[];
+	static String strMap1[][] = new String [11][15];
 	
 	
 	// Methods
@@ -66,7 +74,32 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				button_startgame.setVisible(false); // Hide unecessary JComponents
 				button_highscores.setVisible(false); 
 				button_help.setVisible(false); 
-				button_quit.setVisible(false); 
+				button_quit.setVisible(false);
+		/*	In the start button action 	
+		try{
+			thefile = new FileReader("standard.csv");
+		}catch(FileNotFoundException e){
+			System.out.println("Unable to read from the file");
+			blnFileFail = true;
+		}
+		if(blnFileFail == false){
+			thefiledata = new BufferedReader(thefile);
+			
+			while(strLine != null){
+				System.out.println(strLine);
+				for(intCount2 = 0; intCount2 < 15; intCount2++){
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+					strSplit = strLine.split(",");
+					for(intCount = 0; intCount < 11; intCount++){
+						strMap1[intCount2][intCount] = strSplit[intCount];
+					}
+				}
+			}
+		}*/ 
 				intMenu = 4; // Change to UsernameMenu 
 			}
 			// [Highscores Button]
@@ -494,5 +527,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	// Main Methods
 	public static void main(String[] args){
 		new Bomberman();
+
+		
+		
 	}
 }
