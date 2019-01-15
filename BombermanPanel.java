@@ -10,6 +10,8 @@ public class BombermanPanel extends JPanel{
 	SuperSocketMaster ssm;
 	int intX = 0;
 	int intY = 0;
+	int intRow = 0;
+	int intCol = 0;
 	boolean blnUp = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
@@ -101,28 +103,85 @@ public class BombermanPanel extends JPanel{
 		else if(Bomberman.blnMainMenu == false){
 			if(blnUp == true){
 				intY = intY - 5;
-				g.drawImage(up1, intX, intY, null);
-				g.drawImage(up2, intX, intY, null);
+				g.drawImage(up1_blue, intX, intY, null);
+				g.drawImage(up2_blue, intX, intY, null);
 			}
 			else if(blnRight == true){
 				intX = intX + 5;
-				g.drawImage(right1, intX, intY, null); 
-				g.drawImage(right2, intX, intY, null); 
+				g.drawImage(right1_blue, intX, intY, null); 
+				g.drawImage(right2_blue, intX, intY, null); 
 			}
 			else if(blnDown == true){
 				intY = intY + 5;
-				g.drawImage(down1, intX, intY, null); 
-				g.drawImage(down2, intX, intY, null); 
+				g.drawImage(down1_blue, intX, intY, null); 
+				g.drawImage(down2_blue, intX, intY, null); 
 			}
 			else if(blnLeft == true){
 				intX = intX - 5;
-				g.drawImage(left1, intX, intY, null); 
-				g.drawImage(left2, intX, intY, null); 
+				g.drawImage(left1_blue, intX, intY, null); 
+				g.drawImage(left2_blue, intX, intY, null); 
 			}
 			if(blnPlaceBomb == true){
 				g.drawImage(bomb_item,intX,intY,null);
 			}
-			
+			for(intRow = 0; intRow < 11; intRow++){
+				for(intCol = 0; intCol < 15; intCol++){
+					if(Bomberman.strMap1[intRow][intCol].equals("ob")){
+						g.drawImage(wall_stan,intCol*60,intRow * 60,null);
+					}else if(Bomberman.strMap1[intRow][intCol].equals("r")){
+						g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap1[intRow][intCol].equals("g")){
+						g.drawImage(ground_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap1[intRow][intCol.equals("c1")){
+						g.drawImage(default_blue,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap1[intRow][intCol].equals("c2")){
+						g.drawImage(default_red,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap1[intRow][intCol].equals("c3")){
+						g.drawImage(default_yellow,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap1[intRow][intCol].equals("c4")){
+						g.drawImage(default_white,intRow*60,intCol*60,null);
+					}
+				}
+			}
+			for(intRow = 0; intRow < 11; intRow++){
+				for(intCol = 0; intCol < 15; intCol++){
+					if(Bomberman.strMap2[intRow][intCol].equals("ob")){
+						g.drawImage(wall_stan,intCol*60,intRow * 60,null);
+					}else if(Bomberman.strMap2[intRow][intCol].equals("r")){
+						g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap2[intRow][intCol].equals("g")){
+						g.drawImage(ground_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap2[intRow][intCol.equals("c1")){
+						g.drawImage(default_blue,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap2[intRow][intCol].equals("c2")){
+						g.drawImage(default_red,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap2[intRow][intCol].equals("c3")){
+						g.drawImage(default_yellow,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap2[intRow][intCol].equals("c4")){
+						g.drawImage(default_white,intRow*60,intCol*60,null);
+					}
+				}
+			}
+			for(intRow = 0; intRow < 11; intRow++){
+				for(intCol = 0; intCol < 15; intCol++){
+					if(Bomberman.strMap1[intRow][intCol].equals("ob")){
+						g.drawImage(wall_stan,intCol*60,intRow * 60,null);
+					}else if(Bomberman.strMap3[intRow][intCol].equals("r")){
+						g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap3[intRow][intCol].equals("g")){
+						g.drawImage(ground_stan,intCol*60,intRow*60,null);
+					}else if(Bomberman.strMap3[intRow][intCol.equals("c1")){
+						g.drawImage(default_blue,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap3[intRow][intCol].equals("c2")){
+						g.drawImage(default_red,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap3[intRow][intCol].equals("c3")){
+						g.drawImage(default_yellow,intRow*60,intCol*60,null);
+					}else if(Bomberman.strMap3[intRow][intCol].equals("c4")){
+						g.drawImage(default_white,intRow*60,intCol*60,null);
+					}
+				}
+			}
+		}
 	}
 }
 	
@@ -131,14 +190,42 @@ public class BombermanPanel extends JPanel{
 		super();
 		// Add Images
 		try{
-			up1 = ImageIO.read(new File("up1.png")); 
-			up2 = ImageIO.read(new File("up2.png")); 
-			right1 = ImageIO.read(new File("right1.png")); 
-			right2 = ImageIO.read(new File("right2.png")); 
-			down1 = ImageIO.read(new File("down1.png")); 
-			down2 = ImageIO.read(new File("down2.png")); 
-			left1 = ImageIO.read(new File("left1.png")); 
-			left2 = ImageIO.read(new File("left2.png"));  
+			default_blue = ImageIO.read(new File("default.png"));
+			up1_blue = ImageIO.read(new File("up1.png")); 
+			up2_blue = ImageIO.read(new File("up2.png")); 
+			right1_blue = ImageIO.read(new File("right1.png")); 
+			right2_blue = ImageIO.read(new File("right2.png")); 
+			down1_blue = ImageIO.read(new File("down1.png")); 
+			down2_blue = ImageIO.read(new File("down2.png")); 
+			left1_blue = ImageIO.read(new File("left1.png")); 
+			left2_blue = ImageIO.read(new File("left2.png"));
+			default_red = ImageIO.read(new File("default_red.png"));
+			up1_red = ImageIO.read(new File("up1_red.png")); 
+			up2_red = ImageIO.read(new File("up2_red.png")); 
+			right1_red = ImageIO.read(new File("right1_red.png")); 
+			right2_red = ImageIO.read(new File("right2_red.png")); 
+			down1_red = ImageIO.read(new File("down1_red.png")); 
+			down2_red = ImageIO.read(new File("down2_red.png")); 
+			left1_red = ImageIO.read(new File("left1_red.png")); 
+			left2_red = ImageIO.read(new File("left2_red.png"));
+			default_yellow = ImageIO.read(new File("default_yellow.png"));
+			up1_yellow = ImageIO.read(new File("up1_yellow.png")); 
+			up2_yellow = ImageIO.read(new File("up2_yellow.png")); 
+			right1_yellow = ImageIO.read(new File("right1_yellow.png")); 
+			right2_yellow = ImageIO.read(new File("right2_yellow.png")); 
+			down1_yellow = ImageIO.read(new File("down1_yellow.png")); 
+			down2_yellow = ImageIO.read(new File("down2_yellow.png")); 
+			left1_yellow = ImageIO.read(new File("left1_yellow.png")); 
+			left2_yellow = ImageIO.read(new File("left2_yellow.png"));
+			default_white = ImageIO.read(new File("default_yellow.png"));
+			up1_white = ImageIO.read(new File("up1_white.png")); 
+			up2_white = ImageIO.read(new File("up2_white.png")); 
+			right1_white = ImageIO.read(new File("right1_white.png")); 
+			right2_white = ImageIO.read(new File("right2_white.png")); 
+			down1_white = ImageIO.read(new File("down1_white.png")); 
+			down2_white = ImageIO.read(new File("down2_white.png")); 
+			left1_white = ImageIO.read(new File("left1_white.png")); 
+			left2_white = ImageIO.read(new File("left2_white.png"));        
 			fire_downend = ImageIO.read(new File("fire_downend.png"));
 			fire_leftend = ImageIO.read(new File("fire_leftend.png"));
 			fire_mid = ImageIO.read(new File("fire_mid.png"));
