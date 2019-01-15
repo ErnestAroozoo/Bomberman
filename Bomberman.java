@@ -44,6 +44,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnIsHost = false;
 	static boolean blnIsGuest = false;
 	static String strIP = "";
+	static String strConnectionStatus; 
 	
 	
 	// Methods
@@ -180,10 +181,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				blnIsHost = true;
 				button_host.setVisible(false); // Hide unecessary JComponents
 				button_guest.setVisible(false);
-				ssm = new SuperSocketMaster(1337, this); // Setup SuperSocketMaster Server
-				System.out.println(ssm.getMyAddress());
-				strIP = ssm.getMyAddress(); // Convert IP Address into String strIP
-				ssm.connect(); 
 				intMenu = 7; // Change to HostMenu
 			}
 			// [Guest Button]
@@ -216,6 +213,11 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			else if(evt.getSource() == button_hostcontinue){
 				button_hostcontinue.setVisible(false); // Hide unecessary JComponents
 				button_back.setVisible(false); 
+				ssm = new SuperSocketMaster(1337, this); // Setup SuperSocketMaster Server
+				System.out.println(ssm.getMyAddress());
+				strIP = ssm.getMyAddress(); // Convert IP Address into String strIP
+				ssm.connect(); 
+				ssm.sendText("connected");
 				intMenu = 9; // Change to CharacterSelectionMenu
 			}
 		}
@@ -233,14 +235,22 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				button_back.setVisible(false); 
 				textfield_ip.setVisible(false);
 			}
+			// [Guest Continue Button]
 			else if(evt.getSource() == button_guestcontinue){
 				button_guestcontinue.setVisible(false); // Hide unecessary JComponents
 				button_back.setVisible(false); 
 				textfield_ip.setVisible(false);
-				intMenu = 9; // Change to CharacterSelectionMenu
-			}
+				strIP = textfield_ip.getText(); // Grab IP Address from textfield_ip
+				System.out.println("Connecting: " + strIP);
+				ssm = new SuperSocketMaster(strIP, 1337, this); // Setup SuperSocketMaster Client
+				ssm.connect(); 
+				strConnectionStatus = ssm.readText();
+					if(strConnectionStatus.equals("connected")){
+						intMenu = 9; // Change to CharacterSelectionMenu
+					}
+			} 
 		}
-		
+			
 		// CharacterSelectionMenu (intMenu == 9)
 		else if(intMenu == 9){
 			System.out.println("CharacterSelectionMenu");
