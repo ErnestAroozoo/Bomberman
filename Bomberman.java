@@ -50,6 +50,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static String strIP; // IP Address
 	static String strConnectionStatus; // Connection status between Host and Client
 	static String strChat; // Chat messages between Host and Client
+	public String strName;
+	public int intSpeed;
+	public String strColour;
+	public int intbombrange;
+	public int intnumbombs;
+	public boolean blninvincibility;
+	int intAlive = 1;
+	
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -345,7 +353,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	}
 	
 	public void mouseClicked(MouseEvent evt){
-
+	while (intAlive>0){
+		
+	}
 	}
 
 	// Constructors
