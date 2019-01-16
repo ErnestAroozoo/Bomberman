@@ -212,6 +212,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(intMenu == 7){
 			System.out.println("HostMenu");
 			button_hostcontinue.setVisible(true); // Unhide necessary JComponents
+			textarea_chat.setVisible(true);
+			scrollpane_chat.setVisible(true);
+			textfield_chat.setVisible(true);
 			ssm.sendText("connect");
 			// Connection Check (Only allow Host to continue if it's connected with Client)
 			if(evt.getSource() == ssm){
@@ -234,7 +237,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			button_guestcontinue.setVisible(true); // Unhide necessary JComponents
 			button_guestconnect.setVisible(true);
 			textfield_ip.setVisible(true);
-			textfield_ip.grabFocus();
+			textarea_chat.setVisible(true);
+			scrollpane_chat.setVisible(true);
+			textfield_chat.setVisible(true);
 			// [Guest Connect Button]
 			if(evt.getSource() == button_guestconnect){
 				strIP = textfield_ip.getText(); 
@@ -543,6 +548,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 		textarea_chat.setForeground(Color.WHITE); // Set text colour 
         textarea_chat.setFont(new Font("Arial", Font.PLAIN, 15)); // Set font and size
+        textarea_chat.setVisible(false);
 		
 		scrollpane_chat = new JScrollPane(textarea_chat);
 		scrollpane_chat.getViewport().setOpaque(false);
@@ -552,6 +558,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		scrollpane_chat.setSize(350, 200);
 		scrollpane_chat.setLocation(930, 485);
 		bombermanpanel.add(scrollpane_chat);
+		scrollpane_chat.setVisible(false);
+		
 		
 		textfield_chat = new JTextField();
 		textfield_chat.setOpaque(false);
@@ -561,6 +569,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		textfield_chat.setLocation(930, 685);
 		textfield_chat.addActionListener(this);
 		bombermanpanel.add(textfield_chat);
+		textfield_chat.setVisible(false);
 	}
 
 	// Main Methods
