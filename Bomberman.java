@@ -342,6 +342,28 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			
 		}
 		
+<<<<<<< HEAD
+		// In-Game Chat (Receive)
+		if(evt.getSource() == ssm){
+				strChat = ssm.readText();
+				if(!strChat.equals("connect")){ // Blacklist I/O data so they don't show in chat area
+				textarea_chat.append(strChat + "\n");
+				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
+			}
+		}
+		
+		// In-Game Chat (Send)	
+		if(evt.getSource() == textfield_chat){
+				System.out.println(strUsername + ": " + textfield_chat.getText());
+				ssm.sendText(strUsername + ": " + textfield_chat.getText());
+				textarea_chat.append(strUsername + ": " + textfield_chat.getText() + "\n");
+				textfield_chat.setText("");
+			}
+				
+	
+		
+=======
+>>>>>>> 123fd3ff85e73f34af103225cb2dd43ee93bf91c
 	}
 
 	public void keyReleased(KeyEvent evt){
@@ -438,7 +460,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
 		
-		// Add JButtons
+		// Menu JComponents
 		button_startgame = new JButton("Start Game");
 		button_startgame.setSize(200, 50);
 		button_startgame.setLocation(540, 230);
@@ -509,6 +531,133 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		button_mouse.setFont(new Font("Arial", Font.PLAIN, 20));
 		button_mouse.setForeground(Color.WHITE);
 		bombermanpanel.add(button_mouse);
+<<<<<<< HEAD
+		button_mouse.setVisible(false); // Hide button_mouse initially
+		
+		button_keyboard = new JButton("Keyboard");
+		button_keyboard.setSize(200, 50);
+		button_keyboard.setLocation(721, 450);
+		button_keyboard.addActionListener(this);
+		button_keyboard.setFocusPainted(false);
+		button_keyboard.setContentAreaFilled(false);
+		button_keyboard.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_keyboard.setForeground(Color.WHITE);
+		bombermanpanel.add(button_keyboard);
+		button_keyboard.setVisible(false); // Hide button_keyboard initially
+		
+		button_host = new JButton("Host");
+		button_host.setSize(200, 50);
+		button_host.setLocation(355, 490);
+		button_host.addActionListener(this);
+		button_host.setFocusPainted(false);
+		button_host.setContentAreaFilled(false);
+		button_host.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_host.setForeground(Color.WHITE);
+		bombermanpanel.add(button_host);
+		button_host.setVisible(false); // Hide button_host initially
+		
+		button_guest = new JButton("Guest");
+		button_guest.setSize(200, 50);
+		button_guest.setLocation(730, 490);
+		button_guest.addActionListener(this);
+		button_guest.setFocusPainted(false);
+		button_guest.setContentAreaFilled(false);
+		button_guest.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_guest.setForeground(Color.WHITE);
+		bombermanpanel.add(button_guest);
+		button_guest.setVisible(false); // Hide button_guest initially
+		
+		button_back = new JButton("Back");
+		button_back.setSize(200, 50);
+		button_back.setLocation(540, 610);
+		button_back.addActionListener(this);
+		button_back.setFocusPainted(false);
+		button_back.setContentAreaFilled(false);
+		button_back.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_back.setForeground(Color.WHITE);
+		bombermanpanel.add(button_back);
+		button_back.setVisible(false); // Hide button_back initially
+		
+		button_hostcontinue = new JButton("Continue");
+		button_hostcontinue.setSize(200, 50);
+		button_hostcontinue.setLocation(540, 500);
+		button_hostcontinue.addActionListener(this);
+		button_hostcontinue.setFocusPainted(false);
+		button_hostcontinue.setContentAreaFilled(false);
+		button_hostcontinue.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_hostcontinue.setForeground(Color.WHITE);
+		bombermanpanel.add(button_hostcontinue);
+		button_hostcontinue.setVisible(false); // Hide button_hostcontinue initially
+		button_hostcontinue.setEnabled(false); // Disable button_hostname initially
+		
+		button_guestcontinue = new JButton("Continue");
+		button_guestcontinue.setSize(200, 50);
+		button_guestcontinue.setLocation(540, 610);
+		button_guestcontinue.addActionListener(this);
+		button_guestcontinue.setFocusPainted(false);
+		button_guestcontinue.setContentAreaFilled(false);
+		button_guestcontinue.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_guestcontinue.setForeground(Color.WHITE);
+		bombermanpanel.add(button_guestcontinue);
+		button_guestcontinue.setVisible(false); // Hide button_guestcontinue initially
+		button_guestcontinue.setEnabled(false); // Disable button_hostname initially
+		
+		button_guestconnect = new JButton("Connect");
+		button_guestconnect.setSize(200, 50);
+		button_guestconnect.setLocation(540, 500);
+		button_guestconnect.addActionListener(this);
+		button_guestconnect.setFocusPainted(false);
+		button_guestconnect.setContentAreaFilled(false);
+		button_guestconnect.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_guestconnect.setForeground(Color.WHITE);
+		bombermanpanel.add(button_guestconnect);
+		button_guestconnect.setVisible(false); // Hide button_guestconnect initially
+		
+		textfield_ip = new JTextField();
+		textfield_ip.setOpaque(false); 
+		textfield_ip.setHorizontalAlignment(JTextField.CENTER); 
+		textfield_ip.setFont(new Font("Arial", Font.PLAIN, 20)); 
+		textfield_ip.setSize(400, 35);
+		textfield_ip.setLocation(440,450);
+		textfield_ip.addActionListener(this);
+		bombermanpanel.add(textfield_ip);
+		textfield_ip.setVisible(false); // Hide textfield_ip initially
+		
+		// In-Game Chat JComponents
+		textarea_chat = new JTextArea(); 
+		textarea_chat.setOpaque(false);
+		textarea_chat.setForeground(Color.WHITE); // Set text colour 
+        textarea_chat.setFont(new Font("Arial", Font.PLAIN, 15)); // Set font and size
+        textarea_chat.setVisible(false);
+        textarea_chat.setEnabled(false);
+		
+		scrollpane_chat = new JScrollPane(textarea_chat);
+		scrollpane_chat.getViewport().setOpaque(false);
+		scrollpane_chat.setOpaque(false);
+		scrollpane_chat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Remove ugly vertical scroll bars
+        scrollpane_chat.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Remove ugly horizontal scroll bars
+		scrollpane_chat.setSize(350, 200);
+		scrollpane_chat.setLocation(930, 485);
+		bombermanpanel.add(scrollpane_chat);
+		scrollpane_chat.setVisible(false);
+		
+		textfield_chat = new JTextField();
+		textfield_chat.setOpaque(false);
+		textfield_chat.setFont(new Font("Arial", Font.PLAIN, 15)); // Set font and size
+		textfield_chat.setForeground(Color.WHITE); // Set text colour 
+		textfield_chat.setSize(350, 35);
+		textfield_chat.setLocation(930, 685);
+		textfield_chat.addActionListener(this);
+		bombermanpanel.add(textfield_chat);
+		textfield_chat.setVisible(false);
+	}
+
+	// Main Methods
+	public static void main(String[] args){
+		new Bomberman();
+	}
+}
+=======
 		button_mouse.setVisò   À Õ€¬P?\    €Ò      D¤]ccM P €
 ó€Q?\    U I €
 ò€ÌQ?\    V I €
@@ -521,3 +670,4 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 ë€€T?\    ] I €
 ê€ÆT?\    ^ I ‰ 
 €“U?\    ˆÉVt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+>>>>>>> 123fd3ff85e73f34af103225cb2dd43ee93bf91c
