@@ -220,35 +220,33 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(intMenu == 7){
 			System.out.println("HostMenu");
 			button_hostcontinue.setVisible(true); // Unhide necessary JComponents
-			textarea_chat.setVisible(true);
-			scrollpane_chat.setVisible(true);
-			textfield_chat.setVisible(true);
 			ssm.sendText("connect");
 			// Connection Check (Only allow Host to continue if it's connected with Client)
-			if(evt.getSource() == ssm){
+		
+			// [Host Continue Button]
+			if(evt.getSource() == button_hostcontinue){		
+					button_hostcontinue.setVisible(false); // Hide unecessary JComponents
+					intMenu = 9; // Change to CharacterSelectionMenu
+					ssm.sendText("characterselectionmenu"); // Tell all clients to go to CharacterSelectionMenu
+				}
+			else if(evt.getSource() == ssm){
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("connect")){
 					intPlayer = intPlayer + 1; // Count total number of players connected to the game
+					textarea_chat.setVisible(true); // Show chat only when there are people connected
+					scrollpane_chat.setVisible(true);
+					textfield_chat.setVisible(true);
 					ssm.sendText("You have joined " + strUsername + "'s game. \n"); // Send message that you've joined their game
 					button_hostcontinue.setEnabled(true);
 				}
 			}
-			// [Host Continue Button]
-			else if(evt.getSource() == button_hostcontinue){		
-					button_hostcontinue.setVisible(false); // Hide unecessary JComponents
-					intMenu = 9; // Change to CharacterSelectionMenu
-				}
-			}
+		}
 	
 		// GuestMenu (intMenu == 8)
 		else if(intMenu == 8){
-			System.out.println("GuestMenu");
-			button_guestcontinue.setVisible(true); // Unhide necessary JComponents
-			button_guestconnect.setVisible(true);
+			System.out.println("GuestMenu"); 
+			button_guestconnect.setVisible(true); // Unhide necessary JComponents
 			textfield_ip.setVisible(true);
-			textarea_chat.setVisible(true);
-			scrollpane_chat.setVisible(true);
-			textfield_chat.setVisible(true);
 			// [Guest Connect Button]
 			if(evt.getSource() == button_guestconnect){
 				strIP = textfield_ip.getText(); 
@@ -261,18 +259,21 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			else if(evt.getSource() == ssm){
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("connect")){
+					textarea_chat.setVisible(true); // Show chat only when there are people connected
+					scrollpane_chat.setVisible(true);
+					textfield_chat.setVisible(true);
 					button_guestcontinue.setEnabled(true);
 					button_guestconnect.setEnabled(false);
 				}
-			}
-			// [Guest Continue Button]
-			else if(evt.getSource() == button_guestcontinue){		
+				// Go to CharacterSelectionMenu only if the host allows
+				else if(strConnectionStatus.equals("characterselectionmenu")){
 					button_guestcontinue.setVisible(false); // Hide unecessary JComponents
 					button_guestconnect.setVisible(false);
 					textfield_ip.setVisible(false);
 					intMenu = 9; // Change to CharacterSelectionMenu
 				}
 			}
+		}
 			
 		// CharacterSelectionMenu (intMenu == 9)
 		else if(intMenu == 9){
@@ -375,9 +376,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// In-Game Chat (Receive)
 		if(evt.getSource() == ssm){
 				strChat = ssm.readText();
-				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
-				if(!strChat.equals("connect") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") ){ // Blacklist I/O data so they don't show in chat area
+				if(!strChat.equals("connect") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") && !strChat.equals("characterselectionmenu") ){ // Blacklist I/O data so they don't show in chat area
 					textarea_chat.append(strChat + "\n");
+					textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 				}
 		}
 		
@@ -387,6 +388,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				ssm.sendText(strUsername + ": " + textfield_chat.getText());
 				textarea_chat.append(strUsername + ": " + textfield_chat.getText() + "\n");
 				textfield_chat.setText("");
+				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 			}
 		}
 
@@ -688,8 +690,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		button_yellow.setVisible(false); // Hide button_yellow initially
 		
 		button_hoststart = new JButton("Start Game");
-		button_hoststart.setSize(170, 50);
-		button_hoststart.setLocation(540, 500);
+		button_hoststart.setSize(140, 40);
+		button_hoststart.setLocation(570, 470);
 		button_hoststart.addActionListener(this);
 		button_hoststart.setFocusPainted(false);
 		button_hoststart.setContentAreaFilled(false);
