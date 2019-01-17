@@ -55,50 +55,49 @@ public class BombermanPanel extends JPanel{
 	// Methods
 	public void paintComponent(Graphics g){
 		// Start Main Menu
-		if(Bomberman.blnMainMenu == true){
 			// Main Menu
-			if(Bomberman.intMenu == 1){ 
+			if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 1){ 
 				g.drawImage(mainmenu, 0, 0, null); 
 			}
 			// HighscoresMenu 
-			else if(Bomberman.intMenu == 2){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 2){ 
 				g.drawImage(highscoresmenu, 0, 0, null);
 			}
 			// HelpMenu
-			else if(Bomberman.intMenu == 3){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 3){ 
 				g.drawImage(helpmenu, 0, 0, null);
 			}
 			// UsernameMenu
-			else if(Bomberman.intMenu == 4){
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 4){
 				g.drawImage(usernamemenu, 0, 0, null);
 			}
 			// PlayStyleMenu
-			else if(Bomberman.intMenu == 5){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 5){ 
 				g.drawImage(playstylemenu, 0, 0, null);
 			}
 			// MultiplayerMenu
-			else if(Bomberman.intMenu == 6){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 6){ 
 				g.drawImage(multiplayermenu, 0, 0, null);
 			}
 			// HostMenu
-			else if(Bomberman.intMenu == 7){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 7){ 
 				g.drawImage(hostmenu, 0, 0, null);
 				g.setFont(new Font("Arial", Font.PLAIN, 20)); 
 				g.drawString(Bomberman.strIP, 580, 480); // Draw IP Adress on screen
 				
 			}
 			// GuestMenu
-			else if(Bomberman.intMenu == 8){ 
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 8){ 
 				g.drawImage(guestmenu, 0, 0, null);
 			}
 			// CharacterSelectionMenu
-			else if(Bomberman.intMenu == 9){
+			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 9){
 				g.drawImage(characterselectionmenu, 0, 0, null);
 			}
-		}
+		
 		
 		// Start Bomberman Game
-		else if(Bomberman.blnMainMenu == false){
+		if(Bomberman.blnMainMenu == false){
 			// Set Background
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, 1280, 720); 
