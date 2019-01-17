@@ -7,9 +7,4 @@ import java.io.*;
 
 public class Bombermantools{
 		
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 57e7544... loading map
 }
-
