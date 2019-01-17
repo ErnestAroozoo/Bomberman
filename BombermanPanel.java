@@ -10,51 +10,19 @@ public class BombermanPanel extends JPanel{
 	SuperSocketMaster ssm;
 	int intX = 0;
 	int intY = 0;
-	int intRow = 0;
-	int intCol = 0;
-	int intMouseX;
-	int intMouseY;
 	boolean blnUp = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
 	boolean blnRight = false;
 	boolean blnPlaceBomb = false;
-	BufferedImage default_blue;
-	BufferedImage up1_blue;
-	BufferedImage up2_blue;
-	BufferedImage right1_blue;
-	BufferedImage right2_blue;
-	BufferedImage down1_blue;
-	BufferedImage down2_blue;
-	BufferedImage left1_blue;
-	BufferedImage left2_blue;
-	BufferedImage default_red;
-	BufferedImage up1_red;
-	BufferedImage up2_red;
-	BufferedImage right1_red;
-	BufferedImage right2_red;
-	BufferedImage down1_red;
-	BufferedImage down2_red;
-	BufferedImage left1_red;
-	BufferedImage left2_red;
-	BufferedImage default_yellow;
-	BufferedImage up1_yellow;
-	BufferedImage up2_yellow;
-	BufferedImage right1_yellow;
-	BufferedImage right2_yellow;
-	BufferedImage down1_yellow;
-	BufferedImage down2_yellow;
-	BufferedImage left1_yellow;
-	BufferedImage left2_yellow;
-	BufferedImage default_white;
-	BufferedImage up1_white;
-	BufferedImage up2_white;
-	BufferedImage right1_white;
-	BufferedImage right2_white;
-	BufferedImage down1_white;
-	BufferedImage down2_white;
-	BufferedImage left1_white;
-	BufferedImage left2_white;
+	BufferedImage up1;
+	BufferedImage up2;
+	BufferedImage right1;
+	BufferedImage right2;
+	BufferedImage down1;
+	BufferedImage down2;
+	BufferedImage left1;
+	BufferedImage left2;
 	BufferedImage ground_stan;
 	BufferedImage wall_stan;
 	BufferedImage breakwall_stan;
@@ -80,7 +48,7 @@ public class BombermanPanel extends JPanel{
 	BufferedImage helpmenu;
 	BufferedImage highscoresmenu;
 	BufferedImage characterselectionmenu;
-	
+
 	///JButton test;
 	///GamePanel thepanel;
 	
@@ -89,25 +57,6 @@ public class BombermanPanel extends JPanel{
 		// Start Main Menu
 		if(Bomberman.blnMainMenu == true){
 			// Main Menu
-				for(intRow = 0; intRow < 11; intRow++){
-					for(intCol = 0; intCol < 15; intCol++){
-						if(Bomberman.strMap1[intRow][intCol].equals("ob")){
-							g.drawImage(wall_stan,intCol*60,intRow * 60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("r")){
-							g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("g")){
-							g.drawImage(ground_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("c1")){
-							g.drawImage(default_blue,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("c2")){
-							g.drawImage(default_red,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("c3")){
-							g.drawImage(default_yellow,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap1[intRow][intCol].equals("c4")){
-							g.drawImage(default_white,intRow*60,intCol*60,null);
-						}
-					}
-				}
 			if(Bomberman.intMenu == 1){ 
 				g.drawImage(mainmenu, 0, 0, null); 
 			}
@@ -150,124 +99,52 @@ public class BombermanPanel extends JPanel{
 		
 		// Start Bomberman Game
 		else if(Bomberman.blnMainMenu == false){
-			if(Bomberman.blnIsKeyboard == true){
-				if(blnUp == true){
-					intY = intY - 5;
-					g.drawImage(up1_blue, intX, intY, null);
-					g.drawImage(up2_blue, intX, intY, null);
-				}
-				else if(blnRight == true){
-					intX = intX + 5;
-					g.drawImage(right1_blue, intX, intY, null); 
-					g.drawImage(right2_blue, intX, intY, null); 
-				}
-				else if(blnDown == true){
-					intY = intY + 5;
-					g.drawImage(down1_blue, intX, intY, null); 
-					g.drawImage(down2_blue, intX, intY, null); 
-				}
-				else if(blnLeft == true){
-					intX = intX - 5;
-					g.drawImage(left1_blue, intX, intY, null); 
-					g.drawImage(left2_blue, intX, intY, null); 
-				}
-			}else if(Bomberman.blnIsMouse){
-				//if(bombermanpanel.intMouseX <
+			// Set Background
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, 1280, 720); 
+		
+			// Bomberman Animation
+			g.drawImage(down1, intX, intY, null); // Default stance
+			if(blnUp == true){
+				intY = intY - 5;
+				g.drawImage(up1, intX, intY, null);
+				g.drawImage(up2, intX, intY, null);
 			}
-				if(blnPlaceBomb == true){
-					g.drawImage(bomb_item,intX,intY,null);
-				}
-
+			else if(blnRight == true){
+				intX = intX + 5;
+				g.drawImage(right1, intX, intY, null); 
+				g.drawImage(right2, intX, intY, null); 
+			}
+			else if(blnDown == true){
+				intY = intY + 5;
+				g.drawImage(down1, intX, intY, null); 
+				g.drawImage(down2, intX, intY, null); 
+			}
+			else if(blnLeft == true){
+				intX = intX - 5;
+				g.drawImage(left1, intX, intY, null); 
+				g.drawImage(left2, intX, intY, null); 
+			}
+			if(blnPlaceBomb == true){
+				g.drawImage(bomb_item,intX,intY,null);
+			}
 			
-			//if(Bomberman.intRand == 1){
-
-			/*}else if(Bomberman.intRand == 2){
-				for(intRow = 0; intRow < 11; intRow++){
-					for(intCol = 0; intCol < 15; intCol++){
-						if(Bomberman.strMap2[intRow][intCol].equals("ob")){
-							g.drawImage(wall_stan,intCol*60,intRow * 60,null);
-						}else if(Bomberman.strMap2[intRow][intCol].equals("r")){
-							g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap2[intRow][intCol].equals("g")){
-							g.drawImage(ground_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap2[intRow][intCol.equals("c1")){
-							g.drawImage(default_blue,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap2[intRow][intCol].equals("c2")){
-							g.drawImage(default_red,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap2[intRow][intCol].equals("c3")){
-							g.drawImage(default_yellow,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap2[intRow][intCol].equals("c4")){
-							g.drawImage(default_white,intRow*60,intCol*60,null);
-						}
-					}
-				}
-			}else if(Bomberman.intRand == 3){
-				for(intRow = 0; intRow < 11; intRow++){
-					for(intCol = 0; intCol < 15; intCol++){
-						if(Bomberman.strMap1[intRow][intCol].equals("ob")){
-							g.drawImage(wall_stan,intCol*60,intRow * 60,null);
-						}else if(Bomberman.strMap3[intRow][intCol].equals("r")){
-							g.drawImage(breakwall_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap3[intRow][intCol].equals("g")){
-							g.drawImage(ground_stan,intCol*60,intRow*60,null);
-						}else if(Bomberman.strMap3[intRow][intCol.equals("c1")){
-							g.drawImage(default_blue,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap3[intRow][intCol].equals("c2")){
-							g.drawImage(default_red,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap3[intRow][intCol].equals("c3")){
-							g.drawImage(default_yellow,intRow*60,intCol*60,null);
-						}else if(Bomberman.strMap3[intRow][intCol].equals("c4")){
-							g.drawImage(default_white,intRow*60,intCol*60,null);
-						}
-					}
-				}
-			}
-			*/
-		}
 	}
-
+}
 	
 	// Constructors
 	public BombermanPanel(){
 		super();
 		// Add Images
 		try{
-			default_blue = ImageIO.read(new File("default.png"));
-			up1_blue = ImageIO.read(new File("up1.png")); 
-			up2_blue = ImageIO.read(new File("up2.png")); 
-			right1_blue = ImageIO.read(new File("right1.png")); 
-			right2_blue = ImageIO.read(new File("right2.png")); 
-			down1_blue = ImageIO.read(new File("down1.png")); 
-			down2_blue = ImageIO.read(new File("down2.png")); 
-			left1_blue = ImageIO.read(new File("left1.png")); 
-			left2_blue = ImageIO.read(new File("left2.png"));
-			default_red = ImageIO.read(new File("default_red.png"));
-			up1_red = ImageIO.read(new File("up1_red.png")); 
-			up2_red = ImageIO.read(new File("up2_red.png")); 
-			right1_red = ImageIO.read(new File("right1_red.png")); 
-			right2_red = ImageIO.read(new File("right2_red.png")); 
-			down1_red = ImageIO.read(new File("down1_red.png")); 
-			down2_red = ImageIO.read(new File("down2_red.png")); 
-			left1_red = ImageIO.read(new File("left1_red.png")); 
-			left2_red = ImageIO.read(new File("left2_red.png"));
-			default_yellow = ImageIO.read(new File("default_yellow.png"));
-			up1_yellow = ImageIO.read(new File("up1_yellow.png")); 
-			up2_yellow = ImageIO.read(new File("up2_yellow.png")); 
-			right1_yellow = ImageIO.read(new File("right1_yellow.png")); 
-			right2_yellow = ImageIO.read(new File("right2_yellow.png")); 
-			down1_yellow = ImageIO.read(new File("down1_yellow.png")); 
-			down2_yellow = ImageIO.read(new File("down2_yellow.png")); 
-			left1_yellow = ImageIO.read(new File("left1_yellow.png")); 
-			left2_yellow = ImageIO.read(new File("left2_yellow.png"));
-			default_white = ImageIO.read(new File("default_yellow.png"));
-			up1_white = ImageIO.read(new File("up1_white.png")); 
-			up2_white = ImageIO.read(new File("up2_white.png")); 
-			right1_white = ImageIO.read(new File("right1_white.png")); 
-			right2_white = ImageIO.read(new File("right2_white.png")); 
-			down1_white = ImageIO.read(new File("down1_white.png")); 
-			down2_white = ImageIO.read(new File("down2_white.png")); 
-			left1_white = ImageIO.read(new File("left1_white.png")); 
-			left2_white = ImageIO.read(new File("left2_white.png"));        
+			up1 = ImageIO.read(new File("up1.png")); 
+			up2 = ImageIO.read(new File("up2.png")); 
+			right1 = ImageIO.read(new File("right1.png")); 
+			right2 = ImageIO.read(new File("right2.png")); 
+			down1 = ImageIO.read(new File("down1.png")); 
+			down2 = ImageIO.read(new File("down2.png")); 
+			left1 = ImageIO.read(new File("left1.png")); 
+			left2 = ImageIO.read(new File("left2.png"));  
 			fire_downend = ImageIO.read(new File("fire_downend.png"));
 			fire_leftend = ImageIO.read(new File("fire_leftend.png"));
 			fire_mid = ImageIO.read(new File("fire_mid.png"));

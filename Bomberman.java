@@ -40,7 +40,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JScrollPane scrollpane_chat;
 	JTextField textfield_chat;
 	JTextArea textarea_chat;
-	static String strUsername = "";
+	JButton button_hoststart;
+	static String strUsername = ""; // Check their username
 	static boolean blnMainMenu = true; // Start actual game when blnMainMenu = false
 	static int intMenu = 1; // Default menu card to MainMenu (intMenu = 1)
 	static boolean blnIsKeyboard = false; // Check if Keyboard playstyle
@@ -50,14 +51,12 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static String strIP; // IP Address
 	static String strConnectionStatus; // Connection status between Host and Client
 	static String strChat; // Chat messages between Host and Client
-	public String strName;
-	public int intSpeed;
-	public String strColour;
-	public int intbombrange;
-	public int intnumbombs;
-	public boolean blninvincibility;
-	int intAlive = 1;
-	
+	static int intPlayer = 1; // Keep track of number of players connected to game
+	static int intSelection = 0; // Keep track of how many players selected their character so Host can start game once everyone is ready...
+	static boolean blnBlue = false; // Check if they selected Blue Bomberman
+	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
+	static boolean blnRed = false; // Check if they selected Red Bomberman
+	static boolean blnWhite = false; // Check if they selected White Bomberman
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -220,15 +219,19 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(intMenu == 7){
 			System.out.println("HostMenu");
 			button_hostcontinue.setVisible(true); // Unhide necessary JComponents
+			textarea_chat.setVisible(true);
+			scrollpane_chat.setVisible(true);
+			textfield_chat.setVisible(true);
 			ssm.sendText("connect");
 			// Connection Check (Only allow Host to continue if it's connected with Client)
 			if(evt.getSource() == ssm){
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("connect")){
+					intPlayer = intPlayer + 1; // Count total number of players connected to the game
+					ssm.sendText("You have joined " + strUsername + "'s game."); // Send message that you've joined their game
 					button_hostcontinue.setEnabled(true);
 				}
 			}
-				
 			// [Host Continue Button]
 			else if(evt.getSource() == button_hostcontinue){		
 					button_hostcontinue.setVisible(false); // Hide unecessary JComponents
@@ -242,13 +245,16 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			button_guestcontinue.setVisible(true); // Unhide necessary JComponents
 			button_guestconnect.setVisible(true);
 			textfield_ip.setVisible(true);
-			textfield_ip.grabFocus();
+			textarea_chat.setVisible(true);
+			scrollpane_chat.setVisible(true);
+			textfield_chat.setVisible(true);
 			// [Guest Connect Button]
 			if(evt.getSource() == button_guestconnect){
 				strIP = textfield_ip.getText(); 
 				ssm = new SuperSocketMaster(strIP, 1337, this); // Connect to IP user typed
 				ssm.connect(); 
 				ssm.sendText("connect");
+				ssm.sendText(strUsername + " has joined the game. \n"); // Send message that you've joined their game
 			}
 			// Connection Check (Only allow Client to continue if it's connected with Host)
 			else if(evt.getSource() == ssm){
@@ -270,6 +276,95 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// CharacterSelectionMenu (intMenu == 9)
 		else if(intMenu == 9){
 			System.out.println("CharacterSelectionMenu");
+			button_blue.setVisible(true); // Unhide necessary JComponents
+			button_white.setVisible(true);
+			button_yellow.setVisible(true);
+			button_red.setVisible(true);
+			// [Blue Button]
+			if(evt.getSource() == button_blue){
+				ssm.sendText("blue"); // Let other players know Blue Bomberman is taken
+				intSelection = intSelection + 1;
+				blnBlue = true;
+				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
+				button_white.setEnabled(false);
+				button_yellow.setEnabled(false);
+				button_red.setEnabled(false);
+			}
+			// [White Button]
+			else if(evt.getSource() == button_white){
+				ssm.sendText("white"); // Let other players know White Bomberman is taken
+				intSelection = intSelection + 1;
+				blnWhite = true;
+				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
+				button_white.setEnabled(false);
+				button_yellow.setEnabled(false);
+				button_red.setEnabled(false);
+			}
+			// [Yellow Button]
+			else if(evt.getSource() == button_yellow){
+				ssm.sendText("yellow"); // Let other players know Yellow Bomberman is taken
+				intSelection = intSelection + 1;
+				blnYellow = true;
+				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
+				button_white.setEnabled(false);
+				button_yellow.setEnabled(false);
+				button_red.setEnabled(false);
+			}
+			// [Red Button]
+			else if(evt.getSource() == button_red){
+				ssm.sendText("red"); // Let other players know Red Bomberman is taken
+				intSelection = intSelection + 1;
+				blnRed = true;
+				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
+				button_white.setEnabled(false);
+				button_yellow.setEnabled(false);
+				button_red.setEnabled(false);
+			}
+			// [Host Start Button]
+			if(evt.getSource() == button_hoststart){
+				ssm.sendText("startgame"); // Let everyone connected know we're starting the actual Bomberman Game
+				blnMainMenu = false; // Start game
+				button_yellow.setVisible(false); // Hide unecessary JComponents
+				button_red.setVisible(false);
+				button_white.setVisible(false);
+				button_blue.setVisible(false);
+				button_hoststart.setVisible(false);
+			}
+			// Check if character has been selected by others via SSM
+			if(evt.getSource() == ssm){
+				strConnectionStatus = ssm.readText();
+				if(strConnectionStatus.equals("blue")){
+					button_blue.setEnabled(false);
+					intSelection = intSelection + 1;
+				}
+				if(strConnectionStatus.equals("yellow")){
+					button_yellow.setEnabled(false);
+					intSelection = intSelection + 1;
+				}
+				if(strConnectionStatus.equals("white")){
+					button_white.setEnabled(false);
+					intSelection = intSelection + 1;
+				}
+				if(strConnectionStatus.equals("red")){
+					button_red.setEnabled(false);
+					intSelection = intSelection + 1;
+				}
+			}
+			// [Host] Check if everyone connected has selected their character
+			if(blnIsHost == true && intSelection == intPlayer){
+				button_hoststart.setVisible(true); // Display start game button only if everyone has selected their character
+			}
+			// [Client] Check if Host clicked Start Game
+			else if(blnIsGuest == true){
+				strConnectionStatus = ssm.readText();
+				if(strConnectionStatus.equals("startgame")){
+					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
+					button_yellow.setVisible(false); // Hide unecessary JComponents
+					button_red.setVisible(false);
+					button_white.setVisible(false);
+					button_blue.setVisible(false);
+				}
+			}
 		}
 		
 		// In-Game Chat (Receive)
@@ -277,6 +372,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				strChat = ssm.readText();
 				if(!strChat.equals("connect")){ // Blacklist I/O data so they don't show in chat area
 				textarea_chat.append(strChat + "\n");
+				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 			}
 		}
 		
@@ -287,9 +383,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				textarea_chat.append(strUsername + ": " + textfield_chat.getText() + "\n");
 				textfield_chat.setText("");
 			}
-				
-	
-		
 	}
 
 	public void keyReleased(KeyEvent evt){
@@ -353,9 +446,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	}
 	
 	public void mouseClicked(MouseEvent evt){
-	while (intAlive>0){
-		
-	}
+
 	}
 
 	// Constructors
@@ -385,7 +476,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
 		
-		// Add JButtons
+		// Menu JComponents
 		button_startgame = new JButton("Start Game");
 		button_startgame.setSize(200, 50);
 		button_startgame.setLocation(540, 230);
@@ -547,13 +638,69 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		bombermanpanel.add(textfield_ip);
 		textfield_ip.setVisible(false); // Hide textfield_ip initially
 		
+		button_blue = new JButton("Blue");
+		button_blue.setSize(100, 30);
+		button_blue.setLocation(462, 375);
+		button_blue.addActionListener(this);
+		button_blue.setFocusPainted(false);
+		button_blue.setContentAreaFilled(false);
+		button_blue.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_blue.setForeground(Color.WHITE);
+		bombermanpanel.add(button_blue);
+		button_blue.setVisible(false); // Hide button_blue initially
+		
+		button_white = new JButton("White");
+		button_white.setSize(100, 30);
+		button_white.setLocation(718, 375);
+		button_white.addActionListener(this);
+		button_white.setFocusPainted(false);
+		button_white.setContentAreaFilled(false);
+		button_white.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_white.setForeground(Color.WHITE);
+		bombermanpanel.add(button_white);
+		button_white.setVisible(false); // Hide button_white initially
+		
+		button_red = new JButton("Red");
+		button_red.setSize(100, 30);
+		button_red.setLocation(462, 605);
+		button_red.addActionListener(this);
+		button_red.setFocusPainted(false);
+		button_red.setContentAreaFilled(false);
+		button_red.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_red.setForeground(Color.WHITE);
+		bombermanpanel.add(button_red);
+		button_red.setVisible(false); // Hide button_red initially
+		
+		button_yellow = new JButton("Yellow");
+		button_yellow.setSize(100, 30);
+		button_yellow.setLocation(718, 605);
+		button_yellow.addActionListener(this);
+		button_yellow.setFocusPainted(false);
+		button_yellow.setContentAreaFilled(false);
+		button_yellow.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_yellow.setForeground(Color.WHITE);
+		bombermanpanel.add(button_yellow);
+		button_yellow.setVisible(false); // Hide button_yellow initially
+		
+		button_hoststart = new JButton("Start Game");
+		button_hoststart.setSize(170, 50);
+		button_hoststart.setLocation(540, 500);
+		button_hoststart.addActionListener(this);
+		button_hoststart.setFocusPainted(false);
+		button_hoststart.setContentAreaFilled(false);
+		button_hoststart.setFont(new Font("Arial", Font.PLAIN, 20));
+		button_hoststart.setForeground(Color.WHITE);
+		bombermanpanel.add(button_hoststart);
+		button_hoststart.setVisible(false); // Hide button_hoststart initially
+		
 		// In-Game Chat JComponents
 		textarea_chat = new JTextArea(); 
 		textarea_chat.setOpaque(false);
-		textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 		textarea_chat.setForeground(Color.WHITE); // Set text colour 
         textarea_chat.setFont(new Font("Arial", Font.PLAIN, 15)); // Set font and size
-		
+        textarea_chat.setVisible(false);
+        textarea_chat.setEnabled(false);
+        
 		scrollpane_chat = new JScrollPane(textarea_chat);
 		scrollpane_chat.getViewport().setOpaque(false);
 		scrollpane_chat.setOpaque(false);
@@ -562,6 +709,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		scrollpane_chat.setSize(350, 200);
 		scrollpane_chat.setLocation(930, 485);
 		bombermanpanel.add(scrollpane_chat);
+		scrollpane_chat.setVisible(false);
 		
 		textfield_chat = new JTextField();
 		textfield_chat.setOpaque(false);
@@ -571,6 +719,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		textfield_chat.setLocation(930, 685);
 		textfield_chat.addActionListener(this);
 		bombermanpanel.add(textfield_chat);
+		textfield_chat.setVisible(false);
 	}
 
 	// Main Methods
