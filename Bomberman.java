@@ -57,7 +57,13 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
-	
+	static String strMap[][] = new String [11][15];
+	static FileReader thefile = null;
+	static BufferedReader thefiledata = null;
+	static int intLine = 0;
+	static int intindex = 0;
+	static String strSplit[];
+	static int intRand;
 	// Methods
 	public void actionPerformed(ActionEvent evt){
 		// JPanel Refresh 60 FPS
@@ -283,7 +289,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Blue Button]
 			if(evt.getSource() == button_blue){
 				ssm.sendText("blue"); // Let other players know Blue Bomberman is taken
-				intSelection = intSelection + 1;
 				blnBlue = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -293,7 +298,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [White Button]
 			else if(evt.getSource() == button_white){
 				ssm.sendText("white"); // Let other players know White Bomberman is taken
-				intSelection = intSelection + 1;
 				blnWhite = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -303,7 +307,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Yellow Button]
 			else if(evt.getSource() == button_yellow){
 				ssm.sendText("yellow"); // Let other players know Yellow Bomberman is taken
-				intSelection = intSelection + 1;
 				blnYellow = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -313,7 +316,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Red Button]
 			else if(evt.getSource() == button_red){
 				ssm.sendText("red"); // Let other players know Red Bomberman is taken
-				intSelection = intSelection + 1;
 				blnRed = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -321,14 +323,99 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				button_red.setEnabled(false);
 			}
 			// [Host Start Button]
-			if(evt.getSource() == button_hoststart){
+			else if(evt.getSource() == button_hoststart){
 				ssm.sendText("startgame"); // Let everyone connected know we're starting the actual Bomberman Game
 				blnMainMenu = false; // Start game
-				button_yellow.setVisible(false); // Hide unecessary JComponents
-				button_red.setVisible(false);
-				button_white.setVisible(false);
-				button_blue.setVisible(false);
-				button_hoststart.setVisible(false);
+				// Reading the csv file
+				intRand = (int)Math.random() *3 + 1;
+				if(intRand == 1){
+					try{
+						thefile = new FileReader("standard.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}	
+				}else if(intRand == 2){
+					try{
+						thefile = new FileReader("wintermap.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}
+				}else if(intRand == 3){
+										try{
+						thefile = new FileReader("firemap.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}
+				}
 			}
 			// Check if character has been selected by others via SSM
 			if(evt.getSource() == ssm){
@@ -359,10 +446,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("startgame")){
 					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
-					button_yellow.setVisible(false); // Hide unecessary JComponents
-					button_red.setVisible(false);
-					button_white.setVisible(false);
-					button_blue.setVisible(false);
 				}
 			}
 		}
@@ -683,7 +766,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		button_yellow.setVisible(false); // Hide button_yellow initially
 		
 		button_hoststart = new JButton("Start Game");
-		button_hoststart.setSize(170, 50);
+		button_hoststart.setSize(200, 50);
 		button_hoststart.setLocation(540, 500);
 		button_hoststart.addActionListener(this);
 		button_hoststart.setFocusPainted(false);
