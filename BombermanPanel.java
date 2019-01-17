@@ -99,6 +99,12 @@ public class BombermanPanel extends JPanel{
 		
 		// Start Bomberman Game
 		else if(Bomberman.blnMainMenu == false){
+			// Set Background
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, 1280, 720); 
+		
+			// Bomberman Animation
+			g.drawImage(down1, intX, intY, null); // Default stance
 			if(blnUp == true){
 				intY = intY - 5;
 				g.drawImage(up1, intX, intY, null);

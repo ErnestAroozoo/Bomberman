@@ -283,6 +283,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Blue Button]
 			if(evt.getSource() == button_blue){
 				ssm.sendText("blue"); // Let other players know Blue Bomberman is taken
+				intSelection = intSelection + 1;
 				blnBlue = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -292,6 +293,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [White Button]
 			else if(evt.getSource() == button_white){
 				ssm.sendText("white"); // Let other players know White Bomberman is taken
+				intSelection = intSelection + 1;
 				blnWhite = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -301,6 +303,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Yellow Button]
 			else if(evt.getSource() == button_yellow){
 				ssm.sendText("yellow"); // Let other players know Yellow Bomberman is taken
+				intSelection = intSelection + 1;
 				blnYellow = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -310,6 +313,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// [Red Button]
 			else if(evt.getSource() == button_red){
 				ssm.sendText("red"); // Let other players know Red Bomberman is taken
+				intSelection = intSelection + 1;
 				blnRed = true;
 				button_blue.setEnabled(false); // Don't let user choose anything once they've selected their character
 				button_white.setEnabled(false);
@@ -317,9 +321,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				button_red.setEnabled(false);
 			}
 			// [Host Start Button]
-			else if(evt.getSource() == button_hoststart){
+			if(evt.getSource() == button_hoststart){
 				ssm.sendText("startgame"); // Let everyone connected know we're starting the actual Bomberman Game
 				blnMainMenu = false; // Start game
+				button_yellow.setVisible(false); // Hide unecessary JComponents
+				button_red.setVisible(false);
+				button_white.setVisible(false);
+				button_blue.setVisible(false);
+				button_hoststart.setVisible(false);
 			}
 			// Check if character has been selected by others via SSM
 			if(evt.getSource() == ssm){
@@ -350,6 +359,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("startgame")){
 					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
+					button_yellow.setVisible(false); // Hide unecessary JComponents
+					button_red.setVisible(false);
+					button_white.setVisible(false);
+					button_blue.setVisible(false);
 				}
 			}
 		}
@@ -658,7 +671,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		bombermanpanel.add(button_red);
 		button_red.setVisible(false); // Hide button_red initially
 		
-		button_yellow = new JButton("Yello");
+		button_yellow = new JButton("Yellow");
 		button_yellow.setSize(100, 30);
 		button_yellow.setLocation(718, 605);
 		button_yellow.addActionListener(this);
@@ -670,7 +683,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		button_yellow.setVisible(false); // Hide button_yellow initially
 		
 		button_hoststart = new JButton("Start Game");
-		button_hoststart.setSize(200, 50);
+		button_hoststart.setSize(170, 50);
 		button_hoststart.setLocation(540, 500);
 		button_hoststart.addActionListener(this);
 		button_hoststart.setFocusPainted(false);
