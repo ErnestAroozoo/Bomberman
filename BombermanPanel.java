@@ -10,8 +10,14 @@ public class BombermanPanel extends JPanel{
 	SuperSocketMaster ssm;
 	int intX = 0;
 	int intY = 0;
-	int intX2 = 100;
-	int intY2 = 100;
+	int intX_red = 300;
+	int intY_red = 0;
+	int intX_yellow = 0;
+	int intY_yellow = 300;
+	int intX_white = 300;
+	int intY_white = 300;
+	int intBombX = 0;
+	int intBombY = 0;
 	boolean blnUp = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
@@ -25,6 +31,35 @@ public class BombermanPanel extends JPanel{
 	BufferedImage down2;
 	BufferedImage left1;
 	BufferedImage left2;
+	
+	BufferedImage up1_red;
+	BufferedImage up2_red;
+	BufferedImage right1_red;
+	BufferedImage right2_red;
+	BufferedImage down1_red;
+	BufferedImage down2_red;
+	BufferedImage left1_red;
+	BufferedImage left2_red;
+	
+	BufferedImage up1_yellow;
+	BufferedImage up2_yellow;
+	BufferedImage right1_yellow;
+	BufferedImage right2_yellow;
+	BufferedImage down1_yellow;
+	BufferedImage down2_yellow;
+	BufferedImage left1_yellow;
+	BufferedImage left2_yellow;
+	
+	BufferedImage up1_white;
+	BufferedImage up2_white;
+	BufferedImage right1_white;
+	BufferedImage right2_white;
+	BufferedImage down1_white;
+	BufferedImage down2_white;
+	BufferedImage left1_white;
+	BufferedImage left2_white;
+	
+	
 	BufferedImage ground_stan;
 	BufferedImage wall_stan;
 	BufferedImage breakwall_stan;
@@ -106,6 +141,14 @@ public class BombermanPanel extends JPanel{
 		
 			// Bomberman Animation
 			g.drawImage(down1, intX, intY, null);// Default stance
+			g.drawImage(down1_red, intX_red, intY_red, null);// Default stance
+			g.drawImage(down1_yellow, intX_yellow, intY_yellow, null);// Default stance
+			g.drawImage(down1_white, intX_white, intY_white, null);// Default stance
+			if(blnPlaceBomb == true){
+				intBombX = intX;
+				intBombY = intY;
+				g.drawImage(bomb_item,intBombX,intBombY,null);
+			}
 			try{
               Thread.sleep( 1 );
             }
@@ -171,11 +214,8 @@ public class BombermanPanel extends JPanel{
            catch (InterruptedException e) { 
 			}
 			}
-			if(blnPlaceBomb == true){
-				g.drawImage(bomb_item,intX,intY,null);
-			}
-			
-	}
+		}
+	
 }
 	
 	// Constructors
@@ -190,7 +230,35 @@ public class BombermanPanel extends JPanel{
 			down1 = ImageIO.read(new File("down1.png")); 
 			down2 = ImageIO.read(new File("down2.png")); 
 			left1 = ImageIO.read(new File("left1.png")); 
-			left2 = ImageIO.read(new File("left2.png"));  
+			left2 = ImageIO.read(new File("left2.png"));
+			
+			up1_red = ImageIO.read(new File("up1_red.png")); 
+			up2_red = ImageIO.read(new File("up2_red.png")); 
+			right1_red = ImageIO.read(new File("right1_red.png")); 
+			right2_red = ImageIO.read(new File("right2_red.png")); 
+			down1_red = ImageIO.read(new File("down1_red.png")); 
+			down2_red = ImageIO.read(new File("down2_red.png")); 
+			left1_red = ImageIO.read(new File("left1_red.png")); 
+			left2_red = ImageIO.read(new File("left2_red.png"));
+			
+			up1_yellow = ImageIO.read(new File("up1_yellow.png")); 
+			up2_yellow = ImageIO.read(new File("up2_yellow.png")); 
+			right1_yellow = ImageIO.read(new File("right1_yellow.png")); 
+			right2_yellow = ImageIO.read(new File("right2_yellow.png")); 
+			down1_yellow = ImageIO.read(new File("down1_yellow.png")); 
+			down2_yellow = ImageIO.read(new File("down2_yellow.png")); 
+			left1_yellow = ImageIO.read(new File("left1_yellow.png")); 
+			left2_yellow = ImageIO.read(new File("left2_yellow.png"));
+			  
+			up1_white = ImageIO.read(new File("up1_white.png")); 
+			up2_white = ImageIO.read(new File("up2_white.png")); 
+			right1_white = ImageIO.read(new File("right1_white.png")); 
+			right2_white = ImageIO.read(new File("right2_white.png")); 
+			down1_white = ImageIO.read(new File("down1_white.png")); 
+			down2_white = ImageIO.read(new File("down2_white.png")); 
+			left1_white = ImageIO.read(new File("left1_white.png")); 
+			left2_white = ImageIO.read(new File("left2_white.png"));
+			  
 			fire_downend = ImageIO.read(new File("fire_downend.png"));
 			fire_leftend = ImageIO.read(new File("fire_leftend.png"));
 			fire_mid = ImageIO.read(new File("fire_mid.png"));

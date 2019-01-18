@@ -405,6 +405,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(evt.getKeyCode() == 40){ // Down Arrow Key
 			bombermanpanel.blnDown = false;
 		}
+		else if(evt.getKeyCode() == 32){ // Bomb Key
+			bombermanpanel.blnPlaceBomb = false;
+		}
 	}
 
 	public void keyPressed(KeyEvent evt){ 
@@ -422,10 +425,12 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(evt.getKeyCode() == 40){ // Down Arrow Key
 			bombermanpanel.blnDown = true;
 		}
+		else if(evt.getKeyCode() == 32){ // Bomb Key
+			bombermanpanel.blnPlaceBomb = true;
+		}
 	}
 
 	public void keyTyped(KeyEvent evt){ 
-
 	}
 
 	public void mouseMoved(MouseEvent evt){ 
