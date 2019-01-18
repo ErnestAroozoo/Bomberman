@@ -10,6 +10,8 @@ public class BombermanPanel extends JPanel{
 	SuperSocketMaster ssm;
 	int intX = 0;
 	int intY = 0;
+	int intX2 = 100;
+	int intY2 = 100;
 	boolean blnUp = false;
 	boolean blnDown = false;
 	boolean blnLeft = false;
@@ -107,22 +109,18 @@ public class BombermanPanel extends JPanel{
 			if(blnUp == true){
 				intY = intY - 5;
 				g.drawImage(up1, intX, intY, null);
-				g.drawImage(up2, intX, intY, null);
 			}
 			else if(blnRight == true){
 				intX = intX + 5;
 				g.drawImage(right1, intX, intY, null); 
-				g.drawImage(right2, intX, intY, null); 
 			}
 			else if(blnDown == true){
 				intY = intY + 5;
-				g.drawImage(down1, intX, intY, null); 
-				g.drawImage(down2, intX, intY, null); 
+				g.drawImage(down1, intX, intY, null);  
 			}
 			else if(blnLeft == true){
 				intX = intX - 5;
 				g.drawImage(left1, intX, intY, null); 
-				g.drawImage(left2, intX, intY, null); 
 			}
 			if(blnPlaceBomb == true){
 				g.drawImage(bomb_item,intX,intY,null);
