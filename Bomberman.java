@@ -532,7 +532,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				intMinute = intMinute - 1;
 				intSecond = 59;
 			}
-			if(intTimer == 0){ // Reset timer and restart game when timer hits 0
+			if(intTimer < 0){ // Reset timer and restart game when timer hits 0
 				System.out.println("Ending round...");
 				intRound = intRound + 1; // Increase game round number
 				intMinute = 3;
@@ -541,8 +541,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				gametimer.stop();
 			}
 		}
-		
-		
 	}
 
 	public void keyReleased(KeyEvent evt){
