@@ -8,8 +8,10 @@ import java.io.*;
 public class BombermanPanel extends JPanel{
 	// Properties
 	SuperSocketMaster ssm;               
-	static int intX = 0;
-	static int intY = 0;
+	static int intX = 60;
+	static int intXfuture;
+	static int intY = 60;
+	static int intYfuture;
 	static int intX_red = 300;
 	static int intY_red = 0;
 	static int intX_yellow = 0;
@@ -20,26 +22,26 @@ public class BombermanPanel extends JPanel{
 	static int intCol = 0;
 	int intBombX = 0;
 	int intBombY = 0;
-	boolean blnUp = false;
-	boolean blnDown = false;
-	boolean blnLeft = false;
-	boolean blnRight = false;
-	boolean blnPlaceBomb = false;
-	boolean blnUp_red = false;
-	boolean blnDown_red = false;
-	boolean blnLeft_red = false;
-	boolean blnRight_red = false;
-	boolean blnPlaceBomb_red = false;
-	boolean blnUp_yellow = false;
-	boolean blnDown_yellow = false;
-	boolean blnLeft_yellow = false;
-	boolean blnRight_yellow = false;
-	boolean blnPlaceBomb_yellow = false;
-	boolean blnUp_white = false;
-	boolean blnDown_white = false;
-	boolean blnLeft_white = false;
-	boolean blnRight_white = false;
-	boolean blnPlaceBomb_white = false;
+	static boolean blnUp = false;
+	static boolean blnDown = false;
+	static boolean blnLeft = false;
+	static boolean blnRight = false;
+	static boolean blnPlaceBomb = false;
+	static boolean blnUp_red = false;
+	static boolean blnDown_red = false;
+	static boolean blnLeft_red = false;
+	static boolean blnRight_red = false;
+	static boolean blnPlaceBomb_red = false;
+	static boolean blnUp_yellow = false;
+	static boolean blnDown_yellow = false;
+	static boolean blnLeft_yellow = false;
+	static boolean blnRight_yellow = false;
+	static boolean blnPlaceBomb_yellow = false;
+	static boolean blnUp_white = false;
+	static boolean blnDown_white = false;
+	static boolean blnLeft_white = false;
+	static boolean blnRight_white = false;
+	static boolean blnPlaceBomb_white = false;
 	static BufferedImage up1;
 	static BufferedImage up2;
 	static BufferedImage right1;
@@ -107,6 +109,285 @@ public class BombermanPanel extends JPanel{
 	///GamePanel thepanel;
 	
 	// Methods
+	public static void blue_move(int intYfuture,int intXfuture, boolean blnUP,
+											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			boolean blnresult = true;
+			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
+			if(blnUP == true){
+				intYfuture = intYfuture - 5;
+			}else if(blnDOWN == true){
+				intYfuture = intYfuture + 5;
+			}else if(blnRIGHT == true){
+				intXfuture = intXfuture + 5;
+			}else if(blnLEFT == true){
+				intXfuture = intXfuture - 5;
+			}	
+				
+			intposydiv = intYfuture / 60;
+			intposymod = intYfuture % 60;
+			intposxdiv = intXfuture / 60;
+			intposxmod = intXfuture % 60;
+			if(intposymod > 0 && intposydiv > 0){
+				intposydiv += 1;
+			}
+			if(intposxmod > 0 && intposxdiv > 0){
+				intposxdiv += 1;
+			}
+			System.out.println("position y: " + intposymod +" position x: " + intposxdiv);
+			System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+				blnresult = false;
+			}else{
+				if(blnUP == true){
+				g.drawImage(up1, intX, intYfuture, null);
+				Bombermantools.trysleep();
+				g.drawImage(up2, intX, intYfuture, null);
+				Bombermantools.trysleep();
+				
+				intY = intYfuture;
+			}
+			else if(blnRIGHT == true){
+				g.drawImage(right1, intXfuture, intY, null); 
+				Bombermantools.trysleep();
+				g.drawImage(right2, intXfuture, intY, null); 
+				Bombermantools.trysleep();
+				intX = intXfuture;
+			}
+			else if(blnDOWN == true){
+				g.drawImage(down1, intX, intYfuture, null); 
+				Bombermantools.trysleep();
+				g.drawImage(down2, intX, intYfuture, null); 
+				Bombermantools.trysleep();
+			
+				intY = intYfuture;
+			}
+			else if(blnLEFT == true){
+				g.drawImage(left1, intXfuture, intY, null); 
+				Bombermantools.trysleep();
+				g.drawImage(left2, intXfuture, intY, null);
+				Bombermantools.trysleep();
+
+			intX = intXfuture;
+			}
+			}
+			
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static void red_move(int intYfuture,int intXfuture, boolean blnUP,
+											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			boolean blnresult = true;
+			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
+			if(blnUP == true){
+				intYfuture = intYfuture - 5;
+			}else if(blnDOWN == true){
+				intYfuture = intYfuture + 5;
+			}else if(blnRIGHT == true){
+				intXfuture = intXfuture + 5;
+			}else if(blnLEFT == true){
+				intXfuture = intXfuture - 5;
+			}	
+				
+			intposydiv = intYfuture / 60;
+			intposymod = intYfuture % 60;
+			intposxdiv = intXfuture / 60;
+			intposxmod = intXfuture % 60;
+			if(intposymod > 0 && intposydiv > 0){
+				intposydiv += 1;
+			}
+			if(intposxmod > 0 && intposxdiv > 0){
+				intposxdiv += 1;
+			}
+			System.out.println("position y: " + intposymod +" position x: " + intposxdiv);
+			System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+				blnresult = false;
+			}else{
+				if(blnUP == true){
+				g.drawImage(up1_red, intXfuture, intYfuture, null);
+				Bombermantools.trysleep();
+				g.drawImage(up2_red, intXfuture, intYfuture, null);
+				Bombermantools.trysleep();
+				intY_red = intYfuture;
+
+			}
+			else if(blnRIGHT == true){
+				g.drawImage(right1_red, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			g.drawImage(right2_red, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				intX_red = intXfuture;
+			}
+			else if(blnDOWN == true){
+				g.drawImage(down1_red, intXfuture, intYfuture, null); 
+				Bombermantools.trysleep();
+				g.drawImage(down2_red, intXfuture, intYfuture, null); 
+				Bombermantools.trysleep();
+				intY_red = intYfuture;
+			}
+			else if(blnLEFT == true){
+				g.drawImage(left1_red, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				g.drawImage(left2_red, intXfuture, intYfuture, null);
+			Bombermantools.trysleep();
+				intX_red = intXfuture;
+				}
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void yellow_move(int intYfuture,int intXfuture, boolean blnUP,
+											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			boolean blnresult = true;
+			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
+			if(blnUP == true){
+				intYfuture = intYfuture - 5;
+			}else if(blnDOWN == true){
+				intYfuture = intYfuture + 5;
+			}else if(blnRIGHT == true){
+				intXfuture = intXfuture + 5;
+			}else if(blnLEFT == true){
+				intXfuture = intXfuture - 5;
+			}	
+				
+			intposydiv = intYfuture / 60;
+			intposymod = intYfuture % 60;
+			intposxdiv = intXfuture / 60;
+			intposxmod = intXfuture % 60;
+			if(intposymod > 0 && intposydiv > 0){
+				intposydiv += 1;
+			}
+			if(intposxmod > 0 && intposxdiv > 0){
+				intposxdiv += 1;
+			}
+			System.out.println("position y: " + intposymod +" position x: " + intposxdiv);
+			System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+				blnresult = false;
+			}else{
+				if(blnUP == true){
+				g.drawImage(up1_yellow, intXfuture, intYfuture, null);
+				Bombermantools.trysleep();
+           g.drawImage(up2_yellow, intXfuture, intYfuture, null);
+           Bombermantools.trysleep();
+				intY_yellow = intYfuture;
+			}
+			else if(blnRIGHT == true){
+				g.drawImage(right1_yellow, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			g.drawImage(right2_yellow, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				intX_yellow = intXfuture;
+			}
+			else if(blnDOWN == true){
+				g.drawImage(down1_yellow, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				g.drawImage(down2_yellow, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			intY_yellow = intYfuture;
+			}
+			else if(blnLEFT == true){
+				g.drawImage(left1_yellow, intXfuture, intYfuture, null); 
+				Bombermantools.trysleep();
+				g.drawImage(left2_yellow, intXfuture, intYfuture, null);
+				Bombermantools.trysleep();
+				intX_yellow = intXfuture;
+			}
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static void white_move(int intYfuture,int intXfuture, boolean blnUP,
+											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			boolean blnresult = true;
+			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
+			if(blnUP == true){
+				intYfuture = intYfuture - 5;
+			}else if(blnDOWN == true){
+				intYfuture = intYfuture + 5;
+			}else if(blnRIGHT == true){
+				intXfuture = intXfuture + 5;
+			}else if(blnLEFT == true){
+				intXfuture = intXfuture - 5;
+			}	
+				
+			intposydiv = intYfuture / 60;
+			intposymod = intYfuture % 60;
+			intposxdiv = intXfuture / 60;
+			intposxmod = intXfuture % 60;
+			if(intposymod > 0 && intposydiv > 0){
+				intposydiv += 1;
+			}
+			if(intposxmod > 0 && intposxdiv > 0){
+				intposxdiv += 1;
+			}
+			System.out.println("position y: " + intposymod +" position x: " + intposxdiv);
+			System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+				blnresult = false;
+			}else{
+				if(blnUP == true){
+				g.drawImage(up1_white, intXfuture, intYfuture, null);
+				Bombermantools.trysleep();
+           g.drawImage(up2_white, intXfuture, intYfuture, null);
+           Bombermantools.trysleep();
+				intY_white = intYfuture;
+			}
+			else if(blnRIGHT == true){
+				g.drawImage(right1_white, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			g.drawImage(right2_white, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			intX_white = intXfuture;
+			}
+			else if(blnDOWN == true){
+				g.drawImage(down1_white, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				g.drawImage(down2_white, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+			intY_white = intYfuture;
+			}
+			else if(blnLEFT == true){
+				g.drawImage(left1_white, intXfuture, intYfuture, null); 
+			Bombermantools.trysleep();
+				g.drawImage(left2_white, intXfuture, intYfuture, null);
+			Bombermantools.trysleep();
+			intX_white = intXfuture;
+		}
+			}
+	}
 	public void paintComponent(Graphics g){
 		// Start Main Menu
 			// Main Menu
@@ -226,119 +507,27 @@ public class BombermanPanel extends JPanel{
 				intBombY = intY;
 				g.drawImage(bomb_item,intBombX,intBombY,null);
 			}
-			
-			if(blnUp == true){
-				intY = intY - 5;
-				g.drawImage(up1, intX, intY, null);
-				Bombermantools.trysleep();
-           g.drawImage(up2, intX, intY, null);
-           Bombermantools.trysleep();
+
+			if(blnUp || blnDown || blnRight || blnLeft){
+				BombermanPanel.blue_move(intY,intX,blnUp,blnDown,blnRight,blnLeft,g);
+				System.out.println("block first player");
+				System.out.println("inty: " + intY +" intx: " + intX);
 			}
-			else if(blnRight == true){
-				intX = intX + 5;
-				g.drawImage(right1, intX, intY, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2, intX, intY, null); 
-			Bombermantools.trysleep();
+			if(blnUp_red || blnDown_red || blnRight_red || blnLeft_red){
+				BombermanPanel.red_move(intY_red,intX_red,blnUp_red,blnDown_red,blnRight_red,blnLeft_red,g);
+				System.out.println("block second player");
+				System.out.println("inty: " + intY +" intx: " + intX);
 			}
-			else if(blnDown == true){
-				intY = intY + 5;
-				g.drawImage(down1, intX, intY, null); 
-			Bombermantools.trysleep();
-				g.drawImage(down2, intX, intY, null); 
-			Bombermantools.trysleep();
+			if(blnUp_yellow || blnDown_yellow || blnRight_yellow || blnLeft_yellow){
+				BombermanPanel.yellow_move(intY_yellow,intX_yellow,blnUp_yellow,blnDown_yellow,blnRight_yellow,blnLeft_yellow,g);
+				System.out.println("block third player");
+				System.out.println("inty: " + intY +" intx: " + intX);
 			}
-			else if(blnLeft == true){
-				intX = intX - 5;
-				g.drawImage(left1, intX, intY, null); 
-			Bombermantools.trysleep();
-				g.drawImage(left2, intX, intY, null);
-			Bombermantools.trysleep();
+			if(blnUp_white || blnDown_white || blnRight_white || blnLeft_white){
+				BombermanPanel.white_move(intY_white,intX_white,blnUp_white,blnDown_white,blnRight_white,blnLeft_white,g);
+				System.out.println("block fourth player");
+				System.out.println("inty: " + intY +" intx: " + intX);
 			}
-			else if(blnUp_red == true){
-				intY_red = intY_red - 5;
-				g.drawImage(up1_red, intX_red, intY_red, null);
-				Bombermantools.trysleep();
-           g.drawImage(up2_red, intX_red, intY_red, null);
-           Bombermantools.trysleep();
-			}
-			else if(blnRight_red == true){
-				intX_red = intX_red + 5;
-				g.drawImage(right1_red, intX_red, intY_red, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2_red, intX_red, intY_red, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnDown_red == true){
-				intY_red = intY_red + 5;
-				g.drawImage(down1_red, intX_red, intY_red, null); 
-			Bombermantools.trysleep();
-				g.drawImage(down2_red, intX_red, intY_red, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnLeft_red == true){
-				intX_red = intX_red - 5;
-				g.drawImage(left1_red, intX_red, intY_red, null); 
-			Bombermantools.trysleep();
-				g.drawImage(left2_red, intX_red, intY_red, null);
-			Bombermantools.trysleep();
-				}
-			else if(blnUp_yellow == true){
-				intY_yellow = intY_yellow - 5;
-				g.drawImage(up1_yellow, intX_yellow, intY_yellow, null);
-				Bombermantools.trysleep();
-           g.drawImage(up2_yellow, intX_yellow, intY_yellow, null);
-           Bombermantools.trysleep();
-			}
-			else if(blnRight_yellow == true){
-				intX_yellow = intX_yellow + 5;
-				g.drawImage(right1_yellow, intX_yellow, intY_yellow, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2_yellow, intX_yellow, intY_yellow, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnDown_yellow == true){
-				intY_yellow = intY_yellow + 5;
-				g.drawImage(down1_yellow, intX_yellow, intY_yellow, null); 
-			Bombermantools.trysleep();
-				g.drawImage(down2_yellow, intX_yellow, intY_yellow, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnLeft_yellow == true){
-				intX_yellow = intX_yellow - 5;
-				g.drawImage(left1_yellow, intX_yellow, intY_yellow, null); 
-				Bombermantools.trysleep();
-				g.drawImage(left2_yellow, intX_yellow, intY_yellow, null);
-				Bombermantools.trysleep();
-			}
-		else if(blnUp_white == true){
-				intY_white = intY_white - 5;
-				g.drawImage(up1_white, intX_white, intY_white, null);
-				Bombermantools.trysleep();
-           g.drawImage(up2_white, intX_white, intY_white, null);
-           Bombermantools.trysleep();
-			}
-			else if(blnRight_white == true){
-				intX_white = intX_white + 5;
-				g.drawImage(right1_white, intX_white, intY_white, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2_white, intX_white, intY_white, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnDown_white == true){
-				intY_white = intY_white + 5;
-				g.drawImage(down1_white, intX_white, intY_white, null); 
-			Bombermantools.trysleep();
-				g.drawImage(down2_white, intX_white, intY_white, null); 
-			Bombermantools.trysleep();
-			}
-			else if(blnLeft_white == true){
-				intX_white = intX_white - 5;
-				g.drawImage(left1_white, intX_white, intY_white, null); 
-			Bombermantools.trysleep();
-				g.drawImage(left2_white, intX_white, intY_white, null);
-			Bombermantools.trysleep();
-		}
 	}
 }
 	
