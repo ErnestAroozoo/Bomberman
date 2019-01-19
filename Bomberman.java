@@ -364,6 +364,36 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 					intMenu = 10;
 					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
 					theframe.requestFocus(); // Focus to the game instead of chat
+					if(intRand == 1){
+					try{
+						thefile = new FileReader("standard.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}	
+				}
 				}
 			}
 			// [Host Start Button]

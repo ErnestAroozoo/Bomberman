@@ -498,13 +498,29 @@ public class BombermanPanel extends JPanel{
 					}
 				} */
 			}
+		
 			g.drawImage(down1, intX, intY, null);// Default stance
 			g.drawImage(down1_red, intX_red, intY_red, null);// Default stance
 			g.drawImage(down1_yellow, intX_yellow, intY_yellow, null);// Default stance
 			g.drawImage(down1_white, intX_white, intY_white, null);// Default stance
-			if(blnPlaceBomb){
+			if(blnPlaceBomb ){
 				intBombX = intX;
 				intBombY = intY;
+				g.drawImage(bomb_item,intBombX,intBombY,null);
+			}
+			if(blnPlaceBomb_red ){
+				intBombX = intX_red;
+				intBombY = intY_red;
+				g.drawImage(bomb_item,intBombX,intBombY,null);
+			}
+			if(blnPlaceBomb_white ){
+				intBombX = intX_white;
+				intBombY = intY_white;
+				g.drawImage(bomb_item,intBombX,intBombY,null);
+			}
+			if(blnPlaceBomb_yellow ){
+				intBombX = intX_yellow;
+				intBombY = intY_yellow;
 				g.drawImage(bomb_item,intBombX,intBombY,null);
 			}
 
