@@ -57,9 +57,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
-	static int intRand = 0;
-	int intindex = 0;
 	static int intLine = 0;
+  static int intRand = 1;
+	int intindex = 0;
+	//static int intLine;
 	static String strMap[][] = new String [11][15];
 	static FileReader thefile;
 	static BufferedReader thefiledata;
@@ -375,8 +376,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				intMenu = 10;
 				blnMainMenu = false; // Start game
 				theframe.requestFocus(); // Focus to the game instead of chat
-				intRand = (int) Math.random() * 3 + 1;
-				if(intRand == 1){
+        if(intRand == 1){
 					try{
 						thefile = new FileReader("standard.csv");
 					}catch(FileNotFoundException e){
@@ -405,7 +405,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 							System.out.println("Unable to read Map");
 						}
 					}	
-				}else if(intRand == 2){
+				}/*else if(intRand == 2){
 					try{
 						thefile = new FileReader("wintermap.csv");
 					}catch(FileNotFoundException e){
@@ -463,8 +463,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 							System.out.println("Unable to read Map");
 						}
 					}
-				}
-			}
+				} */
+			}   
 		}
 		
 		// In-Game Chat (Receive)
@@ -902,7 +902,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		scrollpane_chat.getViewport().setOpaque(false);
 		scrollpane_chat.setOpaque(false);
 		scrollpane_chat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Remove ugly vertical scroll bars
-    scrollpane_chat.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Remove ugly horizontal scroll bars
+        scrollpane_chat.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Remove ugly horizontal scroll bars
 		scrollpane_chat.setSize(350, 200);
 		scrollpane_chat.setLocation(930, 485);
 		bombermanpanel.add(scrollpane_chat);
