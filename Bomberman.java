@@ -41,6 +41,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JTextField textfield_chat;
 	JTextArea textarea_chat;
 	JButton button_hoststart;
+	Timer gametimer;
 	static String strUsername = ""; // Check their username
 	static boolean blnMainMenu = true; // Start actual game when blnMainMenu = false
 	static int intMenu = 1; // Default menu card to MainMenu (intMenu = 1)
@@ -57,6 +58,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
+	static int intTimer = 180; // Timer (seconds)
+	static int intMinute = 3; // Minute from timer
+	static int intSecond = 0; // Second from timer
+	static int intRound = 1; // Game round
 	static int intLine = 0;
 	static int intRand = 1;
 	int intindex = 0;
@@ -364,6 +369,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 					intMenu = 10;
 					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
 					theframe.requestFocus(); // Focus to the game instead of chat
+					gametimer.start(); // Start the game round timer
 					if(intRand == 1){
 					try{
 						thefile = new FileReader("standard.csv");
@@ -407,7 +413,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				intMenu = 10;
 				blnMainMenu = false; // Start game
 				theframe.requestFocus(); // Focus to the game instead of chat
-        if(intRand == 1){
+				gametimer.start(); // Start the game round timer
+				if(intRand == 1){
 					try{
 						thefile = new FileReader("standard.csv");
 					}catch(FileNotFoundException e){
@@ -516,7 +523,27 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				textfield_chat.setText("");
 				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 			}
+	
+		// Game Round Timer
+		if(evt.getSource() == gametimer){
+			intTimer = intTimer - 1; // intTimer goes down by 1 every 1000 milisecond from gametimer
+			intSecond = intSecond - 1;
+			if(intSecond < 0){
+				intMinute = intMinute - 1;
+				intSecond = 59;
+			}
+			if(intTimer == 0){ // Reset timer and restart game when timer hits 0
+				System.out.println("Ending round...");
+				intRound = intRound + 1; // Increase game round number
+				intMinute = 3;
+				intSecond = 0;
+				gametimer.restart();
+				gametimer.stop();
+			}
 		}
+		
+		
+	}
 
 	public void keyReleased(KeyEvent evt){
 		if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
@@ -704,6 +731,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// Add Timer Object
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
+		
+		gametimer = new Timer(1000, this); // Game round timer
 		
 		// Menu JComponents
 		button_startgame = new JButton("Start Game");

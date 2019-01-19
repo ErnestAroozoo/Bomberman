@@ -22,6 +22,7 @@ public class BombermanPanel extends JPanel{
 	static int intCol = 0;
 	int intBombX = 0;
 	int intBombY = 0;
+	String strTime;
 	static boolean blnUp = false;
 	static boolean blnDown = false;
 	static boolean blnLeft = false;
@@ -104,6 +105,8 @@ public class BombermanPanel extends JPanel{
 	static BufferedImage helpmenu;
 	static BufferedImage highscoresmenu;
 	static BufferedImage characterselectionmenu;
+	static BufferedImage gui_keyboard;
+	static BufferedImage gui_mouse;
 
 	///JButton test;
 	///GamePanel thepanel;
@@ -433,11 +436,24 @@ public class BombermanPanel extends JPanel{
 		
 		// Start Bomberman Game
 		if(Bomberman.blnMainMenu == false){
-			// Set Background
+			// Set GUI Background
+			if(Bomberman.blnIsKeyboard == true){
+				g.drawImage(gui_keyboard, 0, 0, null);
+			}
+			else if(Bomberman.blnIsMouse== true){
+				g.drawImage(gui_mouse, 0, 0, null);	
+			}
+			// Draw Game Round Timer
+			strTime = String.format("%02d:%02d", Bomberman.intMinute, Bomberman.intSecond);
 			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, 1280, 720); 
+			g.setFont(new Font("Arial", Font.PLAIN, 60)); 
+			g.drawString(strTime, 1010, 130);
+			// Draw Game Round #
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial", Font.PLAIN, 24)); 
+			g.drawString(""+Bomberman.intRound, 1110, 181);
 			// Bomberman Animation
-      if(Bomberman.intRand == 1){
+			if(Bomberman.intRand == 1){
 				for(intRow = 0; intRow < 11; intRow++){
 					for(intCol = 0; intCol < 15; intCol++){
 						if(Bomberman.strMap[intRow][intCol].equals("ob")){
@@ -613,6 +629,8 @@ public class BombermanPanel extends JPanel{
 			helpmenu = ImageIO.read(new File("helpmenu.png"));
 			highscoresmenu = ImageIO.read(new File("highscores.png"));
 			characterselectionmenu = ImageIO.read(new File("characterselectionmenu.png"));
+			gui_keyboard = ImageIO.read(new File("gui_keyboard.png"));
+			gui_mouse = ImageIO.read(new File("gui_mouse.png"));
 			
 		}
 		catch(IOException e){
