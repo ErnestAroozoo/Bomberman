@@ -57,7 +57,13 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
-
+	static int intRand = 0;
+	int intindex = 0;
+	static int intLine = 0;
+	static String strMap[][] = new String [11][15];
+	static FileReader thefile;
+	static BufferedReader thefiledata;
+	String strSplit[];
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -219,19 +225,18 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// HostMenu (intMenu == 7)
 		else if(intMenu == 7){
 			System.out.println("HostMenu");
-			button_hostcontinue.setVisible(true); // Unhide necessary JComponents
-			ssm.sendText("connect");
-			// Connection Check (Only allow Host to continue if it's connected with Client)
-		
+			button_hostcontinue.setVisible(true); // Unhide necessary JComponents	
 			// [Host Continue Button]
 			if(evt.getSource() == button_hostcontinue){		
 					button_hostcontinue.setVisible(false); // Hide unecessary JComponents
 					intMenu = 9; // Change to CharacterSelectionMenu
 					ssm.sendText("characterselectionmenu"); // Tell all clients to go to CharacterSelectionMenu
 				}
+      // Connection Check (Only allow Host to continue if it's connected with Client)
 			else if(evt.getSource() == ssm){
 				strConnectionStatus = ssm.readText();
 				if(strConnectionStatus.equals("connect")){
+          ssm.sendText("connected");
 					intPlayer = intPlayer + 1; // Count total number of players connected to the game
 					textarea_chat.setVisible(true); // Show chat only when there are people connected
 					scrollpane_chat.setVisible(true);
@@ -258,7 +263,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 			// Connection Check (Only allow Client to continue if it's connected with Host)
 			else if(evt.getSource() == ssm){
 				strConnectionStatus = ssm.readText();
-				if(strConnectionStatus.equals("connect")){
+				if(strConnectionStatus.equals("connected")){
 					textarea_chat.setVisible(true); // Show chat only when there are people connected
 					scrollpane_chat.setVisible(true);
 					textfield_chat.setVisible(true);
@@ -370,13 +375,102 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				intMenu = 10;
 				blnMainMenu = false; // Start game
 				theframe.requestFocus(); // Focus to the game instead of chat
+				intRand = (int) Math.random() * 3 + 1;
+				if(intRand == 1){
+					try{
+						thefile = new FileReader("standard.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}	
+				}else if(intRand == 2){
+					try{
+						thefile = new FileReader("wintermap.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}
+				}else if(intRand == 3){
+										try{
+						thefile = new FileReader("firemap.csv");
+					}catch(FileNotFoundException e){
+						System.out.println("Unable to read from the file");
+					}			
+		
+					thefiledata = new BufferedReader(thefile);
+		
+					String strLine = "";
+					try{
+						strLine = thefiledata.readLine();
+					}catch(IOException e){
+						System.out.println("Unable to read Map");
+					}
+
+					while(strLine != null){
+						strSplit = strLine.split(",");
+						for(intindex = 0; intindex < 15; intindex++){
+							strMap[intLine][intindex] = strSplit[intindex];
+							System.out.println(strMap[intLine][intindex]);
+						}
+							intLine++;
+						try{
+							strLine = thefiledata.readLine();
+						}catch(IOException e){
+							System.out.println("Unable to read Map");
+						}
+					}
+				}
 			}
 		}
 		
 		// In-Game Chat (Receive)
 		if(evt.getSource() == ssm){
 				strChat = ssm.readText();
-				if(!strChat.equals("connect") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") && !strChat.equals("characterselectionmenu") ){ // Blacklist I/O data so they don't show in chat area
+				if(!strChat.equals("connect") && !strChat.equals("connected") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") && !strChat.equals("characterselectionmenu") ){ // Blacklist I/O data so they don't show in chat area
 					textarea_chat.append(strChat + "\n");
 					textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 				}
@@ -393,41 +487,132 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		}
 
 	public void keyReleased(KeyEvent evt){
-		if(evt.getKeyCode() == 37){ // Left Arrow Key
+		if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
 			bombermanpanel.blnLeft = false;
 		}
-		else if(evt.getKeyCode() == 38){ // Up Arrow Key
+		else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
 			bombermanpanel.blnUp = false;
 		}
-		else if(evt.getKeyCode() == 39){ // Right Arrow Key
+		else if(evt.getKeyCode() == 39 && blnBlue == true){ // Right Arrow Key
 			bombermanpanel.blnRight = false;
 		}
-		else if(evt.getKeyCode() == 40){ // Down Arrow Key
+		else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
 			bombermanpanel.blnDown = false;
 		}
-		else if(evt.getKeyCode() == 32){ // Bomb Key
+		else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
 			bombermanpanel.blnPlaceBomb = false;
+		}
+		else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_yellow = false;
+		}
+		else if(evt.getKeyCode() == 38 && blnYellow == true){ // Up Arrow Key
+			bombermanpanel.blnUp_yellow = false;
+		}
+		else if(evt.getKeyCode() == 39 && blnYellow == true){ // Right Arrow Key
+			bombermanpanel.blnRight_yellow = false;
+		}
+		else if(evt.getKeyCode() == 40 && blnYellow == true){ // Down Arrow Key
+			bombermanpanel.blnDown_yellow = false;
+		}
+		else if(evt.getKeyCode() == 32 && blnYellow == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_yellow = false;
+		}
+		else if(evt.getKeyCode() == 37 && blnRed == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_red = false;
+		}
+		else if(evt.getKeyCode() == 38 && blnRed == true){ // Up Arrow Key
+			bombermanpanel.blnUp_red = false;
+		}
+		else if(evt.getKeyCode() == 39 && blnRed == true){ // Right Arrow Key
+			bombermanpanel.blnRight_red = false;
+		}
+		else if(evt.getKeyCode() == 40 && blnRed == true){ // Down Arrow Key
+			bombermanpanel.blnDown_red = false;
+		}
+		else if(evt.getKeyCode() == 32 && blnRed == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_red = false;
+		}
+		else if(evt.getKeyCode() == 37 && blnWhite == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_white = false;
+		}
+		else if(evt.getKeyCode() == 38 && blnWhite == true){ // Up Arrow Key
+			bombermanpanel.blnUp_white = false;
+		}
+		else if(evt.getKeyCode() == 39 && blnWhite == true){ // Right Arrow Key
+			bombermanpanel.blnRight_white = false;
+		}
+		else if(evt.getKeyCode() == 40 && blnWhite == true){ // Down Arrow Key
+			bombermanpanel.blnDown_white = false;
+		}
+		else if(evt.getKeyCode() == 32 && blnWhite == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_white = false;
 		}
 	}
 
 	public void keyPressed(KeyEvent evt){ 
-		if(evt.getKeyCode() == 37){ // Left Arrow Key
+		if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
 			bombermanpanel.blnLeft = true;
 		}
-		else if(evt.getKeyCode() == 38){ // Up Arrow Key
+		else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
 			bombermanpanel.blnUp = true;
 			System.out.println("up");
 		}
-		else if(evt.getKeyCode() == 39){ // Right Arrow Key
+		else if(evt.getKeyCode() == 39 && blnBlue == true){ // Right Arrow Key
 			bombermanpanel.blnRight = true;
 			System.out.println("right");
 		}
-		else if(evt.getKeyCode() == 40){ // Down Arrow Key
+		else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
 			bombermanpanel.blnDown = true;
 		}
-		else if(evt.getKeyCode() == 32){ // Bomb Key
+		else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
 			bombermanpanel.blnPlaceBomb = true;
 		}
+		else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_yellow = true;
+		}
+		else if(evt.getKeyCode() == 38 && blnYellow == true){ // Up Arrow Key
+			bombermanpanel.blnUp_yellow = true;
+		}
+		else if(evt.getKeyCode() == 39 && blnYellow == true){ // Right Arrow Key
+			bombermanpanel.blnRight_yellow = true;
+		}
+		else if(evt.getKeyCode() == 40 && blnYellow == true){ // Down Arrow Key
+			bombermanpanel.blnDown_yellow = true;
+		}
+		else if(evt.getKeyCode() == 32 && blnYellow == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_yellow = true;
+		}
+		else if(evt.getKeyCode() == 37 && blnRed == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_red = true;
+		}
+		else if(evt.getKeyCode() == 38 && blnRed == true){ // Up Arrow Key
+			bombermanpanel.blnUp_red = true;
+		}
+		else if(evt.getKeyCode() == 39 && blnRed == true){ // Right Arrow Key
+			bombermanpanel.blnRight_red = true;
+		}
+		else if(evt.getKeyCode() == 40 && blnRed == true){ // Down Arrow Key
+			bombermanpanel.blnDown_red = true;
+		}
+		else if(evt.getKeyCode() == 32 && blnRed == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_red = true;
+		}
+		else if(evt.getKeyCode() == 37 && blnWhite == true){ // Left Arrow Key
+			bombermanpanel.blnLeft_white = true;
+		}
+		else if(evt.getKeyCode() == 38 && blnWhite == true){ // Up Arrow Key
+			bombermanpanel.blnUp_white = true;
+		}
+		else if(evt.getKeyCode() == 39 && blnWhite == true){ // Right Arrow Key
+			bombermanpanel.blnRight_white = true;
+		}
+		else if(evt.getKeyCode() == 40 && blnWhite == true){ // Down Arrow Key
+			bombermanpanel.blnDown_white = true;
+		}
+		else if(evt.getKeyCode() == 32 && blnWhite == true){ // Bomb Key
+			bombermanpanel.blnPlaceBomb_white = true;
+		}
+		
 	}
 
 	public void keyTyped(KeyEvent evt){ 
@@ -717,7 +902,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		scrollpane_chat.getViewport().setOpaque(false);
 		scrollpane_chat.setOpaque(false);
 		scrollpane_chat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER); // Remove ugly vertical scroll bars
-        scrollpane_chat.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Remove ugly horizontal scroll bars
+    scrollpane_chat.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Remove ugly horizontal scroll bars
 		scrollpane_chat.setSize(350, 200);
 		scrollpane_chat.setLocation(930, 485);
 		bombermanpanel.add(scrollpane_chat);
