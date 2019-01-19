@@ -58,13 +58,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
 	static int intLine = 0;
-  static int intRand = 1;
+	static int intRand = 1;
 	int intindex = 0;
 	//static int intLine;
 	static String strMap[][] = new String [11][15];
 	static FileReader thefile;
 	static BufferedReader thefiledata;
 	String strSplit[];
+
 	
 	// Methods
 	public void actionPerformed(ActionEvent evt){
@@ -481,6 +482,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				System.out.println(strUsername + ": " + textfield_chat.getText());
 				ssm.sendText(strUsername + ": " + textfield_chat.getText());
 				textarea_chat.append(strUsername + ": " + textfield_chat.getText() + "\n");
+				theframe.requestFocus();
 				textfield_chat.setText("");
 				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 			}
