@@ -633,63 +633,67 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
   public void keyReleased(KeyEvent evt){
     if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
       bombermanpanel.blnLeft = false;
+      ssm.sendText("bl");
     }
     else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
       bombermanpanel.blnUp = false;
+      ssm.sendText("bu");
     }
     else if(evt.getKeyCode() == 39 && blnBlue == true){ // Right Arrow Key
       bombermanpanel.blnRight = false;
+      ssm.sendText("br");
     }
     else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
       bombermanpanel.blnDown = false;
+      ssm.sendText("bd");
     }
-    /*else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
-     bombermanpanel.blnPlaceBomb = false;
-     }*/
     else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
       bombermanpanel.blnLeft_yellow = false;
+      ssm.sendText("yl");
     }
     else if(evt.getKeyCode() == 38 && blnYellow == true){ // Up Arrow Key
       bombermanpanel.blnUp_yellow = false;
+      ssm.sendText("yu");
     }
     else if(evt.getKeyCode() == 39 && blnYellow == true){ // Right Arrow Key
       bombermanpanel.blnRight_yellow = false;
+      ssm.sendText("yr");
     }
     else if(evt.getKeyCode() == 40 && blnYellow == true){ // Down Arrow Key
       bombermanpanel.blnDown_yellow = false;
-    }
-    else if(evt.getKeyCode() == 32 && blnYellow == true){ // Bomb Key
-      bombermanpanel.blnPlaceBomb_yellow = false;
+      ssm.sendText("yd");
     }
     else if(evt.getKeyCode() == 37 && blnRed == true){ // Left Arrow Key
       bombermanpanel.blnLeft_red = false;
+      ssm.sendText("rl");
     }
     else if(evt.getKeyCode() == 38 && blnRed == true){ // Up Arrow Key
       bombermanpanel.blnUp_red = false;
+      ssm.sendText("ru");
     }
     else if(evt.getKeyCode() == 39 && blnRed == true){ // Right Arrow Key
       bombermanpanel.blnRight_red = false;
+      ssm.sendText("rr");
     }
     else if(evt.getKeyCode() == 40 && blnRed == true){ // Down Arrow Key
       bombermanpanel.blnDown_red = false;
-    }
-    else if(evt.getKeyCode() == 32 && blnRed == true){ // Bomb Key
-      bombermanpanel.blnPlaceBomb_red = false;
+      ssm.sendText("rd");
     }
     else if(evt.getKeyCode() == 37 && blnWhite == true){ // Left Arrow Key
       bombermanpanel.blnLeft_white = false;
+      ssm.sendText("wl");
     }
     else if(evt.getKeyCode() == 38 && blnWhite == true){ // Up Arrow Key
       bombermanpanel.blnUp_white = false;
+      ssm.sendText("wu");
     }
     else if(evt.getKeyCode() == 39 && blnWhite == true){ // Right Arrow Key
       bombermanpanel.blnRight_white = false;
+      ssm.sendText("wr");
     }
     else if(evt.getKeyCode() == 40 && blnWhite == true){ // Down Arrow Key
       bombermanpanel.blnDown_white = false;
-    }
-    else if(evt.getKeyCode() == 32 && blnWhite == true){ // Bomb Key
-      bombermanpanel.blnPlaceBomb_white = false;
+      ssm.sendText("wd");
     }
   }
   
