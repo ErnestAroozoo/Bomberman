@@ -15,7 +15,7 @@ import java.io.*;
 public class Bomberman implements ActionListener, KeyListener, MouseListener, MouseMotionListener{
 	// Properties
 	JFrame theframe;
-	BombermanPanel bombermanpanel;
+	static BombermanPanel bombermanpanel;
 	SuperSocketMaster ssm;
 	Timer thetimer;
 	JButton button_startgame;
@@ -41,7 +41,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	JTextField textfield_chat;
 	JTextArea textarea_chat;
 	JButton button_hoststart;
-	Timer gametimer;
 	static String strUsername = ""; // Check their username
 	static boolean blnMainMenu = true; // Start actual game when blnMainMenu = false
 	static int intMenu = 1; // Default menu card to MainMenu (intMenu = 1)
@@ -58,21 +57,50 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 	static boolean blnYellow = false; // Check if they selected Yellow Bomberman
 	static boolean blnRed = false; // Check if they selected Red Bomberman
 	static boolean blnWhite = false; // Check if they selected White Bomberman
-	static int intTimer = 180; // Timer (seconds)
-	static int intMinute = 3; // Minute from timer
-	static int intSecond = 0; // Second from timer
-	static int intRound = 1; // Game round
 	static int intLine = 0;
-	static int intRand = 1;
+  static int intRand = 1;
 	int intindex = 0;
 	//static int intLine;
 	static String strMap[][] = new String [11][15];
+	static String stritem[][] = new String [11][15];
 	static FileReader thefile;
 	static BufferedReader thefiledata;
 	String strSplit[];
-
+	
 	
 	// Methods
+	
+	
+		public static void generateitem(int intitemnum){
+		boolean blnfound = false;
+		int introwitem;
+		int intcolitem;
+		double dblrow;
+		double dblcol;
+		String stritem = "";
+		
+		if(intitemnum == 1){
+			stritem = "itm1";
+		}else if(intitemnum == 2){
+			stritem = "itm2";
+		}else if(intitemnum == 3){
+			stritem = "itm3";
+		}
+		while(blnfound == false){
+			dblrow = Math.random() * 9 + 1;
+			dblcol =  Math.random() * 13 + 1;
+			introwitem = (int) dblrow;
+			intcolitem = (int) dblcol;
+			if(Bomberman.strMap[introwitem][intcolitem].equals("r")){
+				if(Bomberman.stritem[introwitem][intcolitem] == "na"){
+					Bomberman.stritem[introwitem][intcolitem] = stritem;
+					blnfound = true;
+				}
+			}
+		}
+	}
+	
+	
 	public void actionPerformed(ActionEvent evt){
 		// JPanel Refresh 60 FPS
 		if(evt.getSource() == thetimer){
@@ -266,10 +294,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				ssm.connect(); 
 				ssm.sendText("connect");
 				ssm.sendText(strUsername + " has joined the game. \n"); // Send message that you've joined their game
-				button_guestconnect.setVisible(false); // hide unnecessary JComponents
-				textfield_ip.setVisible(false);
-				button_guestconnect.setEnabled(false); // hide unnecessary JComponents
-				textfield_ip.setEnabled(false);
 			}
 			// Connection Check (Only allow Client to continue if it's connected with Host)
 			else if(evt.getSource() == ssm){
@@ -373,37 +397,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 					intMenu = 10;
 					blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
 					theframe.requestFocus(); // Focus to the game instead of chat
-					gametimer.start(); // Start the game round timer
-					if(intRand == 1){
-					try{
-						thefile = new FileReader("standard.csv");
-					}catch(FileNotFoundException e){
-						System.out.println("Unable to read from the file");
-					}			
-		
-					thefiledata = new BufferedReader(thefile);
-		
-					String strLine = "";
-					try{
-						strLine = thefiledata.readLine();
-					}catch(IOException e){
-						System.out.println("Unable to read Map");
-					}
-
-					while(strLine != null){
-						strSplit = strLine.split(",");
-						for(intindex = 0; intindex < 15; intindex++){
-							strMap[intLine][intindex] = strSplit[intindex];
-							System.out.println(strMap[intLine][intindex]);
-						}
-							intLine++;
-						try{
-							strLine = thefiledata.readLine();
-						}catch(IOException e){
-							System.out.println("Unable to read Map");
-						}
-					}	
-				}
 				}
 			}
 			// [Host Start Button]
@@ -417,8 +410,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				intMenu = 10;
 				blnMainMenu = false; // Start game
 				theframe.requestFocus(); // Focus to the game instead of chat
-				gametimer.start(); // Start the game round timer
-				if(intRand == 1){
+        if(intRand == 1){
 					try{
 						thefile = new FileReader("standard.csv");
 					}catch(FileNotFoundException e){
@@ -447,7 +439,29 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 							System.out.println("Unable to read Map");
 						}
 					}	
-				}/*else if(intRand == 2){
+				}
+				int intRow2;
+				int intCol2;
+				for(intRow2 = 0; intRow2 < 11; intRow2++){
+					for(intCol2 = 0; intCol2 < 15; intCol2++){
+						stritem[intRow2][intCol2] = "na";
+					}
+				}
+				for(intRow2 = 0; intRow2 < 4; intRow2++){
+					Bomberman.generateitem(1);
+				}
+				for(intRow2 = 0; intRow2 < 4; intRow2++){
+					Bomberman.generateitem(2);
+				}
+				for(intRow2 = 0; intRow2 < 3; intRow2++){
+					Bomberman.generateitem(3);
+				}
+				stritem[1][3] = "itm1";
+				stritem[3][1] = "itm2";
+				stritem[1][4] = "itm3";	
+
+				
+				/*else if(intRand == 2){
 					try{
 						thefile = new FileReader("wintermap.csv");
 					}catch(FileNotFoundException e){
@@ -523,29 +537,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				System.out.println(strUsername + ": " + textfield_chat.getText());
 				ssm.sendText(strUsername + ": " + textfield_chat.getText());
 				textarea_chat.append(strUsername + ": " + textfield_chat.getText() + "\n");
-				theframe.requestFocus();
 				textfield_chat.setText("");
 				textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
 			}
-	
-		// Game Round Timer
-		if(evt.getSource() == gametimer){
-			intTimer = intTimer - 1; // intTimer goes down by 1 every 1000 milisecond from gametimer
-			intSecond = intSecond - 1;
-			if(intSecond < 0){
-				intMinute = intMinute - 1;
-				intSecond = 59;
-			}
-			if(intTimer < 0){ // Reset timer and restart game when timer hits 0
-				System.out.println("Ending round...");
-				intRound = intRound + 1; // Increase game round number
-				intMinute = 3;
-				intSecond = 0;
-				gametimer.restart();
-				gametimer.stop();
-			}
 		}
-	}
 
 	public void keyReleased(KeyEvent evt){
 		if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
@@ -560,9 +555,9 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
 			bombermanpanel.blnDown = false;
 		}
-		else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
+		/*else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
 			bombermanpanel.blnPlaceBomb = false;
-		}
+		}*/
 		else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
 			bombermanpanel.blnLeft_yellow = false;
 		}
@@ -733,8 +728,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 		// Add Timer Object
 		thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
 		thetimer.start();
-		
-		gametimer = new Timer(1000, this); // Game round timer
 		
 		// Menu JComponents
 		button_startgame = new JButton("Start Game");
