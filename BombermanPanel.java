@@ -141,31 +141,55 @@ public class BombermanPanel extends JPanel{
 			int intposymod;
 			int intposxdiv;
 			int intposxmod;
-			int intnewposx;
-			int intnewposy;
+			
+			
+			int intnewtopleftposx;
+			int intnewtopleftposy;
+			int intnewtoprightposx;
+			int intnewtoprightposy;
+			int intnewbotleftposx;
+			int intnewbotleftposy;
+			int intnewbotrightposx;
+			int intnewbotrightposy;
+			
+			
+			
+			
+			
+			
+			
 			boolean blnresult = true;
 			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
-			intnewposx = intXfuture;
-			intnewposy = intYfuture;
 			
 			if(blnUP == true){
 				intYfuture = intYfuture - 5;
-				intnewposy = intYfuture;
 			}else if(blnDOWN == true){
 				intYfuture = intYfuture + 5;
-				intnewposy = intYfuture + 60;
 			}else if(blnRIGHT == true){
 				intXfuture = intXfuture + 5;
-				intnewposx = intXfuture + 30;
 			}else if(blnLEFT == true){
 				intXfuture = intXfuture - 5;
-				intnewposy = intYfuture;
 			}	
-			System.out.println("future posy: " + intnewposy +" future posx: " + intnewposx);
-			intposydiv = intnewposy / 60;
-			intposymod = intnewposy % 60;
-			intposxdiv = intnewposx / 60;
-			intposxmod = intnewposx % 60;
+			intnewtopleftposx = intXfuture;
+			intnewtopleftposy = intYfuture;
+			intnewbotleftposx = intXfuture;
+			intnewbotleftposy = intYfuture + 59;
+			
+			intnewtoprightposx = intXfuture + 35;
+			intnewtoprightposy = intYfuture;
+			intnewbotrightposx = intXfuture + 35;
+			intnewbotrightposy = intYfuture + 59;
+			
+			System.out.println("toplefty: "+intnewtopleftposy + "topleftx: " + intnewtopleftposx);
+			System.out.println("toprighty: "+intnewtoprightposy + "toprightx: " + intnewtoprightposx);
+			System.out.println("botlefty: "+intnewbotleftposy + "botleftx: " +intnewbotleftposx);
+			System.out.println("botrighty: "+intnewbotrightposy + "botrightx: " +intnewbotrightposx);
+			
+			System.out.println("future posy: " + intYfuture +" future posx: " + intXfuture);
+			intposydiv = intnewtopleftposy / 60;
+			//intposymod = intnewposy % 60;
+			intposxdiv = intnewtopleftposx / 60;
+			//intposxmod = intnewposx % 60;
 			
 			/*if(intposymod > 0 && intposydiv > 0){
 				intposydiv += 1;
@@ -179,7 +203,46 @@ public class BombermanPanel extends JPanel{
 			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
 				blnresult = false;
 				System.out.println("equal to ob");
-			}else{
+			}
+			
+			if(blnresult){
+				
+				intposydiv = intnewtoprightposy / 60;
+				intposxdiv = intnewtoprightposx / 60;
+				System.out.println("topright y: " + intposydiv +" position x: " + intposxdiv);
+				System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+					System.out.println("equal to ob");
+				}
+			}
+				
+				
+				
+				if(blnresult){
+						intposydiv = intnewbotrightposy / 60;
+						intposxdiv = intnewbotrightposx / 60;
+						System.out.println("botright y: " + intposydiv +" position x: " + intposxdiv);
+						System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+					System.out.println("equal to ob");
+				}
+			}
+				
+				if(blnresult){
+						intposydiv = intnewbotleftposy / 60;
+						intposxdiv = intnewbotleftposx / 60;
+						System.out.println("botleft y: " + intposydiv +" position x: " + intposxdiv);
+						System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+					System.out.println("equal to ob");
+				}
+			}
+				
+			
+		if(blnresult){
 				if(blnUP == true){
 				g.drawImage(up1, intX, intYfuture, null);
 				Bombermantools.trysleep();
@@ -1052,7 +1115,7 @@ public class BombermanPanel extends JPanel{
 			if(blnUp || blnDown || blnRight || blnLeft){
 				BombermanPanel.blue_move(intY,intX,blnUp,blnDown,blnRight,blnLeft,g);
 				System.out.println("block first player");
-				System.out.println("inty: " + intY +" intx: " + intX);
+				System.out.println("firstplayer y: " + intY +" intx: " + intX);
 			}
 			if(blnUp_red || blnDown_red || blnRight_red || blnLeft_red){
 				BombermanPanel.red_move(intY_red,intX_red,blnUp_red,blnDown_red,blnRight_red,blnLeft_red,g);
