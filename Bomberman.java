@@ -268,6 +268,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 				ssm.sendText(strUsername + " has joined the game. \n"); // Send message that you've joined their game
 				button_guestconnect.setVisible(false); // hide unnecessary JComponents
 				textfield_ip.setVisible(false);
+				button_guestconnect.setEnabled(false); // hide unnecessary JComponents
+				textfield_ip.setEnabled(false);
 			}
 			// Connection Check (Only allow Client to continue if it's connected with Host)
 			else if(evt.getSource() == ssm){
