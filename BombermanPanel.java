@@ -21,8 +21,7 @@ public class BombermanPanel extends JPanel{
 	static int intY_white = 600;
     static int intRow = 0;
 	static int intCol = 0;
-	static int intBombX = 0;
-	static int intBombY = 0;
+
 	static boolean blnUp = false;
 	static boolean blnDown = false;
 	static boolean blnLeft = false;
@@ -50,6 +49,22 @@ public class BombermanPanel extends JPanel{
 	static int intbombcount_blue = 0;
 	static boolean blninvicible_blue = false;
 	static Timestamp timestamp_blue;
+	static long bomb1duration_blue = 0;
+	static long bomb2duration_blue = 0;
+	static long bomb3duration_blue = 0;
+	static long bomb4duration_blue = 0;
+	boolean blnbomb1set = false;
+	boolean blnbomb2set = false;
+	boolean blnbomb3set = false;
+	boolean blnbomb4set = false;
+	static int intBombX_blue = 0;
+	static int intBombY_blue = 0;
+	static int intBomb2X_blue = 0;
+	static int intBomb2Y_blue = 0;
+	static int intBomb3X_blue = 0;
+	static int intBomb3Y_blue = 0;
+	static int intBomb4X_blue = 0;
+	static int intBomb4Y_blue = 0;
 	
 	static int intbombrange_red = 0;
 	static int intbombcount_red = 0;
@@ -65,6 +80,7 @@ public class BombermanPanel extends JPanel{
 	static int intbombcount_white = 0;
 	static boolean blninvicible_white = false;
 	//static Timestamp timestamp_blue;
+	
 
 	
 	static BufferedImage up1;
@@ -159,6 +175,8 @@ public class BombermanPanel extends JPanel{
 			
 			
 			boolean blnresult = true;
+		  System.out.println("Blue MOve strting   " );
+		  System.out.println("  " );
 			System.out.println("future y: " + intYfuture +" future x: " + intXfuture);
 			
 			if(blnUP == true){
@@ -200,10 +218,30 @@ public class BombermanPanel extends JPanel{
 				
 			System.out.println("position y: " + intposydiv +" position x: " + intposxdiv);
 			System.out.println("array: " +Bomberman.strMap[intposydiv][intposxdiv]);
+			
 			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
 				blnresult = false;
 				System.out.println("equal to ob");
 			}
+			
+			
+			if(blnresult){
+				System.out.println("  " );
+							System.out.println("array for item : " +Bomberman.strMap[intposydiv][intposxdiv]);
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm1")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombrange_blue += 1;
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm2")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombcount_blue += 1;     //bomb
+					System.out.println("bombitem count movement: "+intbombcount_blue);
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm3")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					blninvicible_blue = true;
+				}
+			}
+			
+			
 			
 			if(blnresult){
 				
@@ -217,7 +255,7 @@ public class BombermanPanel extends JPanel{
 				}
 			}
 				
-				
+			
 				
 				if(blnresult){
 						intposydiv = intnewbotrightposy / 60;
@@ -279,15 +317,7 @@ public class BombermanPanel extends JPanel{
 			
 			
 			
-			if(blnresult){
-				if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm1")){
-					intbombrange_blue += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm2")){
-					intbombcount_blue += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm3")){
-					blninvicible_blue = true;
-				}
-			}
+
 			
 			
 			
@@ -550,12 +580,13 @@ public class BombermanPanel extends JPanel{
 			
 	}
 	
-	
-	public static void bombposition(Graphics g){
+	/* public static void bombposition_original(int intBombX,int intBombY,Graphics g){
+		
 			int intposydiv;
 			int intposymod;
 			int intposxdiv;
 			int intposxmod;
+			
 			
 			
 			intposydiv = intBombY / 60;
@@ -663,12 +694,193 @@ public class BombermanPanel extends JPanel{
 			}
 			
 
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void bombposition(int intBombX,int intBombY,int intrange,Graphics g){
+		
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			int intcountrange;
+			boolean blnobfound = false;
+			
+			
+			
+			intposydiv = intBombY / 60;
+			intposymod = intBombY % 60;
+			intposxdiv = intBombX / 60;
+			intposxmod = intBombX % 60;
+			if(intposymod > 30 && intposydiv > 0){
+				intposydiv += 1;
+			}
+			if(intposxmod > 30 && intposxdiv > 0){
+				intposxdiv += 1;
+			}
+			
+			System.out.println("posx: "+intposxdiv+"posy: "+intposydiv);
+			if(intposxdiv == 1 && intposydiv == 9){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv + 1].equals("ob")){
+					g.drawImage(fire_rightend,intBombX + 60,intBombY,null);
+				}
+			}else if(intposxdiv == 13 && intposydiv == 9){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv - 1].equals("ob")){
+					g.drawImage(fire_leftend,intBombX - 60,intBombY,null);
+				}
+			}else if(intposxdiv == 1 && intposydiv == 1){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				
+				intcountrange = 0;
+				blnobfound = false;
+				while(intcountrange <= intrange && blnobfound == false){
+					intcountrange += 1;
+					if(!Bomberman.strMap[intposydiv + intcountrange][intposxdiv].equals("ob")){
+						if(intcountrange < intrange){
+							g.drawImage(fire_vertical,intBombX, intBombY + (60 * intcountrange),null);
+						}else{
+							g.drawImage(fire_downend,intBombX, intBombY + (60 * intcountrange),null);
+						}
+					}else{ 
+						blnobfound = true;
+					}
+				}
+				intcountrange = 0;
+				blnobfound = false;
+				while(intcountrange <= intrange && blnobfound == false){
+				intcountrange += 1;
+				if(!Bomberman.strMap[intposydiv][intposxdiv + intcountrange].equals("ob")){
+						if(intcountrange < intrange){
+							g.drawImage(fire_horizontal,intBombX + (60 * intcountrange), intBombY,null);
+						}else{
+							g.drawImage(fire_rightend,intBombX + (60* intcountrange),intBombY,null);
+						}
+					
+				}else{ 
+					blnobfound = true;
+				}
+			}
+			}else if(intposxdiv == 13 && intposydiv == 1){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv + 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_downend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv - 1].equals("ob")){
+					g.drawImage(fire_leftend,intBombX - 60,intBombY,null);
+				}
+			}else if(intposxdiv == 1){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX, intBombY - 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv + 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_downend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv + 1].equals("ob")){
+					g.drawImage(fire_rightend,intBombX + 60,intBombY,null);
+				}
+			}else if(intposxdiv == 13){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX, intBombY - 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv + 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_downend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv - 1].equals("ob")){
+					g.drawImage(fire_leftend,intBombX - 60,intBombY,null);
+				}
+			}else if(intposydiv == 1){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				
+				intcountrange = 0;
+				blnobfound = false;
+				while(intcountrange <= intrange && blnobfound == false){
+					intcountrange += 1;
+					if(!Bomberman.strMap[intposydiv + intcountrange][intposxdiv].equals("ob")){
+						if(intcountrange < intrange){
+							g.drawImage(fire_vertical,intBombX, intBombY + (60 * intcountrange),null);
+						}else{
+							g.drawImage(fire_downend,intBombX, intBombY + (60 * intcountrange),null);
+						}
+					}else{ 
+						blnobfound = true;
+					}
+				}
+				intcountrange = 0;
+				blnobfound = false;
+				while(intcountrange <= intrange && blnobfound == false){
+					intcountrange += 1;
+				if(!Bomberman.strMap[intposydiv][intposxdiv - intcountrange].equals("ob")){
+						if(intcountrange < intrange){
+							g.drawImage(fire_horizontal,intBombX - (60 * intcountrange), intBombY,null);
+						}else{
+							g.drawImage(fire_leftend,intBombX - (60 * intcountrange),intBombY,null);
+						}
+					
+				}else{ 
+						blnobfound = true;
+					}
+				}
+				intcountrange = 0;
+				blnobfound = false;
+				while(intcountrange <= intrange && blnobfound == false){
+					intcountrange += 1;
+				if(!Bomberman.strMap[intposydiv][intposxdiv + intcountrange].equals("ob")){
+					g.drawImage(fire_rightend,intBombX + 60,intBombY,null);
+				}else{ 
+						blnobfound = true;
+					}
+				}
+				
+			}else if(intposydiv == 9){
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv - 1].equals("ob")){
+					g.drawImage(fire_leftend,intBombX - 60,intBombY,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv + 1].equals("ob")){
+					g.drawImage(fire_rightend,intBombX + 60,intBombY,null);
+				}
+			}else{
+				g.drawImage(fire_mid,intBombX,intBombY,null);
+				if(!Bomberman.strMap[intposydiv + 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_downend,intBombX, intBombY + 60,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv - 1].equals("ob")){
+					g.drawImage(fire_leftend,intBombX - 60,intBombY,null);
+				}
+				if(!Bomberman.strMap[intposydiv][intposxdiv + 1].equals("ob")){
+					g.drawImage(fire_rightend,intBombX + 60,intBombY,null);
+				}
+				if(!Bomberman.strMap[intposydiv - 1][intposxdiv].equals("ob")){
+					g.drawImage(fire_upend,intBombX,intBombY -60,null);
+				}
+			}
+			
+
 	}
 	
 	
 
 
-	public static void bombitem(Graphics g){
+	public static void bombitem(int intBombX,int intBombY,Graphics g){
 			int intposydiv;
 			int intposymod;
 			int intposxdiv;
@@ -686,27 +898,33 @@ public class BombermanPanel extends JPanel{
 				intposxdiv += 1;
 			}
 			
-			System.out.println("bom item posx: "+intposxdiv+"Bom item posy: "+intposydiv);
+			//System.out.println("bom item posx: "+intposxdiv+"Bom item posy: "+intposydiv);
 			if(intposxdiv == 1 && intposydiv == 9){
 
 				if(Bomberman.strMap[intposydiv - 1][intposxdiv].equals("r")){
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 			}else if(intposxdiv == 13 && intposydiv == 9){
@@ -714,20 +932,26 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 			}else if(intposxdiv == 1 && intposydiv == 1){
@@ -735,20 +959,26 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 			}else if(intposxdiv == 13 && intposydiv == 1){
@@ -756,20 +986,26 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 			}else if(intposxdiv == 1){
@@ -777,30 +1013,39 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv + 1][intposxdiv].equals("r")){
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						 Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 			}else if(intposxdiv == 13){
@@ -808,30 +1053,39 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv + 1][intposxdiv].equals("r")){
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 			}else if(intposydiv == 1){
@@ -839,30 +1093,39 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 			}else if(intposydiv == 9){
@@ -870,30 +1133,39 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";	
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 			}else{
@@ -901,40 +1173,52 @@ public class BombermanPanel extends JPanel{
 					Bomberman.strMap[intposydiv + 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv + 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv + 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv + 1][intposxdiv] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv - 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv - 1] = "g";
 						if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv - 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv - 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv - 1] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv][intposxdiv + 1].equals("r")){
 					Bomberman.strMap[intposydiv][intposxdiv + 1] = "g";
 					if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm1")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm1";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm2")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm2";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}else if(Bomberman.stritem[intposydiv][intposxdiv + 1].equals("itm3")){
 						Bomberman.strMap[intposydiv][intposxdiv + 1] = "itm3";
+						Bomberman.stritem[intposydiv][intposxdiv + 1] = "na";
 					}
 				}
 				if(Bomberman.strMap[intposydiv - 1][intposxdiv].equals("r")){
 					Bomberman.strMap[intposydiv - 1][intposxdiv] = "g";
 					if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm1")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm1";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm2")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm2";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}else if(Bomberman.stritem[intposydiv - 1][intposxdiv].equals("itm3")){
 						Bomberman.strMap[intposydiv - 1][intposxdiv] = "itm3";
+						Bomberman.stritem[intposydiv - 1][intposxdiv] = "na";
 					}
 				}
 			}
@@ -1095,19 +1379,35 @@ public class BombermanPanel extends JPanel{
 			g.drawImage(down1_white, intX_white, intY_white, null);// Default stance
 			//blnPlaceBomb = true;
 			//System.out.println(blnPlaceBomb);
-			if(blnPlaceBomb && Bomberman.bombduration_blue == 0){
-				intBombX = intX;
-				intBombY = intY;
-				//System.out.println("int bom x : "+intBombX + "int bom y: "+ intBombY);
-				g.drawImage(bomb_item,intBombX,intBombY,null);
+			
+			if(blnPlaceBomb && blnbomb1set == false){
+				intBombX_blue = intX;
+				intBombY_blue = intY;
+				System.out.println("int bom x : "+intBombX_blue + "int bom y: "+ intBombY_blue);
+				g.drawImage(bomb_item,intBombX_blue,intBombY_blue,null);
 				Bombermantools.trysleep();
-				Bomberman.bombduration_blue = System.currentTimeMillis()/1000;
-			}else if(blnPlaceBomb){
-				//System.out.println("int bom 2x : "+intBombX + "int bom 2y: "+ intBombY);
-				g.drawImage(bomb_item,intBombX,intBombY,null);
+				bomb1duration_blue = System.currentTimeMillis()/1000;
+				blnbomb1set = true;
+			}else if(blnPlaceBomb && blnbomb1set){
+				System.out.println("int bom 2x : "+intBombX_blue + "int bom 2y: "+ intBombY_blue);
+				g.drawImage(bomb_item,intBombX_blue,intBombY_blue,null);
 				Bombermantools.trysleep();
 			}	
-		
+			
+			if(blnPlaceBomb && blnbomb2set == false && intbombcount_blue == 1){
+				intBomb2X_blue = intX;
+				intBomb2Y_blue = intY;
+			    System.out.println("int bom count 1x : --------> ");
+				System.out.println("int bom count 1x : "+intBomb2X_blue + "int bom y: "+ intBomb2Y_blue);
+				g.drawImage(bomb_item,intBomb2X_blue,intBomb2Y_blue,null);
+				Bombermantools.trysleep();
+				bomb2duration_blue = System.currentTimeMillis()/1000;
+				blnbomb2set = true;
+			}else if(blnPlaceBomb && blnbomb2set){
+				System.out.println("int bom count 1x : "+intBomb2X_blue + "int bom 2y: "+ intBomb2Y_blue);
+				g.drawImage(bomb_item,intBomb2X_blue,intBomb2Y_blue,null);
+				Bombermantools.trysleep();
+			}
 			
 			
 			
@@ -1139,17 +1439,44 @@ public class BombermanPanel extends JPanel{
 			
 			
 			
-		if(blnPlaceBomb){
+		if(blnPlaceBomb && blnbomb1set){
 			long duration_blue;
 			duration_blue = System.currentTimeMillis()/1000;
-			inttime = (int)duration_blue - (int)Bomberman.bombduration_blue;
+			inttime = (int)duration_blue - (int)bomb1duration_blue;
 			if(inttime >= 3){
-				bombposition(g);
+				bombposition(intBombX_blue,intBombY_blue,0,g); // bomb explosion
 				
 				if(inttime > 6){
-				Bomberman.bombduration_blue = 0;
-				blnPlaceBomb = false;
-				bombitem(g);
+				bomb1duration_blue = 0;
+				blnbomb1set = false;
+				bombitem(intBombX_blue,intBombY_blue,g); // display items
+				if(intbombcount_blue < 1){
+					blnPlaceBomb = false;
+				}
+				}
+			}
+		}
+		
+		if(blnPlaceBomb && blnbomb2set){
+			long duration_blue;
+			duration_blue = System.currentTimeMillis()/1000;
+			inttime = (int)duration_blue - (int)bomb2duration_blue;
+			
+			if(inttime >= 3){
+				bombposition(intBomb2X_blue,intBomb2Y_blue,0,g); // bomb explosion
+				System.out.println("int bom count 1x  explosion : *************** ");
+				System.out.println("intBomb2X: "+intBomb2X_blue + "intBomb2Y: "+intBomb2Y_blue);
+				if(inttime > 6){
+				bomb2duration_blue = 0;
+				blnbomb2set = false;
+				bombitem(intBomb2X_blue,intBomb2Y_blue,g); // display items
+				intbombcount_blue --;
+				System.out.println("bombitem count after display item: "+intbombcount_blue);
+				if(intbombcount_blue < 1){
+					System.out.println("bombitem count: "+intbombcount_blue);
+					blnPlaceBomb = false;
+					
+				}
 				}
 			}
 		}
