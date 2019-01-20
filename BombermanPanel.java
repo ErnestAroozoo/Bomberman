@@ -13,12 +13,12 @@ public class BombermanPanel extends JPanel{
   static int intXfuture;
   static int intY = 60;
   static int intYfuture;
-  static int intX_red = 720;
+  static int intX_red = 780;
   static int intY_red = 60;
   static int intX_yellow = 60;
-  static int intY_yellow = 600;
-  static int intX_white = 720;
-  static int intY_white = 600;
+  static int intY_yellow = 540;
+  static int intX_white = 780;
+  static int intY_white = 540;
   static int intRow = 0;
   static int intCol = 0;
   String strTime;

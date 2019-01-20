@@ -310,12 +310,16 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
           button_guestcontinue.setEnabled(true);
           button_guestconnect.setEnabled(false);
           textfield_ip.setEnabled(false);
+          
         }
         // Go to CharacterSelectionMenu only if the host allows
         else if(strConnectionStatus.equals("characterselectionmenu")){
           button_guestcontinue.setVisible(false); // Hide unecessary JComponents
           button_guestconnect.setVisible(false);
           textfield_ip.setVisible(false);
+          button_guestcontinue.setEnabled(false);
+          button_guestconnect.setEnabled(false);
+          textfield_ip.setEnabled(false);
           intMenu = 9; // Change to CharacterSelectionMenu
         }
       }
@@ -404,6 +408,58 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
           blnMainMenu = false; // Start the actual Bomberman Game and get out of the menu once Host approves
           gametimer.start();
           theframe.requestFocus(); // Focus to the game instead of chat
+          button_guestcontinue.setEnabled(false);
+          button_guestconnect.setEnabled(false);
+          textfield_ip.setEnabled(false);
+          if(intRand == 1){
+          try{
+            thefile = new FileReader("standard.csv");
+          }catch(FileNotFoundException e){
+            System.out.println("Unable to read from the file");
+          }   
+          
+          thefiledata = new BufferedReader(thefile);
+          
+          String strLine = "";
+          try{
+            strLine = thefiledata.readLine();
+          }catch(IOException e){
+            System.out.println("Unable to read Map");
+          }
+          
+          while(strLine != null){
+            strSplit = strLine.split(",");
+            for(intindex = 0; intindex < 15; intindex++){
+              strMap[intLine][intindex] = strSplit[intindex];
+              System.out.println(strMap[intLine][intindex]);
+            }
+            intLine++;
+            try{
+              strLine = thefiledata.readLine();
+            }catch(IOException e){
+              System.out.println("Unable to read Map");
+            }
+          } 
+        }
+        int intRow2;
+        int intCol2;
+        for(intRow2 = 0; intRow2 < 11; intRow2++){
+          for(intCol2 = 0; intCol2 < 15; intCol2++){
+            stritem[intRow2][intCol2] = "na";
+          }
+        }
+        for(intRow2 = 0; intRow2 < 4; intRow2++){
+          Bomberman.generateitem(1);
+        }
+        for(intRow2 = 0; intRow2 < 4; intRow2++){
+          Bomberman.generateitem(2);
+        }
+        for(intRow2 = 0; intRow2 < 3; intRow2++){
+          Bomberman.generateitem(3);
+        }
+        stritem[1][3] = "itm1";
+        stritem[3][1] = "itm2";
+        stritem[1][4] = "itm3"; 
         }
       }
       // [Host Start Button]
