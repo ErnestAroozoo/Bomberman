@@ -16,7 +16,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
   // Properties
   JFrame theframe;
   static BombermanPanel bombermanpanel;
-  SuperSocketMaster ssm;
+  static SuperSocketMaster ssm;
   Timer thetimer;
   JButton button_startgame;
   JButton button_highscores;
@@ -299,6 +299,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
         ssm.connect(); 
         ssm.sendText("connect");
         ssm.sendText(strUsername + " has joined the game. \n"); // Send message that you've joined their game
+        button_guestconnect.setVisible(false); // Unhide necessary JComponents
+        textfield_ip.setVisible(false);
       }
       // Connection Check (Only allow Client to continue if it's connected with Host)
       else if(evt.getSource() == ssm){
@@ -412,54 +414,54 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
           button_guestconnect.setEnabled(false);
           textfield_ip.setEnabled(false);
           if(intRand == 1){
-          try{
-            thefile = new FileReader("standard.csv");
-          }catch(FileNotFoundException e){
-            System.out.println("Unable to read from the file");
-          }   
-          
-          thefiledata = new BufferedReader(thefile);
-          
-          String strLine = "";
-          try{
-            strLine = thefiledata.readLine();
-          }catch(IOException e){
-            System.out.println("Unable to read Map");
-          }
-          
-          while(strLine != null){
-            strSplit = strLine.split(",");
-            for(intindex = 0; intindex < 15; intindex++){
-              strMap[intLine][intindex] = strSplit[intindex];
-              System.out.println(strMap[intLine][intindex]);
-            }
-            intLine++;
+            try{
+              thefile = new FileReader("standard.csv");
+            }catch(FileNotFoundException e){
+              System.out.println("Unable to read from the file");
+            }   
+            
+            thefiledata = new BufferedReader(thefile);
+            
+            String strLine = "";
             try{
               strLine = thefiledata.readLine();
             }catch(IOException e){
               System.out.println("Unable to read Map");
             }
-          } 
-        }
-        int intRow2;
-        int intCol2;
-        for(intRow2 = 0; intRow2 < 11; intRow2++){
-          for(intCol2 = 0; intCol2 < 15; intCol2++){
-            stritem[intRow2][intCol2] = "na";
+            
+            while(strLine != null){
+              strSplit = strLine.split(",");
+              for(intindex = 0; intindex < 15; intindex++){
+                strMap[intLine][intindex] = strSplit[intindex];
+                System.out.println(strMap[intLine][intindex]);
+              }
+              intLine++;
+              try{
+                strLine = thefiledata.readLine();
+              }catch(IOException e){
+                System.out.println("Unable to read Map");
+              }
+            } 
           }
-        }
-        for(intRow2 = 0; intRow2 < 4; intRow2++){
-          Bomberman.generateitem(1);
-        }
-        for(intRow2 = 0; intRow2 < 4; intRow2++){
-          Bomberman.generateitem(2);
-        }
-        for(intRow2 = 0; intRow2 < 3; intRow2++){
-          Bomberman.generateitem(3);
-        }
-        stritem[1][3] = "itm1";
-        stritem[3][1] = "itm2";
-        stritem[1][4] = "itm3"; 
+          int intRow2;
+          int intCol2;
+          for(intRow2 = 0; intRow2 < 11; intRow2++){
+            for(intCol2 = 0; intCol2 < 15; intCol2++){
+              stritem[intRow2][intCol2] = "na";
+            }
+          }
+          for(intRow2 = 0; intRow2 < 4; intRow2++){
+            Bomberman.generateitem(1);
+          }
+          for(intRow2 = 0; intRow2 < 4; intRow2++){
+            Bomberman.generateitem(2);
+          }
+          for(intRow2 = 0; intRow2 < 3; intRow2++){
+            Bomberman.generateitem(3);
+          }
+          stritem[1][3] = "itm1";
+          stritem[3][1] = "itm2";
+          stritem[1][4] = "itm3"; 
         }
       }
       // [Host Start Button]
@@ -607,7 +609,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
       textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
     }
     
-        // Game Round Timer
+    // Game Round Timer
     if(evt.getSource() == gametimer){
       intTimer = intTimer - 1; // intTimer goes down by 1 every 1000 milisecond from gametimer
       intSecond = intSecond - 1;
@@ -625,140 +627,237 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
       }
     }
     
+   // Multiplayer Movement Receive
+
+    
+    
+    
     
     
     
   }
   
   public void keyReleased(KeyEvent evt){
-    if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
-      bombermanpanel.blnLeft = false;
-      ssm.sendText("bl");
+    if(evt.getKeyCode() == 37 && blnBlue == true || strChat.equals("!bl_r")){ // Left Arrow Key
+      bombermanpanel.blnLeft = false;        
+      if(evt.getKeyCode() == 37 && blnBlue == true){
+     	 ssm.sendText("!bl_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnBlue == true || strChat.equals("!bu_r")){ // Up Arrow Key
       bombermanpanel.blnUp = false;
-      ssm.sendText("bu");
+      if(evt.getKeyCode() == 38 && blnBlue == true){
+     	 ssm.sendText("!bu_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 39 && blnBlue == true){ // Right Arrow Key
+    else if(evt.getKeyCode() == 39 && blnBlue == true || strChat.equals("!br_r")){ // Right Arrow Key
       bombermanpanel.blnRight = false;
-      ssm.sendText("br");
+      if(evt.getKeyCode() == 39 && blnBlue == true){
+     	 ssm.sendText("!br_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
+    else if(evt.getKeyCode() == 40 && blnBlue == true || strChat.equals("!bd_r")){ // Down Arrow Key
       bombermanpanel.blnDown = false;
-      ssm.sendText("bd");
+      if(evt.getKeyCode() == 40 && blnBlue == true){
+     	 ssm.sendText("!bd_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
+    else if(evt.getKeyCode() == 37 && blnYellow == true || strChat.equals("!yl_r")){ // Left Arrow Key
       bombermanpanel.blnLeft_yellow = false;
-      ssm.sendText("yl");
+      if(evt.getKeyCode() == 37 && blnYellow == true){
+     	 ssm.sendText("!yl_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnYellow == true){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnYellow == true || strChat.equals("!yu_r")){ // Up Arrow Key
       bombermanpanel.blnUp_yellow = false;
-      ssm.sendText("yu");
+      if(evt.getKeyCode() == 38 && blnYellow == true){
+     	 ssm.sendText("!yu_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 39 && blnYellow == true){ // Right Arrow Key
+    else if(evt.getKeyCode() == 39 && blnYellow == true || strChat.equals("!yr_r")){ // Right Arrow Key
       bombermanpanel.blnRight_yellow = false;
-      ssm.sendText("yr");
+      if(evt.getKeyCode() == 39 && blnYellow == true){
+     	 ssm.sendText("!yr_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 40 && blnYellow == true){ // Down Arrow Key
+    else if(evt.getKeyCode() == 40 && blnYellow == true || strChat.equals("!yd_r")){ // Down Arrow Key
       bombermanpanel.blnDown_yellow = false;
-      ssm.sendText("yd");
+      if(evt.getKeyCode() == 40 && blnYellow == true){
+     	 ssm.sendText("!yd_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 37 && blnRed == true){ // Left Arrow Key
+    else if(evt.getKeyCode() == 37 && blnRed == true || strChat.equals("!rl_r")){ // Left Arrow Key
       bombermanpanel.blnLeft_red = false;
-      ssm.sendText("rl");
+      if(evt.getKeyCode() == 37 && blnRed == true){
+     	 ssm.sendText("!rl_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnRed == true){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnRed == true || strChat.equals("!ru_r")){ // Up Arrow Key
       bombermanpanel.blnUp_red = false;
-      ssm.sendText("ru");
+      if(evt.getKeyCode() == 38 && blnRed == true){
+     	 ssm.sendText("!ru_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 39 && blnRed == true){ // Right Arrow Key
+    else if(evt.getKeyCode() == 39 && blnRed == true || strChat.equals("!rr_r")){ // Right Arrow Key
       bombermanpanel.blnRight_red = false;
-      ssm.sendText("rr");
+      if(evt.getKeyCode() == 39 && blnRed == true){
+     	 ssm.sendText("!rr_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 40 && blnRed == true){ // Down Arrow Key
+    else if(evt.getKeyCode() == 40 && blnRed == true || strChat.equals("!rd_r")){ // Down Arrow Key
       bombermanpanel.blnDown_red = false;
-      ssm.sendText("rd");
+      if(evt.getKeyCode() == 40 && blnRed == true){
+     	 ssm.sendText("!rd_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 37 && blnWhite == true){ // Left Arrow Key
+    else if(evt.getKeyCode() == 37 && blnWhite == true || strChat.equals("!wl_r")){ // Left Arrow Key
       bombermanpanel.blnLeft_white = false;
-      ssm.sendText("wl");
+      if(evt.getKeyCode() == 37 && blnWhite == true){
+     	 ssm.sendText("!wl_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnWhite == true){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnWhite == true || strChat.equals("!wu_r")){ // Up Arrow Key
       bombermanpanel.blnUp_white = false;
-      ssm.sendText("wu");
+      if(evt.getKeyCode() == 38 && blnWhite == true){
+     	 ssm.sendText("!wl_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 39 && blnWhite == true){ // Right Arrow Key
+    else if(evt.getKeyCode() == 39 && blnWhite == true || strChat.equals("!wr_r")){ // Right Arrow Key
       bombermanpanel.blnRight_white = false;
-      ssm.sendText("wr");
+      if(evt.getKeyCode() == 39 && blnWhite == true){
+     	 ssm.sendText("!wr_r");
+   	 }
     }
-    else if(evt.getKeyCode() == 40 && blnWhite == true){ // Down Arrow Key
+    else if(evt.getKeyCode() == 40 && blnWhite == true || strChat.equals("!wd_r")){ // Down Arrow Key
       bombermanpanel.blnDown_white = false;
-      ssm.sendText("wd");
+      if(evt.getKeyCode() == 40 && blnWhite == true){
+     	 ssm.sendText("!wd_r");
+   	 }
     }
   }
   
-  public void keyPressed(KeyEvent evt){ 
-    if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
+
+  public void keyPressed(KeyEvent evt){  
+    if(evt.getKeyCode() == 37 && blnBlue == true || strChat.equals("!bl_p")){ // Left Arrow Key
       bombermanpanel.blnLeft = true;
+      // Check if it's guest or actual blue bomberman 
+      if(evt.getKeyCode() == 37 && blnBlue == true){
+     	 ssm.sendText("!bl_p");
+   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnBlue == true || strChat.equals("!bu_p")){ // Up Arrow Key
       bombermanpanel.blnUp = true;
-      System.out.println("up");
+      if(evt.getKeyCode() == 38 && blnBlue == true){
+     	 ssm.sendText("!bu_p");
+   	 }
     }
-    else if(evt.getKeyCode() == 39 && blnBlue == true){ // Right Arrow Key
+    else if(evt.getKeyCode() == 39 && blnBlue == true || strChat.equals("!br_p")){ // Right Arrow Key
       bombermanpanel.blnRight = true;
-      System.out.println("right");
+      if(evt.getKeyCode() == 39 && blnBlue == true){
+     	 ssm.sendText("!br_p");
+   	 }
     }
-    else if(evt.getKeyCode() == 40 && blnBlue == true){ // Down Arrow Key
+    else if(evt.getKeyCode() == 40 && blnBlue == true || strChat.equals("!bd_p")){ // Down Arrow Key
       bombermanpanel.blnDown = true;
+      if(evt.getKeyCode() == 40 && blnBlue == true){
+     	 ssm.sendText("!bd_p");
+   	 }
     }
-    else if(evt.getKeyCode() == 32 && blnBlue == true){ // Bomb Key
+    else if(evt.getKeyCode() == 32 && blnBlue == true || strChat.equals("!bb_p")){ // Bomb Key
       bombermanpanel.blnPlaceBomb = true;
+      if(evt.getKeyCode() == 32 && blnBlue == true){
+     	 ssm.sendText("!bb_p");
+   	 }
     }
-    else if(evt.getKeyCode() == 37 && blnYellow == true){ // Left Arrow Key
+    else if(evt.getKeyCode() == 37 && blnYellow == true || strChat.equals("!yl_p")){ // Left Arrow Key
       bombermanpanel.blnLeft_yellow = true;
+      if(evt.getKeyCode() == 37 && blnYellow == true){
+     	 ssm.sendText("!yl_p");
     }
-    else if(evt.getKeyCode() == 38 && blnYellow == true){ // Up Arrow Key
+    }
+    else if(evt.getKeyCode() == 38 && blnYellow == true || strChat.equals("!yu_p")){ // Up Arrow Key
       bombermanpanel.blnUp_yellow = true;
+      if(evt.getKeyCode() == 38 && blnYellow == true){
+     	 ssm.sendText("!yu_p");
     }
-    else if(evt.getKeyCode() == 39 && blnYellow == true){ // Right Arrow Key
+    }
+    else if(evt.getKeyCode() == 39 && blnYellow == true || strChat.equals("!yr_p")){ // Right Arrow Key
       bombermanpanel.blnRight_yellow = true;
+      if(evt.getKeyCode() == 39 && blnYellow == true){
+     	 ssm.sendText("!yr_p");
     }
-    else if(evt.getKeyCode() == 40 && blnYellow == true){ // Down Arrow Key
+    }
+    else if(evt.getKeyCode() == 40 && blnYellow == true || strChat.equals("!yd_p")){ // Down Arrow Key
       bombermanpanel.blnDown_yellow = true;
+      if(evt.getKeyCode() == 40 && blnYellow == true){
+     	 ssm.sendText("!yd_p");
     }
-    else if(evt.getKeyCode() == 32 && blnYellow == true){ // Bomb Key
+    }
+    else if(evt.getKeyCode() == 32 && blnYellow == true || strChat.equals("!yb_p")){ // Bomb Key
       bombermanpanel.blnPlaceBomb_yellow = true;
+      if(evt.getKeyCode() == 32 && blnYellow == true){
+     	 ssm.sendText("!yb_p");
     }
-    else if(evt.getKeyCode() == 37 && blnRed == true){ // Left Arrow Key
+    }
+    else if(evt.getKeyCode() == 37 && blnRed == true || strChat.equals("!rl_p")){ // Left Arrow Key
       bombermanpanel.blnLeft_red = true;
+      if(evt.getKeyCode() == 37 && blnRed == true){
+     	 ssm.sendText("!rl_p");
     }
-    else if(evt.getKeyCode() == 38 && blnRed == true){ // Up Arrow Key
+    }
+    else if(evt.getKeyCode() == 38 && blnRed == true || strChat.equals("!ru_p")){ // Up Arrow Key
       bombermanpanel.blnUp_red = true;
+      if(evt.getKeyCode() == 38 && blnRed == true){
+     	 ssm.sendText("!ru_p");
     }
-    else if(evt.getKeyCode() == 39 && blnRed == true){ // Right Arrow Key
+    }
+    else if(evt.getKeyCode() == 39 && blnRed == true || strChat.equals("!rr_p")){ // Right Arrow Key
       bombermanpanel.blnRight_red = true;
+      if(evt.getKeyCode() == 39 && blnRed == true){
+     	 ssm.sendText("!rr_p");
     }
-    else if(evt.getKeyCode() == 40 && blnRed == true){ // Down Arrow Key
+    }
+    else if(evt.getKeyCode() == 40 && blnRed == true || strChat.equals("!rd_p")){ // Down Arrow Key
       bombermanpanel.blnDown_red = true;
+      if(evt.getKeyCode() == 40 && blnRed == true){
+     	 ssm.sendText("!rd_p");
     }
-    else if(evt.getKeyCode() == 32 && blnRed == true){ // Bomb Key
+    }
+    else if(evt.getKeyCode() == 32 && blnRed == true || strChat.equals("!rb_p")){ // Bomb Key
       bombermanpanel.blnPlaceBomb_red = true;
+      if(evt.getKeyCode() == 32 && blnRed == true){
+     	 ssm.sendText("!rb_p");
     }
-    else if(evt.getKeyCode() == 37 && blnWhite == true){ // Left Arrow Key
+    }
+    else if(evt.getKeyCode() == 37 && blnWhite == true || strChat.equals("!wl_p")){ // Left Arrow Key
       bombermanpanel.blnLeft_white = true;
+      if(evt.getKeyCode() == 37 && blnWhite == true){
+     	 ssm.sendText("!wl_p");
     }
-    else if(evt.getKeyCode() == 38 && blnWhite == true){ // Up Arrow Key
+    }
+    else if(evt.getKeyCode() == 38 && blnWhite == true || strChat.equals("!wu_p")){ // Up Arrow Key
       bombermanpanel.blnUp_white = true;
+      if(evt.getKeyCode() == 38 && blnWhite == true){
+     	 ssm.sendText("!wu_p");
     }
-    else if(evt.getKeyCode() == 39 && blnWhite == true){ // Right Arrow Key
+    }
+    else if(evt.getKeyCode() == 39 && blnWhite == true || strChat.equals("!wr_p")){ // Right Arrow Key
       bombermanpanel.blnRight_white = true;
+      if(evt.getKeyCode() == 39 && blnWhite == true){
+     	 ssm.sendText("!wr_p");
     }
-    else if(evt.getKeyCode() == 40 && blnWhite == true){ // Down Arrow Key
+    }
+    else if(evt.getKeyCode() == 40 && blnWhite == true || strChat.equals("!wd_p")){ // Down Arrow Key
       bombermanpanel.blnDown_white = true;
+      if(evt.getKeyCode() == 40 && blnWhite == true){
+     	 ssm.sendText("!wd_p");
     }
-    else if(evt.getKeyCode() == 32 && blnWhite == true){ // Bomb Key
+    }
+    else if(evt.getKeyCode() == 32 && blnWhite == true || strChat.equals("!wb_p")){ // Bomb Key
       bombermanpanel.blnPlaceBomb_white = true;
+      if(evt.getKeyCode() == 32 && blnWhite == true){
+     	 ssm.sendText("!wb_p");
+    }
     }
   }
   

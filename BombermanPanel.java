@@ -7,18 +7,17 @@ import java.io.*;
 import java.sql.Timestamp;
 
 public class BombermanPanel extends JPanel{
-	// Properties
-	SuperSocketMaster ssm;               
+	// Properties       
 	static int intX = 60;
 	static int intXfuture;
 	static int intY = 60;
 	static int intYfuture;
-	static int intX_red = 720;
+	static int intX_red = 780;
 	static int intY_red = 60;
 	static int intX_yellow = 60;
-	static int intY_yellow = 600;
-	static int intX_white = 720;
-	static int intY_white = 600;
+	static int intY_yellow = 540;
+	static int intX_white = 780;
+	static int intY_white = 540;
     static int intRow = 0;
 	static int intCol = 0;
 	
@@ -82,6 +81,8 @@ public class BombermanPanel extends JPanel{
 	static boolean blninvicible_white = false;
 	//static Timestamp timestamp_blue;
 	
+  static String strTime;
+  
 
 	
 	static BufferedImage up1;
@@ -147,6 +148,8 @@ public class BombermanPanel extends JPanel{
 	static BufferedImage helpmenu;
 	static BufferedImage highscoresmenu;
 	static BufferedImage characterselectionmenu;
+  static BufferedImage gui_keyboard;
+  static BufferedImage gui_mouse;
 
 	///JButton test;
 	///GamePanel thepanel;
@@ -1713,7 +1716,7 @@ public class BombermanPanel extends JPanel{
 			// HighscoresMenu 
 			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 2){ 
 				g.drawImage(highscoresmenu, 0, 0, null);
-			}
+			}	
 			// HelpMenu
 			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 3){ 
 				g.drawImage(helpmenu, 0, 0, null);
@@ -1750,9 +1753,21 @@ public class BombermanPanel extends JPanel{
 		// Start Bomberman Game
 		if(Bomberman.blnMainMenu == false){
 			// Set Background
-
+      if(Bomberman.blnIsKeyboard == true){
+        g.drawImage(gui_keyboard,0 ,0 , null);
+      }
+      else if(Bomberman.blnIsMouse == true){
+        g.drawImage(gui_mouse,0, 0, null);
+      }
+			// Draw Game Round Timer
+      strTime = String.format("%02d:%02d", Bomberman.intMinute, Bomberman.intSecond);
 			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, 1280, 720); 
+			g.setFont(new Font("Arial", Font.PLAIN, 60)); 
+			g.drawString(strTime, 1010, 130);
+      // Draw Game Round Number
+      g.setColor(Color.WHITE);
+      g.setFont(new Font("Arial", Font.PLAIN, 24)); 
+			g.drawString(""+Bomberman.intRound, 1110, 181);
 			// Bomberman Animation
 			if(Bomberman.intRand == 1){
 				for(intRow = 0; intRow < 11; intRow++){
@@ -1853,16 +1868,16 @@ public class BombermanPanel extends JPanel{
 			BombermanPanel.bombdisplay(g); // display player's bomb
 			
 
-			if(blnUp || blnDown || blnRight || blnLeft){
+			if(blnUp || blnDown || blnRight || blnLeft || Bomberman.strChat.equals(""+intX) || Bomberman.strChat.equals(""+intY)){
 				BombermanPanel.blue_move(intY,intX,blnUp,blnDown,blnRight,blnLeft,g);
 			}
-			if(blnUp_red || blnDown_red || blnRight_red || blnLeft_red){
+			if(blnUp_red || blnDown_red || blnRight_red || blnLeft_red || Bomberman.strChat.equals(""+intX_red) || Bomberman.strChat.equals(""+intY_red)){
 				BombermanPanel.red_move(intY_red,intX_red,blnUp_red,blnDown_red,blnRight_red,blnLeft_red,g);
 			}
-			if(blnUp_yellow || blnDown_yellow || blnRight_yellow || blnLeft_yellow){
+			if(blnUp_yellow || blnDown_yellow || blnRight_yellow || blnLeft_yellow || Bomberman.strChat.equals(""+intX_yellow) || Bomberman.strChat.equals(""+intY_yellow)){
 				BombermanPanel.yellow_move(intY_yellow,intX_yellow,blnUp_yellow,blnDown_yellow,blnRight_yellow,blnLeft_yellow,g);
 			}
-			if(blnUp_white || blnDown_white || blnRight_white || blnLeft_white){
+			if(blnUp_white || blnDown_white || blnRight_white || blnLeft_white || Bomberman.strChat.equals(""+intX_white) || Bomberman.strChat.equals(""+intY_white)){
 				BombermanPanel.white_move(intY_white,intX_white,blnUp_white,blnDown_white,blnRight_white,blnLeft_white,g);
 			}
 			
@@ -1942,6 +1957,8 @@ public class BombermanPanel extends JPanel{
 			helpmenu = ImageIO.read(new File("helpmenu.png"));
 			highscoresmenu = ImageIO.read(new File("highscores.png"));
 			characterselectionmenu = ImageIO.read(new File("characterselectionmenu.png"));
+      gui_keyboard = ImageIO.read(new File("gui_keyboard.png"));
+			gui_mouse = ImageIO.read(new File("gui_mouse.png"));
 			
 		}
 		catch(IOException e){
