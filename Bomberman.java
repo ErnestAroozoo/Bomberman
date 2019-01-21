@@ -73,6 +73,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
  static FileReader thefile;
  static BufferedReader thefiledata;
  String strSplit[];
+ static int intCount2;
+ static String strName;
 
 
  // Methods
@@ -137,6 +139,56 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     button_highscores.setVisible(false);
     button_help.setVisible(false);
     button_quit.setVisible(false);
+    boolean blnOpen = false;	
+        try{
+		//	thefile = new FileWriter("highscores.txt");
+		FileReader thefile = new FileReader("highscores.txt");
+		BufferedReader thefiledata = new BufferedReader(thefile);
+		blnOpen = true;
+		if(blnOpen){
+		String strLine = "";
+		String strScore = "";
+		int intPlayers = 0;
+        while ((strLine = thefiledata.readLine ()) != null){                 // read the score file line by line
+          strLine = thefiledata.readLine();
+          strScore = thefiledata.readLine();
+          intPlayers = intPlayers + 1;
+        }
+         String strArray[][];
+         strArray = new String[intPlayers][2];
+        for (intCount2 = 0; intCount2 < intPlayers; intCount2++){
+          strName = thefiledata.readLine();
+          strScore = thefiledata.readLine();
+          strArray[intCount2][0] = strName;
+          strArray[intCount2][1] = strScore;
+        }
+        //3 - sort the array
+        String strLeft;
+        String strRight;
+        String strTemp;
+        // Bubble sort - compare the left to the right, if the left is greater, swap using temp
+        int intCounta;
+        int intCountb;
+        for(intCountb = 0; intCountb <intPlayers -1; intCountb++){
+          for(intCounta = 0; intCounta < intPlayers - 1; intCounta++){
+            strLeft = strArray[intCounta][1];
+            strRight = strArray[intCounta+1][1];
+            if(Integer.parseInt(strRight) > Integer.parseInt(strLeft)){
+              strTemp = strArray[intCounta][1];
+              strArray[intCounta][1] = strArray[intCounta+1][1];
+              strArray[intCounta+1][1] = strTemp;
+              strTemp = strArray[intCounta][0];
+              strArray[intCounta][0] = strArray[intCounta+1][0];
+              strArray[intCounta+1][0] = strTemp;
+            }
+          }
+        }
+        //4 print the sorted array
+	}
+	}catch(IOException e){
+			System.out.println("Unable to open file...");
+		} 
+	
     intMenu = 2; // Change to HighscoresMenu
    }
    // [Help Button]
