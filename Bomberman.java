@@ -663,47 +663,92 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     if(strChat.equals("!yl_p")){
 	bombermanpanel.blnLeft_yellow = true;
     }
+    if(strChat.equals("!yl_r")){
+	bombermanpanel.blnLeft_yellow = false;
+    }
     if(strChat.equals("!yu_p")){
 	bombermanpanel.blnUp_yellow = true;
+    }
+    if(strChat.equals("!yu_r")){
+	bombermanpanel.blnUp_yellow = false;
     }
     if(strChat.equals("!yr_p")){
 	bombermanpanel.blnRight_yellow = true;
     }
+    if(strChat.equals("!yr_r")){
+	bombermanpanel.blnRight_yellow = false;
+    }
     if(strChat.equals("!yd_p")){
 	bombermanpanel.blnDown_yellow = true;
+    }
+    if(strChat.equals("!yd_r")){
+	bombermanpanel.blnDown_yellow = false;
     }
     if(strChat.equals("!yb_p")){
 	bombermanpanel.blnPlaceBomb_yellow = true;
     }
+    if(strChat.equals("!yb_r")){
+	bombermanpanel.blnPlaceBomb_yellow = false;
+    }
     if(strChat.equals("!rl_p")){
 	bombermanpanel.blnLeft_red = true;
+    }
+    if(strChat.equals("!rl_r")){
+	bombermanpanel.blnLeft_red = false;
     }
     if(strChat.equals("!ru_p")){
 	bombermanpanel.blnUp_red = true;
     }
+    if(strChat.equals("!ru_r")){
+	bombermanpanel.blnUp_red = false;
+    }
     if(strChat.equals("!rr_p")){
 	bombermanpanel.blnRight_red = true;
+    }
+    if(strChat.equals("!rr_r")){
+	bombermanpanel.blnRight_red = false;
     }
     if(strChat.equals("!rd_p")){
 	bombermanpanel.blnDown_red = true;
     }
+    if(strChat.equals("!rd_r")){
+	bombermanpanel.blnDown_red = false;
+    }
     if(strChat.equals("!rb_p")){
 	bombermanpanel.blnPlaceBomb_red = true;
+    }
+    if(strChat.equals("!rb_r")){
+	bombermanpanel.blnPlaceBomb_red = false;
     }
     if(strChat.equals("!wl_p")){
 	bombermanpanel.blnLeft_white = true;
     }
+    if(strChat.equals("!wl_r")){
+	bombermanpanel.blnLeft_white = false;
+    }
     if(strChat.equals("!wu_p")){
 	bombermanpanel.blnUp_white = true;
+    }
+    if(strChat.equals("!wu_r")){
+	bombermanpanel.blnUp_white = false;
     }
     if(strChat.equals("!wr_p")){
 	bombermanpanel.blnRight_white = true;
     }
+    if(strChat.equals("!wr_r")){
+	bombermanpanel.blnRight_white = false;
+    }
     if(strChat.equals("!wd_p")){
 	bombermanpanel.blnDown_white = true;
     }
+    if(strChat.equals("!wd_r")){
+	bombermanpanel.blnDown_white = false;
+    }
     if(strChat.equals("!wb_p")){
 	bombermanpanel.blnPlaceBomb_white = true;
+    }
+    if(strChat.equals("!wb_r")){
+	bombermanpanel.blnPlaceBomb_white = false;
     }
     }
   }
