@@ -629,16 +629,72 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     
    // Multiplayer Movement Receive
 
-    
-    
-    
-    
-    
-    
+    if(evt.getSource() == ssm){
+    if(strChat.equals("!bl_p")){
+    bombermanpanel.blnLeft = true;
+	}
+	if(strChat.equals("!bu_p")){
+	bombermanpanel.blnUp = true;
+    }
+    if(strChat.equals("!br_p")){
+	bombermanpanel.blnRight = true;
+    }
+    if(strChat.equals("!bd_p")){
+	bombermanpanel.blnDown = true;
+    }
+    if(strChat.equals("!bb_p")){
+	bombermanpanel.blnPlaceBomb = true;
+    }
+    if(strChat.equals("!yl_p")){
+	bombermanpanel.blnLeft_yellow = true;
+    }
+    if(strChat.equals("!yu_p")){
+	bombermanpanel.blnUp_yellow = true;
+    }
+    if(strChat.equals("!yr_p")){
+	bombermanpanel.blnRight_yellow = true;
+    }
+    if(strChat.equals("!yd_p")){
+	bombermanpanel.blnDown_yellow = true;
+    }
+    if(strChat.equals("!yb_p")){
+	bombermanpanel.blnPlaceBomb_yellow = true;
+    }
+    if(strChat.equals("!rl_p")){
+	bombermanpanel.blnLeft_red = true;
+    }
+    if(strChat.equals("!ru_p")){
+	bombermanpanel.blnUp_red = true;
+    }
+    if(strChat.equals("!rr_p")){
+	bombermanpanel.blnRight_red = true;
+    }
+    if(strChat.equals("!rd_p")){
+	bombermanpanel.blnDown_red = true;
+    }
+    if(strChat.equals("!rb_p")){
+	bombermanpanel.blnPlaceBomb_red = true;
+    }
+    if(strChat.equals("!wl_p")){
+	bombermanpanel.blnLeft_white = true;
+    }
+    if(strChat.equals("!wu_p")){
+	bombermanpanel.blnUp_white = true;
+    }
+    if(strChat.equals("!wr_p")){
+	bombermanpanel.blnRight_white = true;
+    }
+    if(strChat.equals("!wd_p")){
+	bombermanpanel.blnDown_white = true;
+    }
+    if(strChat.equals("!wb_p")){
+	bombermanpanel.blnPlaceBomb_white = true;
+    }
+   }
   }
   
   public void keyReleased(KeyEvent evt){
-    if(evt.getKeyCode() == 37 && blnBlue == true || strChat.equals("!bl_r")){ // Left Arrow Key
+    if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
       bombermanpanel.blnLeft = false;        
       if(evt.getKeyCode() == 37 && blnBlue == true){
      	 ssm.sendText("!bl_r");
@@ -738,14 +794,12 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
   
 
   public void keyPressed(KeyEvent evt){  
-    if(evt.getKeyCode() == 37 && blnBlue == true || strChat.equals("!bl_p")){ // Left Arrow Key
+    if(evt.getKeyCode() == 37 && blnBlue == true){ // Left Arrow Key
       bombermanpanel.blnLeft = true;
       // Check if it's guest or actual blue bomberman 
-      if(evt.getKeyCode() == 37 && blnBlue == true){
      	 ssm.sendText("!bl_p");
-   	 }
     }
-    else if(evt.getKeyCode() == 38 && blnBlue == true || strChat.equals("!bu_p")){ // Up Arrow Key
+    else if(evt.getKeyCode() == 38 && blnBlue == true){ // Up Arrow Key
       bombermanpanel.blnUp = true;
       if(evt.getKeyCode() == 38 && blnBlue == true){
      	 ssm.sendText("!bu_p");
