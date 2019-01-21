@@ -1026,7 +1026,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     theframe.addMouseListener(this);
     
     // Add Timer Object
-    thetimer = new Timer(1000/1000, this); // Triggering timer object every 1000/60. Basically 60 FPS.
+    thetimer = new Timer(1000/60, this); // Triggering timer object every 1000/60. Basically 60 FPS.
     thetimer.start();
     
     gametimer = new Timer(1000, this);
