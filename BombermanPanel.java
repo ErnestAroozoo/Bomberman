@@ -155,14 +155,12 @@ public class BombermanPanel extends JPanel{
 	///GamePanel thepanel;
 	
 	// Methods
-	public static void blue_move(int intYfuture,int intXfuture, boolean blnUP,
-											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+	public static void blue_move(int intYfuture,int intXfuture, boolean blnUP, boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
 			int intposydiv;
 			int intposymod;
 			int intposxdiv;
 			int intposxmod;
-			
-			
+	
 			int intnewtopleftposx;
 			int intnewtopleftposy;
 			int intnewtoprightposx;
@@ -171,33 +169,27 @@ public class BombermanPanel extends JPanel{
 			int intnewbotleftposy;
 			int intnewbotrightposx;
 			int intnewbotrightposy;
-			
-			
-			
-			
-			
-			
-			
+		
 			boolean blnresult = true;
 			
 			if(blnUP == true){
-				intYfuture = intYfuture - 5;
+				intYfuture = intYfuture - 2;
 			}else if(blnDOWN == true){
-				intYfuture = intYfuture + 5;
+				intYfuture = intYfuture + 2;
 			}else if(blnRIGHT == true){
-				intXfuture = intXfuture + 5;
+				intXfuture = intXfuture + 2;
 			}else if(blnLEFT == true){
-				intXfuture = intXfuture - 5;
+				intXfuture = intXfuture - 2;
 			}	
-			intnewtopleftposx = intXfuture;
+			intnewtopleftposx = intXfuture + 10;
 			intnewtopleftposy = intYfuture;
-			intnewbotleftposx = intXfuture;
-			intnewbotleftposy = intYfuture + 59;
+			intnewbotleftposx = intXfuture + 10;
+			intnewbotleftposy = intYfuture + 55;
 			
-			intnewtoprightposx = intXfuture + 35;
+			intnewtoprightposx = intXfuture + 45;
 			intnewtoprightposy = intYfuture;
-			intnewbotrightposx = intXfuture + 35;
-			intnewbotrightposy = intYfuture + 59;
+			intnewbotrightposx = intXfuture + 45;
+			intnewbotrightposy = intYfuture + 55;
 			
 			intposydiv = intnewtopleftposy / 60;
 			//intposymod = intnewposy % 60;
