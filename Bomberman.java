@@ -537,7 +537,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                             stritem[intRow2][intCol2] = "na";
                         }
                     }
-                    for (intRow2 = 0; intRow2 < 4; intRow2++) {
+               /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
                         Bomberman.generateitem(1);
                     }
                     for (intRow2 = 0; intRow2 < 4; intRow2++) {
@@ -545,7 +545,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     }
                     for (intRow2 = 0; intRow2 < 3; intRow2++) {
                         Bomberman.generateitem(3);
-                    }
+                    } */
                     stritem[1][3] = "itm1";
                     stritem[3][1] = "itm2";
                     stritem[1][4] = "itm3";
@@ -600,7 +600,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                         stritem[intRow2][intCol2] = "na";
                     }
                 }
-                for (intRow2 = 0; intRow2 < 4; intRow2++) {
+           /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
                     Bomberman.generateitem(1);
                 }
                 for (intRow2 = 0; intRow2 < 4; intRow2++) {
@@ -608,7 +608,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 }
                 for (intRow2 = 0; intRow2 < 3; intRow2++) {
                     Bomberman.generateitem(3);
-                }
+                }*/
                 stritem[1][3] = "itm1";
                 stritem[3][1] = "itm2";
                 stritem[1][4] = "itm3";
