@@ -20,6 +20,7 @@ public class BombermanPanel extends JPanel {
     static int intY_white = 540;
     static int intRow = 0;
     static int intCol = 0;
+    static int intSpeed;
 
 
     static boolean blnUp = false;
@@ -2536,12 +2537,17 @@ public class BombermanPanel extends JPanel {
                 	}else if(Bomberman.intRand == 3){
                 		for(intRow = 0; intRow < 11; intRow++){
                 			for(intCol = 0; intCol < 15; intCol++){
+								try{
                 				if(Bomberman.strMap[intRow][intCol].equals("ob")){
                 					g.drawImage(wall_fire,intCol*60,intRow * 60,null);
                 				}else if(Bomberman.strMap[intRow][intCol].equals("r")){
                 					g.drawImage(break_fire,intCol*60,intRow*60,null);
                 				}else if(Bomberman.strMap[intRow][intCol].equals("g")){
                 					g.drawImage(ground_fire,intCol*60,intRow*60,null);
+								}
+								}catch(NullPointerException e){
+									System.out.println("Map 3 not working");
+								}
                 				/*}else if(Bomberman.strMap[intRow][intCol].equals("c1")){
                 					g.drawImage(down1_blue,intRow*60,intCol*60,null);
                 				}else if(Bomberman.strMap[intRow][intCol].equals("c2")){
@@ -2551,7 +2557,7 @@ public class BombermanPanel extends JPanel {
                 				}else if(Bomberman.strMap[intRow][intCol].equals("c4")){
                 					g.drawImage(down1_white,intRow*60,intCol*60,null);
                 				}*/
-                			}
+                			
                 		}
 					 }
             }

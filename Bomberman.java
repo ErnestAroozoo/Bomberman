@@ -73,7 +73,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     static int intScoreWhite = 0; // Set default score for Bombermans
     static int intScoreRed = 0; // Set default score for Bombermans
     static int intLine = 0;
-    static int intRand = 1;
+    static int intRand = 2;
     int intindex = 0;
     //static int intLine;
     static String strMap[][] = new String[11][15];
@@ -557,8 +557,88 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     stritem[1][3] = "itm1";
                     stritem[3][1] = "itm2";
                     stritem[1][4] = "itm3";
-                }
+                //}
+                 if(intRand == 2){
+                 try{
+                 thefile = new FileReader("wintermap.csv");
+                 }catch(FileNotFoundException e){
+                 System.out.println("Unable to read from the file");
+                 }   
+                 
+                 thefiledata = new BufferedReader(thefile);
+                 
+                 String strLine2 = "";
+                 try{
+                 strLine2 = thefiledata.readLine();
+                 }catch(IOException e){
+                 System.out.println("Unable to read Map");
+                 }
+                 
+                 while(strLine2 != null){
+                 strSplit = strLine2.split(",");
+                 for(intindex = 0; intindex < 15; intindex++){
+                 strMap[intLine][intindex] = strSplit[intindex];
+                 System.out.println(strMap[intLine][intindex]);
+                 }
+                 intLine++;
+                 try{
+                 strLine2 = thefiledata.readLine();
+                 }catch(IOException e){
+                 System.out.println("Unable to read Map");
+                 }
+                 }
+                 if(intRand == 3){
+                 try {
+                            thefile = new FileReader("firemap.csv");
+                        } catch (FileNotFoundException e) {
+                            System.out.println("Unable to read from the file");
+                        }
+
+                        thefiledata = new BufferedReader(thefile);
+
+                        String strLine = "";
+                        try {
+                            strLine = thefiledata.readLine();
+                        } catch (IOException e) {
+                            System.out.println("Unable to read Map");
+                        }
+
+                        while (strLine != null) {
+                            strSplit = strLine.split(",");
+                            for (intindex = 0; intindex < 15; intindex++) {
+                                strMap[intLine][intindex] = strSplit[intindex];
+                                System.out.println(strMap[intLine][intindex]);
+                            }
+                            intLine++;
+                            try {
+                                strLine = thefiledata.readLine();
+                            } catch (IOException e) {
+                                System.out.println("Unable to read Map");
+                            }
+                        }
+                    }
+             
+                    for (intRow2 = 0; intRow2 < 11; intRow2++) {
+                        for (intCol2 = 0; intCol2 < 15; intCol2++) {
+                            stritem[intRow2][intCol2] = "na";
+                        }
+                    }
+                    /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                             Bomberman.generateitem(1);
+                         }
+                         for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                             Bomberman.generateitem(2);
+                         }
+                         for (intRow2 = 0; intRow2 < 3; intRow2++) {
+                             Bomberman.generateitem(3);
+                         }*/
+                    stritem[1][3] = "itm1";
+                    stritem[3][1] = "itm2";
+                    stritem[1][4] = "itm3";
+                  
             }
+		}
+	}
             // [Host Start Button]
             if (evt.getSource() == button_hoststart) {
                 ssm.sendText("startgame"); // Let everyone connected know we're starting the actual Bomberman Game
@@ -620,7 +700,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 stritem[1][3] = "itm1";
                 stritem[3][1] = "itm2";
                 stritem[1][4] = "itm3";
-			}
+			//}
 
                 if(intRand == 2){
                  try{
@@ -683,6 +763,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                  } 
             }
         }
+	}
 
         // In-Game Chat (Receive)
         if (evt.getSource() == ssm) {
