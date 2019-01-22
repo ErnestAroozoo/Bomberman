@@ -64,6 +64,14 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     static int intSecond = 0; // Second from timer
     static int intRound = 1; // Game round
     static String strMovement; // Send movement info SSM
+    static boolean blnDeathBlue = false; // Set Bombermans to default alive
+    static boolean blnDeathRed = false; // Set Bombermans to default alive
+    static boolean blnDeathYellow = false; // Set Bombermans to default alive
+    static boolean blnDeathWhite = false; // Set Bombermans to default alive
+    static int intScoreBlue = 0; // Set default score for Bombermans
+    static int intScoreYellow = 0; // Set default score for Bombermans
+    static int intScoreWhite = 0; // Set default score for Bombermans
+    static int intScoreRed = 0; // Set default score for Bombermans
     static int intLine = 0;
     static int intRand = 1;
     int intindex = 0;
@@ -545,7 +553,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     }
                     for (intRow2 = 0; intRow2 < 3; intRow2++) {
                         Bomberman.generateitem(3);
-                    } */
+                    }*/
                     stritem[1][3] = "itm1";
                     stritem[3][1] = "itm2";
                     stritem[1][4] = "itm3";
@@ -608,7 +616,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 }
                 for (intRow2 = 0; intRow2 < 3; intRow2++) {
                     Bomberman.generateitem(3);
-                }*/
+                } */
                 stritem[1][3] = "itm1";
                 stritem[3][1] = "itm2";
                 stritem[1][4] = "itm3";
@@ -679,7 +687,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
         // In-Game Chat (Receive)
         if (evt.getSource() == ssm) {
             strChat = ssm.readText();
-            if (!strChat.equals("connect") && !strChat.equals("connected") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") && !strChat.equals("characterselectionmenu")) { // Blacklist I/O data so they don't show in chat area
+            if (!strChat.equals("connect") && !strChat.equals("wb_r") && !strChat.equals("!wb_p") && !strChat.equals("!wd_r") && !strChat.equals("!wd_p") && !strChat.equals("!wr_r") && !strChat.equals("!wr_p") && !strChat.equals("!wu_r") && !strChat.equals("!wu_p") && !strChat.equals("!wl_r") && !strChat.equals("!wl_p") && !strChat.equals("!rb_r") && !strChat.equals("!rb_p") && !strChat.equals("!rd_r") && !strChat.equals("!rd_p") && !strChat.equals("!rr_r") && !strChat.equals("!rr_p") && !strChat.equals("!ru_r") && !strChat.equals("!ru_p") && !strChat.equals("!rl_r") && !strChat.equals("!rl_p") && !strChat.equals("!yb_r") && !strChat.equals("!yb_p") && !strChat.equals("!yd_r") && !strChat.equals("!yd_p") && !strChat.equals("!yr_r") && !strChat.equals("!yr_p") && !strChat.equals("!yu_r") && !strChat.equals("!yu_p") && !strChat.equals("!yl_r") && !strChat.equals("!yl_p") && !strChat.equals("!bb_r") && !strChat.equals("!bb_p") && !strChat.equals("!bd_r") && !strChat.equals("!bd_p") && !strChat.equals("!br_r") && !strChat.equals("!br_p") && !strChat.equals("!bu_r") && !strChat.equals("!bu_p") && !strChat.equals("!bl_r") && !strChat.equals("!bl_p") && !strChat.equals("connected") && !strChat.equals("blue") && !strChat.equals("red") && !strChat.equals("yellow") && !strChat.equals("white") && !strChat.equals("startgame") && !strChat.equals("characterselectionmenu")) { // Blacklist I/O data so they don't show in chat area
                 textarea_chat.append(strChat + "\n");
                 theframe.requestFocus();
                 textarea_chat.setCaretPosition(textarea_chat.getDocument().getLength()); // Auto scroll down as new message pops up
@@ -709,8 +717,26 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intRound = intRound + 1; // Increase game round number
                 intMinute = 3;
                 intSecond = 0;
+              // [Send]
+              if(blnDeathBlue  == false){
+                intScoreBlue = intScoreBlue + 1;
+              }
+              if(blnDeathRed == false){
+                intScoreRed = intScoreRed + 1;
+              }
+              if(blnDeathYellow == false){
+                intScoreYellow = intScoreYellow + 1;
+              }
+              if(blnDeathWhite == false){
+                intScoreWhite = intScoreWhite + 1;
+              }
+                blnDeathBlue = false;
+                blnDeathYellow = false;
+                blnDeathWhite = false;
+                blnDeathRed = false;
+                intTimer = 180;
+                ssm.sendText("Time's Up! Starting Round " + intRound +"!");
                 gametimer.restart();
-                gametimer.stop();
             }
         }
 
@@ -1587,3 +1613,4 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
         new Bomberman();
     }
 }
+/**//**/
