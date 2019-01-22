@@ -2555,10 +2555,31 @@ public class BombermanPanel extends JPanel {
                 		}
 					 }
             }
-            g.drawImage(down1, intX, intY, null); // Default stance
-            g.drawImage(down1_red, intX_red, intY_red, null); // Default stance
-            g.drawImage(down1_yellow, intX_yellow, intY_yellow, null); // Default stance
-            g.drawImage(down1_white, intX_white, intY_white, null); // Default stance
+           // Default Stance (Alive/Dead)
+            if (Bomberman.blnDeathBlue == false) {
+                g.drawImage(down1, intX, intY, null); // Default stance
+            }
+            if (Bomberman.blnDeathBlue == true) {
+                g.drawImage(death, intX, intY, null); // Default stance
+            }
+            if (Bomberman.blnDeathRed == false) {
+                g.drawImage(down1_red, intX_red, intY_red, null); // Default stance
+            }
+            if (Bomberman.blnDeathRed == true) {
+                g.drawImage(death, intX_red, intY_red, null); // Default stance
+            }
+            if (Bomberman.blnDeathYellow == false) {
+                g.drawImage(down1_yellow, intX_yellow, intY_yellow, null); // Default stance
+            }
+            if (Bomberman.blnDeathYellow == true) {
+                g.drawImage(death, intX_yellow, intY_yellow, null); // Default stance
+            }
+            if (Bomberman.blnDeathWhite == false) {
+                g.drawImage(down1_white, intX_white, intY_white, null); // Default stance
+            }
+            if (Bomberman.blnDeathWhite == true) {
+                g.drawImage(death, intX_white, intY_white, null); // Default stance
+            }
 
             BombermanPanel.bombdisplay(g); // display player's bomb
             BombermanPanel.bombdisplay_red(g);
