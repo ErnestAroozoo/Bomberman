@@ -734,6 +734,17 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 blnDeathYellow = false;
                 blnDeathWhite = false;
                 blnDeathRed = false;
+                bombermanpanel.intX = 60;
+                bombermanpanel.intY = 60;
+                bombermanpanel.intX_red = 780;
+                bombermanpanel.intY_red = 60;
+                bombermanpanel.intX_yellow = 60;
+                bombermanpanel.intY_yellow = 540;
+                bombermanpanel.intX_white = 780;
+                bombermanpanel.intY_white = 540;
+                
+                
+                
                 intTimer = 180;
                 ssm.sendText("Time's Up! Starting Round " + intRound + "!");
                 gametimer.restart();
