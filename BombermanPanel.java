@@ -18,7 +18,7 @@ public class BombermanPanel extends JPanel{
 	static int intY_yellow = 540;
 	static int intX_white = 780;
 	static int intY_white = 540;
-    static int intRow = 0;
+  static int intRow = 0;
 	static int intCol = 0;
 	
 
@@ -69,17 +69,62 @@ public class BombermanPanel extends JPanel{
 	static int intbombrange_red = 0;
 	static int intbombcount_red = 0;
 	static boolean blninvicible_red = false;
-	//static Timestamp timestamp_blue;
+	static long bomb1duration_red = 0;
+	static long bomb2duration_red = 0;
+	static long bomb3duration_red = 0;
+	static long bomb4duration_red = 0;
+	static boolean blnbomb1set_red = false;
+	static boolean blnbomb2set_red = false;
+	static boolean blnbomb3set_red = false;
+	static boolean blnbomb4set_red = false;
+	static int intBombX_red = 0;
+	static int intBombY_red = 0;
+	static int intBomb2X_red = 0;
+	static int intBomb2Y_red = 0;
+	static int intBomb3X_red = 0;
+	static int intBomb3Y_red = 0;
+	static int intBomb4X_red = 0;
+	static int intBomb4Y_red = 0;
 	
 	static int intbombrange_yellow = 0;
 	static int intbombcount_yellow = 0;
 	static boolean blninvicible_yellow = false;
-	//static Timestamp timestamp_blue;
+	static long bomb1duration_yellow = 0;
+	static long bomb2duration_yellow = 0;
+	static long bomb3duration_yellow = 0;
+	static long bomb4duration_yellow = 0;
+	static boolean blnbomb1set_yellow = false;
+	static boolean blnbomb2set_yellow = false;
+	static boolean blnbomb3set_yellow = false;
+	static boolean blnbomb4set_yellow = false;
+	static int intBombX_yellow = 0;
+	static int intBombY_yellow = 0;
+	static int intBomb2X_yellow = 0;
+	static int intBomb2Y_yellow = 0;
+	static int intBomb3X_yellow = 0;
+	static int intBomb3Y_yellow = 0;
+	static int intBomb4X_yellow = 0;
+	static int intBomb4Y_yellow = 0;
 	
 	static int intbombrange_white = 0;
 	static int intbombcount_white = 0;
 	static boolean blninvicible_white = false;
-	//static Timestamp timestamp_blue;
+	static long bomb1duration_white = 0;
+	static long bomb2duration_white = 0;
+	static long bomb3duration_white = 0;
+	static long bomb4duration_white = 0;
+	static boolean blnbomb1set_white = false;
+	static boolean blnbomb2set_white = false;
+	static boolean blnbomb3set_white = false;
+	static boolean blnbomb4set_white = false;
+	static int intBombX_white = 0;
+	static int intBombY_white = 0;
+	static int intBomb2X_white = 0;
+	static int intBomb2Y_white = 0;
+	static int intBomb3X_white = 0;
+	static int intBomb3Y_white = 0;
+	static int intBomb4X_white = 0;
+	static int intBomb4Y_white = 0;
 	
   static String strTime;
   
@@ -155,6 +200,7 @@ public class BombermanPanel extends JPanel{
 	///GamePanel thepanel;
 	
 	// Methods
+  //Movements for the blue character
 	public static void blue_move(int intYfuture,int intXfuture, boolean blnUP, boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
 			int intposydiv;
 			int intposymod;
@@ -169,46 +215,39 @@ public class BombermanPanel extends JPanel{
 			int intnewbotleftposy;
 			int intnewbotrightposx;
 			int intnewbotrightposy;
-		
+		  //if blnresult returns true, check for direction of movement for the blue character
 			boolean blnresult = true;
 			
-			if(blnUP == true){
+			if(blnUP == true){ //up
 				intYfuture = intYfuture - 2;
-			}else if(blnDOWN == true){
+			}else if(blnDOWN == true){ //down
 				intYfuture = intYfuture + 2;
-			}else if(blnRIGHT == true){
+			}else if(blnRIGHT == true){ //right
 				intXfuture = intXfuture + 2;
-			}else if(blnLEFT == true){
+			}else if(blnLEFT == true){ //left
 				intXfuture = intXfuture - 2;
 			}	
-			intnewtopleftposx = intXfuture + 10;
+			intnewtopleftposx = intXfuture;
 			intnewtopleftposy = intYfuture;
-			intnewbotleftposx = intXfuture + 10;
-			intnewbotleftposy = intYfuture + 55;
+			intnewbotleftposx = intXfuture;
+			intnewbotleftposy = intYfuture + 50;
 			
-			intnewtoprightposx = intXfuture + 45;
+			intnewtoprightposx = intXfuture + 35;
 			intnewtoprightposy = intYfuture;
-			intnewbotrightposx = intXfuture + 45;
-			intnewbotrightposy = intYfuture + 55;
+			intnewbotrightposx = intXfuture + 35;
+			intnewbotrightposy = intYfuture + 50;
 			
 			intposydiv = intnewtopleftposy / 60;
-			//intposymod = intnewposy % 60;
 			intposxdiv = intnewtopleftposx / 60;
-			//intposxmod = intnewposx % 60;
-			
-			/*if(intposymod > 0 && intposydiv > 0){
-				intposydiv += 1;
-			}
-			if(intposxmod > 0 && intposxdiv > 0){
-				intposxdiv += 1;
-			}*/
+
 				
-			
+			// checks in the map if it is a random block or an outerblock
 			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
 				blnresult = false;
 			}
 			
-			
+			// whenever the person walks over the item 
+    	// they get the stats and change the picture to ground
 			if(blnresult){
 				if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm1")){
 					Bomberman.strMap[intposydiv][intposxdiv] = "g";
@@ -224,6 +263,149 @@ public class BombermanPanel extends JPanel{
 			
 			
 			
+			if(blnresult){
+				// calculate for top right pixel 
+				intposydiv = intnewtoprightposy / 60;
+				intposxdiv = intnewtoprightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+			
+				
+				if(blnresult){
+          // calculate for bottom right pixel
+						intposydiv = intnewbotrightposy / 60;
+						intposxdiv = intnewbotrightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+				if(blnresult){
+          // calculate for bottom left pixel
+						intposydiv = intnewbotleftposy / 60;
+						intposxdiv = intnewbotleftposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+			
+		if(blnresult){
+      	// animation for movement up
+      	//redraws character at the variable coordinates
+				if(blnUP == true){
+				g.drawImage(up1, intX, intYfuture, null);
+				Bombermantools.trysleep(); //pause
+				g.drawImage(up2, intX, intYfuture, null);
+				Bombermantools.trysleep(); //pause
+				// initializes the future to be the current position
+				intY = intYfuture;
+			}
+			else if(blnRIGHT == true){
+        // animation for movement right 
+				g.drawImage(right1, intXfuture, intY, null); 
+				Bombermantools.trysleep(); //pause
+				g.drawImage(right2, intXfuture, intY, null); 
+				Bombermantools.trysleep(); //pause
+        // initializes the future to be the current position
+				intX = intXfuture;
+			}
+			else if(blnDOWN == true){
+        // animation for movement down
+				g.drawImage(down1, intX, intYfuture, null); 
+				Bombermantools.trysleep();
+				g.drawImage(down2, intX, intYfuture, null); 
+				Bombermantools.trysleep();
+				// initializes the future to be the current position
+				intY = intYfuture;
+			}
+			else if(blnLEFT == true){
+        // animation for movement left
+				g.drawImage(left1, intXfuture, intY, null); 
+				Bombermantools.trysleep();
+				g.drawImage(left2, intXfuture, intY, null);
+				Bombermantools.trysleep();
+				// initizlies the future to be the current position
+			intX = intXfuture;
+			}
+			}
+			
+	}
+	
+	
+	
+	
+	
+	
+	//Red will have the same logic as the blue character as will the yellow and the white to ensure equality
+	public static void red_move(int intYfuture,int intXfuture, boolean blnUP,
+											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
+		
+			int intposydiv;
+			int intposymod;
+			int intposxdiv;
+			int intposxmod;
+			
+			
+			int intnewtopleftposx;
+			int intnewtopleftposy;
+			int intnewtoprightposx;
+			int intnewtoprightposy;
+			int intnewbotleftposx;
+			int intnewbotleftposy;
+			int intnewbotrightposx;
+			int intnewbotrightposy;
+
+			boolean blnresult = true;
+			
+			if(blnUP == true){
+				intYfuture = intYfuture - 5;
+			}else if(blnDOWN == true){
+				intYfuture = intYfuture + 5;
+			}else if(blnRIGHT == true){
+				intXfuture = intXfuture + 5;
+			}else if(blnLEFT == true){
+				intXfuture = intXfuture - 5;
+			}	
+			intnewtopleftposx = intXfuture;
+			intnewtopleftposy = intYfuture;
+			intnewbotleftposx = intXfuture;
+			intnewbotleftposy = intYfuture + 59;
+			
+			intnewtoprightposx = intXfuture + 35;
+			intnewtoprightposy = intYfuture;
+			intnewbotrightposx = intXfuture + 35;
+			intnewbotrightposy = intYfuture + 59;
+			
+			intposydiv = intnewtopleftposy / 60;
+
+			intposxdiv = intnewtopleftposx / 60;
+		
+		
+		
+			
+			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+				blnresult = false;
+			}
+				
+			if(blnresult){
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm1")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombrange_red += 1;
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm2")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombcount_red += 1;     //bomb
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm3")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					blninvicible_red = true;
+				}
+			}
+			
+			
+				
 			if(blnresult){
 				
 				intposydiv = intnewtoprightposy / 60;
@@ -252,153 +434,61 @@ public class BombermanPanel extends JPanel{
 			}
 				
 			
-		if(blnresult){
+			
+			
+			if(blnresult){	
 				if(blnUP == true){
-				g.drawImage(up1, intX, intYfuture, null);
+				g.drawImage(up1_red, intX_red, intYfuture, null);
 				Bombermantools.trysleep();
-				g.drawImage(up2, intX, intYfuture, null);
+				g.drawImage(up2_red, intX_red, intYfuture, null);
 				Bombermantools.trysleep();
-				
-				intY = intYfuture;
+				intY_red = intYfuture;
+
 			}
 			else if(blnRIGHT == true){
-				g.drawImage(right1, intXfuture, intY, null); 
-				Bombermantools.trysleep();
-				g.drawImage(right2, intXfuture, intY, null); 
-				Bombermantools.trysleep();
-				intX = intXfuture;
+				g.drawImage(right1_red, intXfuture, intY_red, null); 
+			Bombermantools.trysleep();
+			g.drawImage(right2_red, intXfuture, intY_red, null); 
+			Bombermantools.trysleep();
+				intX_red = intXfuture;
 			}
 			else if(blnDOWN == true){
-				g.drawImage(down1, intX, intYfuture, null); 
+				g.drawImage(down1_red, intX_red, intYfuture, null); 
 				Bombermantools.trysleep();
-				g.drawImage(down2, intX, intYfuture, null); 
+				g.drawImage(down2_red, intX_red, intYfuture, null); 
 				Bombermantools.trysleep();
-			
-				intY = intYfuture;
+				intY_red = intYfuture;
 			}
 			else if(blnLEFT == true){
-				g.drawImage(left1, intXfuture, intY, null); 
-				Bombermantools.trysleep();
-				g.drawImage(left2, intXfuture, intY, null);
-				Bombermantools.trysleep();
-
-			intX = intXfuture;
-			}
-			}
-			
-			
-			
-
-			
-			
-			
-	}
-	
-	
-	
-	
-	
-	
-	
-	public static void red_move(int intYfuture,int intXfuture, boolean blnUP,
-											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
-			int intposydiv;
-			int intposymod;
-			int intposxdiv;
-			int intposxmod;
-			int intnewposx;
-			int intnewposy;
-			boolean blnresult = true;
-			intnewposx = intXfuture;
-			intnewposy = intYfuture;
-			
-			if(blnUP == true){
-				intYfuture = intYfuture - 5;
-				intnewposy = intYfuture;
-			}else if(blnDOWN == true){
-				intYfuture = intYfuture + 5;
-				intnewposy = intYfuture + 60;
-			}else if(blnRIGHT == true){
-				intXfuture = intXfuture + 5;
-				intnewposx = intXfuture + 30;
-			}else if(blnLEFT == true){
-				intXfuture = intXfuture - 5;
-				intnewposy = intYfuture;
+				g.drawImage(left1_red, intXfuture, intY_red, null); 
+			Bombermantools.trysleep();
+				g.drawImage(left2_red, intXfuture, intY_red, null);
+			Bombermantools.trysleep();
+				intX_red = intXfuture;
+				}
 			}	
-			intposydiv = intnewposy / 60;
-			intposymod = intnewposy % 60;
-			intposxdiv = intnewposx / 60;
-			intposxmod = intnewposx % 60;
-			if(intposymod > 0 && intposydiv > 0){
-				intposydiv += 1;
-			}
-			if(intposxmod > 0 && intposxdiv > 0){
-				intposxdiv += 1;
-			}
-			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
-				blnresult = false;
-			}else{
-				if(blnUP == true){
-				g.drawImage(up1_red, intXfuture, intYfuture, null);
-				Bombermantools.trysleep();
-				g.drawImage(up2_red, intXfuture, intYfuture, null);
-				Bombermantools.trysleep();
-				intY_red = intYfuture;
-
-			}
-			else if(blnRIGHT == true){
-				g.drawImage(right1_red, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2_red, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-				intX_red = intXfuture;
-			}
-			else if(blnDOWN == true){
-				g.drawImage(down1_red, intXfuture, intYfuture, null); 
-				Bombermantools.trysleep();
-				g.drawImage(down2_red, intXfuture, intYfuture, null); 
-				Bombermantools.trysleep();
-				intY_red = intYfuture;
-			}
-			else if(blnLEFT == true){
-				g.drawImage(left1_red, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-				g.drawImage(left2_red, intXfuture, intYfuture, null);
-			Bombermantools.trysleep();
-				intX_red = intXfuture;
-				}
-			}
-			
-			
-			
-			if(blnresult){
-				if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm1")){
-					intbombrange_red += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm2")){
-					intbombcount_red += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm3")){
-					blninvicible_red = true;
-					//timestamp_blue = new Timestamp(System.currentTimeMillis());
-				}
-			}
-			
-
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	public static void yellow_move(int intYfuture,int intXfuture, boolean blnUP,
 											boolean blnDOWN, boolean blnRIGHT, boolean blnLEFT,Graphics g){
-			int intposydiv;
+						int intposydiv;
 			int intposymod;
 			int intposxdiv;
 			int intposxmod;
+			
+			
+			int intnewtopleftposx;
+			int intnewtopleftposy;
+			int intnewtoprightposx;
+			int intnewtoprightposy;
+			int intnewbotleftposx;
+			int intnewbotleftposy;
+			int intnewbotrightposx;
+			int intnewbotrightposy;
+			
 			boolean blnresult = true;
+			
 			if(blnUP == true){
 				intYfuture = intYfuture - 5;
 			}else if(blnDOWN == true){
@@ -408,58 +498,93 @@ public class BombermanPanel extends JPanel{
 			}else if(blnLEFT == true){
 				intXfuture = intXfuture - 5;
 			}	
+			intnewtopleftposx = intXfuture;
+			intnewtopleftposy = intYfuture;
+			intnewbotleftposx = intXfuture;
+			intnewbotleftposy = intYfuture + 59;
+			
+			intnewtoprightposx = intXfuture + 35;
+			intnewtoprightposy = intYfuture;
+			intnewbotrightposx = intXfuture + 35;
+			intnewbotrightposy = intYfuture + 59;
+			
+			intposydiv = intnewtopleftposy / 60;
+			intposxdiv = intnewtopleftposx / 60;
 				
-			intposydiv = intYfuture / 60;
-			intposymod = intYfuture % 60;
-			intposxdiv = intXfuture / 60;
-			intposxmod = intXfuture % 60;
-			if(intposymod > 0 && intposydiv > 0){
-				intposydiv += 1;
-			}
-			if(intposxmod > 0 && intposxdiv > 0){
-				intposxdiv += 1;
-			}
+			
 			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
 				blnresult = false;
-			}else{
+			}
+			
+			
+			if(blnresult){
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm1")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombrange_yellow += 1;
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm2")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombcount_yellow += 1;     //bomb
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm3")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					blninvicible_yellow = true;
+				}
+			}
+			
+			
+			
+			if(blnresult){
+				
+				intposydiv = intnewtoprightposy / 60;
+				intposxdiv = intnewtoprightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+				if(blnresult){
+						intposydiv = intnewbotrightposy / 60;
+						intposxdiv = intnewbotrightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+				if(blnresult){
+						intposydiv = intnewbotleftposy / 60;
+						intposxdiv = intnewbotleftposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+			if(blnresult){
 				if(blnUP == true){
-				g.drawImage(up1_yellow, intXfuture, intYfuture, null);
+				g.drawImage(up1_yellow, intX_yellow, intYfuture, null);
 				Bombermantools.trysleep();
-           g.drawImage(up2_yellow, intXfuture, intYfuture, null);
+           g.drawImage(up2_yellow, intX_yellow, intYfuture, null);
            Bombermantools.trysleep();
 				intY_yellow = intYfuture;
 			}
 			else if(blnRIGHT == true){
-				g.drawImage(right1_yellow, intXfuture, intYfuture, null); 
+				g.drawImage(right1_yellow, intXfuture, intY_yellow, null); 
 			Bombermantools.trysleep();
-			g.drawImage(right2_yellow, intXfuture, intYfuture, null); 
+			g.drawImage(right2_yellow, intXfuture, intY_yellow, null); 
 			Bombermantools.trysleep();
 				intX_yellow = intXfuture;
 			}
 			else if(blnDOWN == true){
-				g.drawImage(down1_yellow, intXfuture, intYfuture, null); 
+				g.drawImage(down1_yellow, intX_yellow, intYfuture, null); 
 			Bombermantools.trysleep();
-				g.drawImage(down2_yellow, intXfuture, intYfuture, null); 
+				g.drawImage(down2_yellow, intX_yellow, intYfuture, null); 
 			Bombermantools.trysleep();
 			intY_yellow = intYfuture;
 			}
 			else if(blnLEFT == true){
-				g.drawImage(left1_yellow, intXfuture, intYfuture, null); 
+				g.drawImage(left1_yellow, intXfuture, intY_yellow, null); 
 				Bombermantools.trysleep();
-				g.drawImage(left2_yellow, intXfuture, intYfuture, null);
+				g.drawImage(left2_yellow, intXfuture, intY_yellow, null);
 				Bombermantools.trysleep();
 				intX_yellow = intXfuture;
 			}
-			}
-			if(blnresult){
-				if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm1")){
-					intbombrange_yellow += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm2")){
-					intbombcount_yellow += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm3")){
-					blninvicible_yellow = true;
-					//timestamp_blue = new Timestamp(System.currentTimeMillis());
-				}
 			}
 	}
 	
@@ -475,7 +600,19 @@ public class BombermanPanel extends JPanel{
 			int intposymod;
 			int intposxdiv;
 			int intposxmod;
+			
+			
+			int intnewtopleftposx;
+			int intnewtopleftposy;
+			int intnewtoprightposx;
+			int intnewtoprightposy;
+			int intnewbotleftposx;
+			int intnewbotleftposy;
+			int intnewbotrightposx;
+			int intnewbotrightposy;
+			
 			boolean blnresult = true;
+			
 			if(blnUP == true){
 				intYfuture = intYfuture - 5;
 			}else if(blnDOWN == true){
@@ -485,73 +622,100 @@ public class BombermanPanel extends JPanel{
 			}else if(blnLEFT == true){
 				intXfuture = intXfuture - 5;
 			}	
+			intnewtopleftposx = intXfuture;
+			intnewtopleftposy = intYfuture;
+			intnewbotleftposx = intXfuture;
+			intnewbotleftposy = intYfuture + 59;
+			
+			intnewtoprightposx = intXfuture + 35;
+			intnewtoprightposy = intYfuture;
+			intnewbotrightposx = intXfuture + 35;
+			intnewbotrightposy = intYfuture + 59;
+			
+			intposydiv = intnewtopleftposy / 60;
+			intposxdiv = intnewtopleftposx / 60;
 				
-			intposydiv = intYfuture / 60;
-			intposymod = intYfuture % 60;
-			intposxdiv = intXfuture / 60;
-			intposxmod = intXfuture % 60;
-			if(intposymod > 0 && intposydiv > 0){
-				intposydiv += 1;
-			}
-			if(intposxmod > 0 && intposxdiv > 0){
-				intposxdiv += 1;
-			}
+			
 			if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
 				blnresult = false;
-			}else{
-				if(blnUP == true){
-				g.drawImage(up1_white, intXfuture, intYfuture, null);
-				Bombermantools.trysleep();
-           g.drawImage(up2_white, intXfuture, intYfuture, null);
-           Bombermantools.trysleep();
-				intY_white = intYfuture;
-			}
-			else if(blnRIGHT == true){
-				g.drawImage(right1_white, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-			g.drawImage(right2_white, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-			intX_white = intXfuture;
-			}
-			else if(blnDOWN == true){
-				g.drawImage(down1_white, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-				g.drawImage(down2_white, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-			intY_white = intYfuture;
-			}
-			else if(blnLEFT == true){
-				g.drawImage(left1_white, intXfuture, intYfuture, null); 
-			Bombermantools.trysleep();
-				g.drawImage(left2_white, intXfuture, intYfuture, null);
-			Bombermantools.trysleep();
-			intX_white = intXfuture;
-		}
 			}
 			
+			
 			if(blnresult){
-				if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm1")){
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm1")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
 					intbombrange_white += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm2")){
-					intbombcount_white += 1;
-				}else if(Bomberman.stritem[intposxdiv][intposydiv].equals("itm3")){
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm2")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
+					intbombcount_white += 1;     //bomb
+				}else if(Bomberman.strMap[intposydiv][intposxdiv].equals("itm3")){
+					Bomberman.strMap[intposydiv][intposxdiv] = "g";
 					blninvicible_white = true;
 				}
 			}
 			
+			
+			
+			if(blnresult){
+				
+				intposydiv = intnewtoprightposy / 60;
+				intposxdiv = intnewtoprightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+				if(blnresult){
+						intposydiv = intnewbotrightposy / 60;
+						intposxdiv = intnewbotrightposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+				
+				if(blnresult){
+						intposydiv = intnewbotleftposy / 60;
+						intposxdiv = intnewbotleftposx / 60;
+				if(Bomberman.strMap[intposydiv][intposxdiv].equals("r") || Bomberman.strMap[intposydiv][intposxdiv].equals("ob")){
+					blnresult = false;
+				}
+			}
+			if(blnresult){
+				if(blnUP == true){
+				g.drawImage(up1_white, intX_white, intYfuture, null);
+				Bombermantools.trysleep();
+           g.drawImage(up2_white, intX_white, intYfuture, null);
+           Bombermantools.trysleep();
+				intY_white = intYfuture;
+			}
+			else if(blnRIGHT == true){
+				g.drawImage(right1_white, intXfuture, intY_white, null); 
+			Bombermantools.trysleep();
+			g.drawImage(right2_white, intXfuture, intY_white, null); 
+			Bombermantools.trysleep();
+			intX_white = intXfuture;
+			}
+			else if(blnDOWN == true){
+				g.drawImage(down1_white, intX_white, intYfuture, null); 
+			Bombermantools.trysleep();
+				g.drawImage(down2_white, intX_white, intYfuture, null); 
+			Bombermantools.trysleep();
+			intY_white = intYfuture;
+			}
+			else if(blnLEFT == true){
+				g.drawImage(left1_white, intXfuture, intY_white, null); 
+			Bombermantools.trysleep();
+				g.drawImage(left2_white, intXfuture, intY_white, null);
+			Bombermantools.trysleep();
+			intX_white = intXfuture;
+		}
+			}
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
+	//bomb positioning for each of the characters
 	public static void bombposition(int intBombX,int intBombY,int intrange,Graphics g){
-		
+		//variables
 			int intposydiv;
 			int intposymod;
 			int intposxdiv;
@@ -560,7 +724,7 @@ public class BombermanPanel extends JPanel{
 			boolean blnobfound = false;
 			
 			
-			
+			//calculate the positionings of the bombs
 			intposydiv = intBombY / 60;
 			intposymod = intBombY % 60;
 			intposxdiv = intBombX / 60;
@@ -1026,10 +1190,6 @@ public class BombermanPanel extends JPanel{
 	//
 	//
 	//
-	
-	
-
-
 	public static void bombitem(int intBombX,int intBombY,int intrange,Graphics g){
 			int intposydiv;
 			int intposymod;
@@ -1038,7 +1198,7 @@ public class BombermanPanel extends JPanel{
 			int intcountrange;
 			boolean blnobfound = false;
 			
-			
+			//setting the positions of the bomb items
 			intposydiv = intBombY / 60;
 			intposymod = intBombY % 60;
 			intposxdiv = intBombX / 60;
@@ -1621,7 +1781,169 @@ public class BombermanPanel extends JPanel{
 				Bombermantools.trysleep();
 			}
 	}
-	
+	public static void bombdisplay_red(Graphics g){
+		if(blnPlaceBomb_red && blnbomb1set_red == false){
+				intBombX_red = intX_red;
+				intBombY_red = intY_red;
+				g.drawImage(bomb_item,intBombX_red,intBombY_red,null);
+				Bombermantools.trysleep();
+				bomb1duration_red = System.currentTimeMillis()/1000;
+				blnbomb1set_red = true;
+				blnPlaceBomb_red = false;
+			}else if(blnPlaceBomb_red && blnbomb1set_red){
+				g.drawImage(bomb_item,intBombX_red,intBombY_red,null);
+				Bombermantools.trysleep();
+			}	
+
+			
+			if(blnPlaceBomb_red && blnbomb2set_red == false && intbombcount_red == 1){
+				intBomb2X_red = intX_red;
+				intBomb2Y_red = intY_red;
+				g.drawImage(bomb_item,intBomb2X_red,intBomb2Y_red,null);
+				Bombermantools.trysleep();
+				bomb2duration_red = System.currentTimeMillis()/1000;
+				blnbomb2set_red = true;
+				blnPlaceBomb_red = false;
+			}else if(blnPlaceBomb_red && blnbomb2set_red){
+				g.drawImage(bomb_item,intBomb2X_red,intBomb2Y_red,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb_red && blnbomb3set_red == false && intbombcount_red == 2){
+				intBomb3X_red = intX_red;
+				intBomb3Y_red = intY_red;
+				g.drawImage(bomb_item,intBomb3X_red,intBomb3Y_red,null);
+				Bombermantools.trysleep();
+				bomb3duration_red = System.currentTimeMillis()/1000;
+				blnbomb3set_red = true;
+				blnPlaceBomb_red = false;
+			}else if(blnPlaceBomb_red && blnbomb3set_red){
+				g.drawImage(bomb_item,intBomb3X_red,intBomb3Y_red,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb_red && blnbomb4set_red == false && intbombcount_red == 3){
+				intBomb4X_red = intX_red;
+				intBomb4Y_red = intY_red;
+				g.drawImage(bomb_item,intBomb4X_red,intBomb4Y_red,null);
+				Bombermantools.trysleep();
+				bomb4duration_red = System.currentTimeMillis()/1000;
+				blnbomb4set_red = true;
+				blnPlaceBomb_red = false;
+			}else if(blnPlaceBomb_red && blnbomb4set_red){
+				g.drawImage(bomb_item,intBomb4X_red,intBomb4Y_red,null);
+				Bombermantools.trysleep();
+			}
+		}
+  public static void bombdisplay_yellow(Graphics g){
+		if(blnPlaceBomb_yellow && blnbomb1set_yellow == false){
+				intBombX_yellow = intX_yellow;
+				intBombY_yellow = intY_yellow;
+				g.drawImage(bomb_item,intBombX_yellow,intBombY_yellow,null);
+				Bombermantools.trysleep();
+				bomb1duration_yellow = System.currentTimeMillis()/1000;
+				blnbomb1set_yellow = true;
+				blnPlaceBomb_yellow = false;
+			}else if(blnPlaceBomb_yellow && blnbomb1set_yellow){
+				g.drawImage(bomb_item,intBombX_yellow,intBombY_yellow,null);
+				Bombermantools.trysleep();
+			}				
+			if(blnPlaceBomb_yellow && blnbomb2set_yellow == false && intbombcount_yellow == 1){
+				intBomb2X_yellow = intX_yellow;
+				intBomb2Y_yellow = intY_yellow;
+				g.drawImage(bomb_item,intBomb2X_yellow,intBomb2Y_yellow,null);
+				Bombermantools.trysleep();
+				bomb2duration_yellow = System.currentTimeMillis()/1000;
+				blnbomb2set_yellow = true;
+				blnPlaceBomb_yellow = false;
+			}else if(blnPlaceBomb_yellow && blnbomb2set_yellow){
+				g.drawImage(bomb_item,intBomb2X_yellow,intBomb2Y_yellow,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb_yellow && blnbomb3set_yellow == false && intbombcount_yellow == 2){
+				intBomb3X_yellow = intX_yellow;
+				intBomb3Y_yellow = intY_yellow;
+				g.drawImage(bomb_item,intBomb3X_yellow,intBomb3Y_yellow,null);
+				Bombermantools.trysleep();
+				bomb3duration_yellow = System.currentTimeMillis()/1000;
+				blnbomb3set_yellow = true;
+				blnPlaceBomb_yellow = false;
+			}else if(blnPlaceBomb_yellow && blnbomb3set_yellow){
+				g.drawImage(bomb_item,intBomb3X_yellow,intBomb3Y_yellow,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb && blnbomb4set_yellow == false && intbombcount_yellow == 3){
+				intBomb4X_yellow = intX_yellow;
+				intBomb4Y_yellow = intY_yellow;
+				g.drawImage(bomb_item,intBomb4X_yellow,intBomb4Y_yellow,null);
+				Bombermantools.trysleep();
+				bomb4duration_yellow = System.currentTimeMillis()/1000;
+				blnbomb4set_yellow = true;
+				blnPlaceBomb_yellow = false;
+			}else if(blnPlaceBomb_yellow && blnbomb4set_yellow){
+				g.drawImage(bomb_item,intBomb4X_yellow,intBomb4Y_yellow,null);
+				Bombermantools.trysleep();
+			}
+		}
+		
+		//
+		//
+		//
+		//
+		// White Bomberman bomb display
+		//
+		//
+		//
+	public static void bombdisplay_white(Graphics g){
+		if(blnPlaceBomb_white && blnbomb1set_white == false){
+				intBombX_white = intX_white;
+				intBombY_white = intY_white;
+				g.drawImage(bomb_item,intBombX_white,intBombY_white,null);
+				Bombermantools.trysleep();
+				bomb1duration_white = System.currentTimeMillis()/1000;
+				blnbomb1set_white = true;
+				blnPlaceBomb_white = false;
+			}else if(blnPlaceBomb_white && blnbomb1set_white){
+				g.drawImage(bomb_item,intBombX_white,intBombY_white,null);
+				Bombermantools.trysleep();
+			}	
+
+			
+			if(blnPlaceBomb_white && blnbomb2set_white == false && intbombcount_white == 1){
+				intBomb2X_white = intX_white;
+				intBomb2Y_white = intY_white;
+				g.drawImage(bomb_item,intBomb2X_white,intBomb2Y_white,null);
+				Bombermantools.trysleep();
+				bomb2duration_white = System.currentTimeMillis()/1000;
+				blnbomb2set_white = true;
+				blnPlaceBomb_white = false;
+			}else if(blnPlaceBomb_white && blnbomb2set_white){
+				g.drawImage(bomb_item,intBomb2X_white,intBomb2Y_white,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb_white && blnbomb3set_white == false && intbombcount_white == 2){
+				intBomb3X_white = intX_white;
+				intBomb3Y_white = intY_white;
+				g.drawImage(bomb_item,intBomb3X_white,intBomb3Y_white,null);
+				Bombermantools.trysleep();
+				bomb3duration_white = System.currentTimeMillis()/1000;
+				blnbomb3set_white = true;
+				blnPlaceBomb_white = false;
+			}else if(blnPlaceBomb_white && blnbomb3set_white){
+				g.drawImage(bomb_item,intBomb3X_white,intBomb3Y_white,null);
+				Bombermantools.trysleep();
+			}
+			if(blnPlaceBomb_white && blnbomb4set_white == false && intbombcount_white == 3){
+				intBomb4X_white = intX_white;
+				intBomb4Y_white = intY_white;
+				g.drawImage(bomb_item,intBomb4X_white,intBomb4Y_white,null);
+				Bombermantools.trysleep();
+				bomb4duration_white = System.currentTimeMillis()/1000;
+				blnbomb4set_white = true;
+				blnPlaceBomb_white = false;
+			}else if(blnPlaceBomb_white && blnbomb4set_white){
+				g.drawImage(bomb_item,intBomb4X_white,intBomb4Y_white,null);
+				Bombermantools.trysleep();
+			}
+		}
 	public static void bombexplosion(Graphics g){
 		int inttime;
 		if(blnbomb1set){
@@ -1683,8 +2005,189 @@ public class BombermanPanel extends JPanel{
 			}
 		}
 	}
-
-
+	public static void bombexplosion_red(Graphics g){
+		int inttime;
+		if(blnbomb1set_red){
+			long duration_red;
+			duration_red = System.currentTimeMillis()/1000;
+			inttime = (int)duration_red - (int)bomb1duration_red;
+			if(inttime >= 3){
+				bombposition(intBombX_red,intBombY_red,intbombrange_red,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb1duration_red = 0;
+				blnbomb1set_red = false;
+				bombitem(intBombX_red,intBombY_red,intbombrange_red,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb2set_red){
+			long duration_red;
+			duration_red = System.currentTimeMillis()/1000;
+			inttime = (int)duration_red - (int)bomb2duration_red;
+			
+			if(inttime >= 3){
+				bombposition(intBomb2X_red,intBomb2Y_red,intbombrange_red,g); // bomb explosion
+				if(inttime > 6){
+				bomb2duration_red = 0;
+				blnbomb2set_red = false;
+				bombitem(intBomb2X_red,intBomb2Y_red,intbombrange_red,g); // display items
+				}
+			}
+		}
+		if(blnbomb3set_red){
+			long duration_red;
+			duration_red = System.currentTimeMillis()/1000;
+			inttime = (int)duration_red - (int)bomb3duration_red;
+			if(inttime >= 3){
+				bombposition(intBomb3X_red,intBomb3Y_red,intbombrange_red,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb3duration_red = 0;
+				blnbomb3set_red = false;
+				bombitem(intBomb3X_red,intBomb3Y_red,intbombrange_red,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb4set_red){
+			long duration_red;
+			duration_red = System.currentTimeMillis()/1000;
+			inttime = (int)duration_red - (int)bomb4duration_red;
+			
+			if(inttime >= 3){
+				bombposition(intBomb4X_red,intBomb4Y_red,intbombrange_red,g); // bomb explosion
+				if(inttime > 6){
+				bomb4duration_red = 0;
+				blnbomb4set_red = false;
+				bombitem(intBomb4X_red,intBomb4Y_red,intbombrange_red,g); // display items
+				}
+			}
+		}
+	}
+	public static void bombexplosion_yellow(Graphics g){
+		int inttime;
+		if(blnbomb1set_yellow){
+			long duration_yellow;
+			duration_yellow = System.currentTimeMillis()/1000;
+			inttime = (int)duration_yellow - (int)bomb1duration_yellow;
+			if(inttime >= 3){
+				bombposition(intBombX_yellow,intBombY_yellow,intbombrange_yellow,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb1duration_yellow = 0;
+				blnbomb1set_yellow = false;
+				bombitem(intBombX_yellow,intBombY_yellow,intbombrange_yellow,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb2set_yellow){
+			long duration_yellow;
+			duration_yellow = System.currentTimeMillis()/1000;
+			inttime = (int)duration_yellow - (int)bomb2duration_yellow;
+			
+			if(inttime >= 3){
+				bombposition(intBomb2X_yellow,intBomb2Y_yellow,intbombrange_yellow,g); // bomb explosion
+				if(inttime > 6){
+				bomb2duration_yellow = 0;
+				blnbomb2set_yellow = false;
+				bombitem(intBomb2X_yellow,intBomb2Y_yellow,intbombrange_yellow,g); // display items
+				}
+			}
+		}
+		if(blnbomb3set_yellow){
+			long duration_yellow;
+			duration_yellow = System.currentTimeMillis()/1000;
+			inttime = (int)duration_yellow - (int)bomb3duration_yellow;
+			if(inttime >= 3){
+				bombposition(intBomb3X_yellow,intBomb3Y_yellow,intbombrange_yellow,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb3duration_yellow = 0;
+				blnbomb3set_yellow = false;
+				bombitem(intBomb3X_yellow,intBomb3Y_yellow,intbombrange_yellow,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb4set_yellow){
+			long duration_yellow;
+			duration_yellow = System.currentTimeMillis()/1000;
+			inttime = (int)duration_yellow - (int)bomb4duration_yellow;
+			
+			if(inttime >= 3){
+				bombposition(intBomb4X_yellow,intBomb4Y_yellow,intbombrange_yellow,g); // bomb explosion
+				if(inttime > 6){
+				bomb4duration_yellow = 0;
+				blnbomb4set_yellow = false;
+				bombitem(intBomb4X_yellow,intBomb4Y_yellow,intbombrange_yellow,g); // display items
+				}
+			}
+		}
+	}
+  public static void bombexplosion_white(Graphics g){
+		int inttime;
+		if(blnbomb1set_white){
+			long duration_white;
+			duration_white = System.currentTimeMillis()/1000;
+			inttime = (int)duration_white - (int)bomb1duration_white;
+			if(inttime >= 3){
+				bombposition(intBombX_white,intBombY_white,intbombrange_white,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb1duration_white = 0;
+				blnbomb1set_white = false;
+				bombitem(intBombX_white,intBombY_white,intbombrange_white,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb2set_white){
+			long duration_white;
+			duration_white = System.currentTimeMillis()/1000;
+			inttime = (int)duration_white - (int)bomb2duration_white;
+			
+			if(inttime >= 3){
+				bombposition(intBomb2X_white,intBomb2Y_white,intbombrange_white,g); // bomb explosion
+				if(inttime > 6){
+				bomb2duration_white = 0;
+				blnbomb2set_white = false;
+				bombitem(intBomb2X_white,intBomb2Y_white,intbombrange_white,g); // display items
+				}
+			}
+		}
+		if(blnbomb3set_white){
+			long duration_white;
+			duration_white = System.currentTimeMillis()/1000;
+			inttime = (int)duration_white - (int)bomb3duration_white;
+			if(inttime >= 3){
+				bombposition(intBomb3X_white,intBomb3Y_white,intbombrange_white,g); // bomb explosion
+				
+				if(inttime > 6){
+				bomb3duration_white = 0;
+				blnbomb3set_white = false;
+				bombitem(intBomb3X_white,intBomb3Y_white,intbombrange_white,g); // display items
+				}
+			}
+		}
+		
+		if(blnbomb4set_white){
+			long duration_white;
+			duration_white = System.currentTimeMillis()/1000;
+			inttime = (int)duration_white - (int)bomb4duration_white;
+			
+			if(inttime >= 3){
+				bombposition(intBomb4X_white,intBomb4Y_white,intbombrange_white,g); // bomb explosion
+				if(inttime > 6){
+				bomb4duration_white = 0;
+				blnbomb4set_white = false;
+				bombitem(intBomb4X_white,intBomb4Y_white,intbombrange_white,g); // display items
+				}
+			}
+		}
+	}
 /**********************************************************************
  * 
  * 
@@ -1702,12 +2205,19 @@ public class BombermanPanel extends JPanel{
 	public void paintComponent(Graphics g){
 		// Start Main Menu
 			// Main Menu
+			int intCount2 = 0;
 			if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 1){ 
 				g.drawImage(mainmenu, 0, 0, null); 
 			}
 			// HighscoresMenu 
 			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 2){ 
 				g.drawImage(highscoresmenu, 0, 0, null);
+				g.drawString("Name",450,250);
+				g.drawString("Score",750,250);
+				for(intCount2 = 0; intCount2 < Bomberman.intPlayers || intCount2 < 10; intCount2++){
+					g.drawString(Bomberman.strArray[intCount2][0],450,270+(intCount2 * 15));
+					g.drawString(Bomberman.strArray[intCount2][1],750,270+(intCount2 * 15)); 
+				}
 			}	
 			// HelpMenu
 			else if(Bomberman.blnMainMenu == true && Bomberman.intMenu == 3){ 
@@ -1858,6 +2368,9 @@ public class BombermanPanel extends JPanel{
 			g.drawImage(down1_white, intX_white, intY_white, null);// Default stance
 			
 			BombermanPanel.bombdisplay(g); // display player's bomb
+      BombermanPanel.bombdisplay_red(g);
+      BombermanPanel.bombdisplay_yellow(g);
+      BombermanPanel.bombdisplay_white(g);
 			
 
 			if(blnUp || blnDown || blnRight || blnLeft || Bomberman.strChat.equals(""+intX) || Bomberman.strChat.equals(""+intY)){
@@ -1874,7 +2387,9 @@ public class BombermanPanel extends JPanel{
 			}
 			
 			BombermanPanel.bombexplosion(g);
-				
+      BombermanPanel.bombexplosion_red(g);
+      BombermanPanel.bombexplosion_yellow(g);
+			BombermanPanel.bombexplosion_white(g);
 			
 			
 			

@@ -75,6 +75,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
  String strSplit[];
  static int intCount2;
  static String strName;
+ static String strArray[][];
+ static int intPlayers = 0;
 
 
  // Methods
@@ -111,6 +113,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 
 
  public void actionPerformed(ActionEvent evt) {
+	 FileReader highscoresfile = null;
+    BufferedReader highscoresreaddata;
   // JPanel Refresh 60 FPS
   if (evt.getSource() == thetimer) {
    bombermanpanel.repaint();
@@ -138,28 +142,64 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
     button_startgame.setVisible(false); // Hide unecessary JComponents
     button_highscores.setVisible(false);
     button_help.setVisible(false);
-    button_quit.setVisible(false);
+    button_quit.setVisible(false);	
         try{
-		//	thefile = new FileWriter("highscores.txt");
-		FileReader thefile = new FileReader("highscores.txt");
-		BufferedReader thefiledata = new BufferedReader(thefile);
-		System.out.println("success");
+		 highscoresfile = new FileReader("highscores.txt");
+        }catch(FileNotFoundException e){
+          System.out.println("unable to read the file");
+        }
+		 highscoresreaddata = new BufferedReader(highscoresfile);
+
 		String strLine = "";
 		String strScore = "";
-		int intPlayers = 0;
-        while ((strLine = thefiledata.readLine ()) != null){                 // read the score file line by line
-          strLine = thefiledata.readLine();
-          strScore = thefiledata.readLine();
-          intPlayers = intPlayers + 1;
-        }
-         String strArray[][];
-         strArray = new String[intPlayers][2];
-        for (intCount2 = 0; intCount2 < intPlayers; intCount2++){
-          strName = thefiledata.readLine();
-          strScore = thefiledata.readLine();
-          strArray[intCount2][0] = strName;
-          strArray[intCount2][1] = strScore;
-        }
+		intPlayers = 0;
+          try{
+            strLine = highscoresreaddata.readLine();
+            strScore = highscoresreaddata.readLine();
+          }catch(IOException e){
+          	System.out.println("Unable to read line");
+          }
+          
+        while (strScore != null){                 // read the score file line by line
+			intPlayers = intPlayers + 1;
+
+
+         	 	
+         	 	try{
+            strLine = highscoresreaddata.readLine();
+            strScore = highscoresreaddata.readLine();
+          }catch(IOException e){
+          	System.out.println("Unable to read line");
+          } 
+        } 
+        try{
+        highscoresfile.close();
+	}catch(IOException e){
+		System.out.println("unable to close the file");
+	}	
+               strArray = new String[intPlayers][2];
+               try{
+                highscoresfile = new FileReader("highscores.txt");
+				}catch(FileNotFoundException e){
+				System.out.println("unable to read the file");
+			}
+			highscoresreaddata = new BufferedReader(highscoresfile);
+               for(intCount2 = 0; intCount2 < intPlayers; intCount2++){
+				   try{
+				   strName = highscoresreaddata.readLine();
+				   strScore = highscoresreaddata.readLine();
+			   }catch(IOException e){
+				   System.out.println("unable to read line");
+			   }
+				   strArray[intCount2][0] = strName;
+				   strArray[intCount2][1] = strScore;
+			   }
+			   try{
+        highscoresfile.close();
+	}catch(IOException e){
+		System.out.println("unable to close the file");
+	}
+        
         //3 - sort the array
         String strLeft;
         String strRight;
@@ -180,13 +220,8 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
               strArray[intCounta+1][0] = strTemp;
             }
           }
-        
-        //4 print the sorted array
-	}
-	}catch(Exception e){
-			System.out.println("Unable to open file...");
-		} 
-	
+        }
+    
     intMenu = 2; // Change to HighscoresMenu
    }
    // [Help Button]
@@ -807,67 +842,67 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
  }
 
  public void keyReleased(KeyEvent evt) {
-  if (evt.getKeyCode() == 37 && blnBlue == true && blnIsKeyboard) { // Left Arrow Key
+  if (evt.getKeyCode() == 37 && blnBlue == true) { // Left Arrow Key
    ssm.sendText("!bl_r");
    bombermanpanel.blnLeft = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 38 && blnBlue == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnBlue == true) { // Up Arrow Key
    ssm.sendText("!bu_r");
    bombermanpanel.blnUp = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 39 && blnBlue == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnBlue == true) { // Right Arrow Key
    ssm.sendText("!br_r");
    bombermanpanel.blnRight = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 40 && blnBlue == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnBlue == true) { // Down Arrow Key
    bombermanpanel.blnDown = false;
    ssm.sendText("!bd_r");
    intLoop = 0;
-  } else if (evt.getKeyCode() == 37 && blnYellow == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnYellow == true) { // Left Arrow Key
    ssm.sendText("!yl_r");
    bombermanpanel.blnLeft_yellow = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 38 && blnYellow == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnYellow == true) { // Up Arrow Key
    ssm.sendText("!yu_r");
    bombermanpanel.blnUp_yellow = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 39 && blnYellow == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnYellow == true) { // Right Arrow Key
    ssm.sendText("!yr_r");
    bombermanpanel.blnRight_yellow = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 40 && blnYellow == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnYellow == true) { // Down Arrow Key
    ssm.sendText("!yd_r");
    bombermanpanel.blnDown_yellow = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 37 && blnRed == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnRed == true) { // Left Arrow Key
    ssm.sendText("!rl_r");
    bombermanpanel.blnLeft_red = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 38 && blnRed == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnRed == true) { // Up Arrow Key
    ssm.sendText("!ru_r");
    bombermanpanel.blnUp_red = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 39 && blnRed == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnRed == true) { // Right Arrow Key
    ssm.sendText("!rr_r");
    bombermanpanel.blnRight_red = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 40 && blnRed == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnRed == true) { // Down Arrow Key
    ssm.sendText("!rd_r");
    bombermanpanel.blnDown_red = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 37 && blnWhite == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnWhite == true) { // Left Arrow Key
    ssm.sendText("!wl_r");
    bombermanpanel.blnLeft_white = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 38 && blnWhite == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnWhite == true) { // Up Arrow Key
    ssm.sendText("!wl_r");
    bombermanpanel.blnUp_white = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 39 && blnWhite == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnWhite == true) { // Right Arrow Key
    ssm.sendText("!wr_r");
    bombermanpanel.blnRight_white = false;
    intLoop = 0;
-  } else if (evt.getKeyCode() == 40 && blnWhite == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnWhite == true) { // Down Arrow Key
    ssm.sendText("!wd_r");
    bombermanpanel.blnDown_white = false;
    intLoop = 0;
@@ -876,121 +911,121 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
 
 
  public void keyPressed(KeyEvent evt) {
-  if (evt.getKeyCode() == 37 && blnBlue == true && blnIsKeyboard) { // Left Arrow Key
+  if (evt.getKeyCode() == 37 && blnBlue == true) { // Left Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!bl_p");
     bombermanpanel.blnLeft = true;
    }
-  } else if (evt.getKeyCode() == 38 && blnBlue == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnBlue == true) { // Up Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!bu_p");
     bombermanpanel.blnUp = true;
    }
-  } else if (evt.getKeyCode() == 39 && blnBlue == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnBlue == true) { // Right Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!br_p");
     bombermanpanel.blnRight = true;
    }
-  } else if (evt.getKeyCode() == 40 && blnBlue == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnBlue == true) { // Down Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!bd_p");
     bombermanpanel.blnDown = true;
    }
-  } else if (evt.getKeyCode() == 32 && blnBlue == true && blnIsKeyboard) { // Bomb Key
+  } else if (evt.getKeyCode() == 32 && blnBlue == true) { // Bomb Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!bb_p");
     bombermanpanel.blnPlaceBomb = true;
    }
-  } else if (evt.getKeyCode() == 37 && blnYellow == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnYellow == true) { // Left Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!yl_p");
     bombermanpanel.blnLeft_yellow = true;
    }
-  } else if (evt.getKeyCode() == 38 && blnYellow == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnYellow == true) { // Up Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!yu_p");
     bombermanpanel.blnUp_yellow = true;
    }
-  } else if (evt.getKeyCode() == 39 && blnYellow == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnYellow == true) { // Right Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!yr_p");
     bombermanpanel.blnRight_yellow = true;
    }
-  } else if (evt.getKeyCode() == 40 && blnYellow == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnYellow == true) { // Down Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!yd_p");
     bombermanpanel.blnDown_yellow = true;
    }
-  } else if (evt.getKeyCode() == 32 && blnYellow == true && blnIsKeyboard) { // Bomb Key
+  } else if (evt.getKeyCode() == 32 && blnYellow == true) { // Bomb Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!yb_p");
     bombermanpanel.blnPlaceBomb_yellow = true;
    }
-  } else if (evt.getKeyCode() == 37 && blnRed == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnRed == true) { // Left Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!rl_p");
     bombermanpanel.blnLeft_red = true;
    }
-  } else if (evt.getKeyCode() == 38 && blnRed == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnRed == true) { // Up Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!ru_p");
     bombermanpanel.blnUp_red = true;
    }
-  } else if (evt.getKeyCode() == 39 && blnRed == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnRed == true) { // Right Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!rr_p");
     bombermanpanel.blnRight_red = true;
    }
-  } else if (evt.getKeyCode() == 40 && blnRed == true && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnRed == true) { // Down Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!rd_p");
     bombermanpanel.blnDown_red = true;
    }
-  } else if (evt.getKeyCode() == 32 && blnRed == true && blnIsKeyboard) { // Bomb Key
+  } else if (evt.getKeyCode() == 32 && blnRed == true) { // Bomb Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!rb_p");
     bombermanpanel.blnPlaceBomb_red = true;
    }
-  } else if (evt.getKeyCode() == 37 && blnWhite == true && blnIsKeyboard) { // Left Arrow Key
+  } else if (evt.getKeyCode() == 37 && blnWhite == true) { // Left Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!wl_p");
     bombermanpanel.blnLeft_white = true;
    }
-  } else if (evt.getKeyCode() == 38 && blnWhite == true && blnIsKeyboard) { // Up Arrow Key
+  } else if (evt.getKeyCode() == 38 && blnWhite == true) { // Up Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!wu_p");
     bombermanpanel.blnUp_white = true;
    }
-  } else if (evt.getKeyCode() == 39 && blnWhite == true && blnIsKeyboard) { // Right Arrow Key
+  } else if (evt.getKeyCode() == 39 && blnWhite == true) { // Right Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!wr_p");
     bombermanpanel.blnRight_white = true;
    }
-  } else if (evt.getKeyCode() == 40 && blnWhite == true  && blnIsKeyboard) { // Down Arrow Key
+  } else if (evt.getKeyCode() == 40 && blnWhite == true) { // Down Arrow Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!wd_p");
     bombermanpanel.blnDown_white = true;
    }
-  } else if (evt.getKeyCode() == 32 && blnWhite == true && blnIsKeyboard) { // Bomb Key
+  } else if (evt.getKeyCode() == 32 && blnWhite == true) { // Bomb Key
    intLoop = intLoop + 1;
    if (intLoop == 1) {
     ssm.sendText("!wb_p");
@@ -1018,282 +1053,10 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
  }
 
  public void mousePressed(MouseEvent evt) {
-	if(evt.getX() > 966 && evt.getX() < 1043 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Left Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!bl_p");
-				System.out.println("Ha gay");
-				bombermanpanel.blnLeft = true;
-			}
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!yl_p");
-				bombermanpanel.blnLeft_yellow = true;
-			}
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!rl_p");
-				bombermanpanel.blnLeft_red = true;
-			}
-		}
-		else if(blnBlue == true){ // White
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!wl_p");
-				bombermanpanel.blnLeft_white = true;
-			}
-		}
-	}
-	
-	if(evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Right Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!br_p");
-				bombermanpanel.blnRight = true;
-			}
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!yr_p");
-				bombermanpanel.blnRight_yellow = true;
-			}
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!rr_p");
-				bombermanpanel.blnRight_red = true;
-			}
-		}
-		else if(blnBlue == true){ // White
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!wr_p");
-				bombermanpanel.blnRight_white = true;
-			}
-		}
-	}
-	
-	if(evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse){ // On-Screen Up Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!bu_p");
-				bombermanpanel.blnUp = true;
-			}
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!yu_p");
-				bombermanpanel.blnUp_yellow = true;
-			}
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!ru_p");
-				bombermanpanel.blnUp_red = true;
-			}
-		}
-		else if(blnBlue == true){ // White
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!wu_p");
-				bombermanpanel.blnUp_white = true;
-			}
-		}
-	}
-	
-	if(evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Down Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!bd_p");
-				bombermanpanel.blnDown = true;
-			}
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!yd_p");
-				bombermanpanel.blnDown_yellow = true;
-			}
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!rd_p");
-				bombermanpanel.blnDown_red = true;
-			}
-		}
-		else if(blnBlue == true){ // White
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!wd_p");
-				bombermanpanel.blnDown_white = true;
-			}
-		}
-	}
-	
-	if(evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse){ // On-Screen Place Bomb Button
-		if(blnBlue == true){ // Blue
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!bb_p");
-				bombermanpanel.blnPlaceBomb = true;
-			}
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!yb_p");
-				bombermanpanel.blnPlaceBomb_yellow = true;
-			}
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!rb_p");
-				bombermanpanel.blnPlaceBomb_red = true;
-			}
-		}
-		else if(blnBlue == true){ // White
-			intLoop = intLoop + 1;
-			if(intLoop == 1){
-				ssm.sendText("!wb_p");
-				bombermanpanel.blnPlaceBomb_white = true;
-			}
-		}
-	}
-	
-	
+
  }
 
  public void mouseReleased(MouseEvent evt) {
-	if(evt.getX() > 966 && evt.getX() < 1043 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Left Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = 0;
-			ssm.sendText("!bl_r");
-			bombermanpanel.blnLeft = false;
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = 0;
-			ssm.sendText("!yl_r");
-			bombermanpanel.blnLeft_yellow = false;
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = 0;
-			ssm.sendText("!rl_r");
-			bombermanpanel.blnLeft_red = false;
-		}
-		else if(blnBlue == true){ // White
-			intLoop = 0;
-			ssm.sendText("!wl_r");
-			bombermanpanel.blnLeft_white = false;
-		}
-	}
-	
-	if(evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Right Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = 0;
-			ssm.sendText("!br_r");
-			bombermanpanel.blnRight = false;
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = 0;
-			ssm.sendText("!yr_r");
-			bombermanpanel.blnRight_yellow = false;
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = 0;
-			ssm.sendText("!rr_r");
-			bombermanpanel.blnRight_red = false;
-		}
-		else if(blnBlue == true){ // White
-			intLoop = 0;
-			ssm.sendText("!wr_r");
-			bombermanpanel.blnRight_white = false;
-		}
-	}
-	
-	if(evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse){ // On-Screen Up Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = 0;
-			ssm.sendText("!bu_r");
-			bombermanpanel.blnUp = false;
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = 0;
-			ssm.sendText("!yu_r");
-			bombermanpanel.blnUp_yellow = false;
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = 0;
-			ssm.sendText("!ru_r");
-			bombermanpanel.blnUp_red = false;
-		}
-		else if(blnBlue == true){ // White
-			intLoop = 0;
-			ssm.sendText("!wu_r");
-			bombermanpanel.blnUp_white = false;
-		}
-	}
-	
-	if(evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse){ // On-Screen Down Arrow Key
-		if(blnBlue == true){ // Blue
-			intLoop = 0;
-			ssm.sendText("!bd_r");
-			bombermanpanel.blnDown = false;
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = 0;
-			ssm.sendText("!yd_r");
-			bombermanpanel.blnDown_yellow = false;
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = 0;
-			ssm.sendText("!rd_r");
-			bombermanpanel.blnDown_red = false;
-		}
-		else if(blnBlue == true){ // White
-			intLoop = 0;
-			ssm.sendText("!wd_r");
-			bombermanpanel.blnDown_white = false;
-		}
-	}
-	
-	if(evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse){ // On-Screen Place Bomb Button
-		if(blnBlue == true){ // Blue
-			intLoop = 0;
-			ssm.sendText("!bb_r");
-			bombermanpanel.blnPlaceBomb = false;
-		}
-		else if(blnYellow == true){ // Yellow
-			intLoop = 0;
-			ssm.sendText("!yb_r");
-			bombermanpanel.blnPlaceBomb_yellow = false;
-		}
-		else if(blnBlue == true){ // Red
-			intLoop = 0;
-			ssm.sendText("!rb_r");
-			bombermanpanel.blnPlaceBomb_red = false;
-		}
-		else if(blnBlue == true){ // White
-			intLoop = 0;
-			ssm.sendText("!wb_r");
-			bombermanpanel.blnPlaceBomb_white = false;
-		}
-	}
-
-
 
  }
 
