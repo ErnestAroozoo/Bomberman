@@ -545,15 +545,15 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                             stritem[intRow2][intCol2] = "na";
                         }
                     }
-               /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
-                        Bomberman.generateitem(1);
-                    }
-                    for (intRow2 = 0; intRow2 < 4; intRow2++) {
-                        Bomberman.generateitem(2);
-                    }
-                    for (intRow2 = 0; intRow2 < 3; intRow2++) {
-                        Bomberman.generateitem(3);
-                    }*/
+                    /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                             Bomberman.generateitem(1);
+                         }
+                         for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                             Bomberman.generateitem(2);
+                         }
+                         for (intRow2 = 0; intRow2 < 3; intRow2++) {
+                             Bomberman.generateitem(3);
+                         }*/
                     stritem[1][3] = "itm1";
                     stritem[3][1] = "itm2";
                     stritem[1][4] = "itm3";
@@ -607,22 +607,22 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     for (intCol2 = 0; intCol2 < 15; intCol2++) {
                         stritem[intRow2][intCol2] = "na";
                     }
-                }
-           /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
-                    Bomberman.generateitem(1);
-                }
-                for (intRow2 = 0; intRow2 < 4; intRow2++) {
-                    Bomberman.generateitem(2);
-                }
-                for (intRow2 = 0; intRow2 < 3; intRow2++) {
-                    Bomberman.generateitem(3);
-                } */
+                } 
+                /*     for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                         Bomberman.generateitem(1);
+                     }
+                     for (intRow2 = 0; intRow2 < 4; intRow2++) {
+                         Bomberman.generateitem(2);
+                     }
+                     for (intRow2 = 0; intRow2 < 3; intRow2++) {
+                         Bomberman.generateitem(3);
+                     } */
                 stritem[1][3] = "itm1";
                 stritem[3][1] = "itm2";
                 stritem[1][4] = "itm3";
+			}
 
-
-                /*else if(intRand == 2){
+                if(intRand == 2){
                  try{
                  thefile = new FileReader("wintermap.csv");
                  }catch(FileNotFoundException e){
@@ -631,27 +631,27 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                  
                  thefiledata = new BufferedReader(thefile);
                  
-                 String strLine = "";
+                 String strLine2 = "";
                  try{
-                 strLine = thefiledata.readLine();
+                 strLine2 = thefiledata.readLine();
                  }catch(IOException e){
                  System.out.println("Unable to read Map");
                  }
                  
-                 while(strLine != null){
-                 strSplit = strLine.split(",");
+                 while(strLine2 != null){
+                 strSplit = strLine2.split(",");
                  for(intindex = 0; intindex < 15; intindex++){
                  strMap[intLine][intindex] = strSplit[intindex];
                  System.out.println(strMap[intLine][intindex]);
                  }
                  intLine++;
                  try{
-                 strLine = thefiledata.readLine();
+                 strLine2 = thefiledata.readLine();
                  }catch(IOException e){
                  System.out.println("Unable to read Map");
                  }
                  }
-                 }else if(intRand == 3){
+                 if(intRand == 3){
                  try{
                  thefile = new FileReader("firemap.csv");
                  }catch(FileNotFoundException e){
@@ -660,27 +660,27 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                  
                  thefiledata = new BufferedReader(thefile);
                  
-                 String strLine = "";
+                 String strLine3 = "";
                  try{
-                 strLine = thefiledata.readLine();
+                 strLine3 = thefiledata.readLine();
                  }catch(IOException e){
                  System.out.println("Unable to read Map");
                  }
                  
-                 while(strLine != null){
-                 strSplit = strLine.split(",");
+                 while(strLine3 != null){
+                 strSplit = strLine3.split(",");
                  for(intindex = 0; intindex < 15; intindex++){
                  strMap[intLine][intindex] = strSplit[intindex];
                  System.out.println(strMap[intLine][intindex]);
                  }
                  intLine++;
                  try{
-                 strLine = thefiledata.readLine();
+                 strLine3 = thefiledata.readLine();
                  }catch(IOException e){
                  System.out.println("Unable to read Map");
                  }
                  }
-                 } */
+                 } 
             }
         }
 
@@ -717,25 +717,25 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intRound = intRound + 1; // Increase game round number
                 intMinute = 3;
                 intSecond = 0;
-              // [Send]
-              if(blnDeathBlue  == false){
-                intScoreBlue = intScoreBlue + 1;
-              }
-              if(blnDeathRed == false){
-                intScoreRed = intScoreRed + 1;
-              }
-              if(blnDeathYellow == false){
-                intScoreYellow = intScoreYellow + 1;
-              }
-              if(blnDeathWhite == false){
-                intScoreWhite = intScoreWhite + 1;
-              }
+                // [Send]
+                if (blnDeathBlue == false) {
+                    intScoreBlue = intScoreBlue + 1;
+                }
+                if (blnDeathRed == false) {
+                    intScoreRed = intScoreRed + 1;
+                }
+                if (blnDeathYellow == false) {
+                    intScoreYellow = intScoreYellow + 1;
+                }
+                if (blnDeathWhite == false) {
+                    intScoreWhite = intScoreWhite + 1;
+                }
                 blnDeathBlue = false;
                 blnDeathYellow = false;
                 blnDeathWhite = false;
                 blnDeathRed = false;
                 intTimer = 180;
-                ssm.sendText("Time's Up! Starting Round " + intRound +"!");
+                ssm.sendText("Time's Up! Starting Round " + intRound + "!");
                 gametimer.restart();
             }
         }
@@ -961,7 +961,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 ssm.sendText("!bd_p");
                 bombermanpanel.blnDown = true;
             }
-        } else if (evt.getKeyCode() == 32 && blnBlue == true && blnIsKeyboard) { // Bomb Key
+        } else if (evt.getKeyCode() == 32 && blnBlue == true && blnIsKeyboard && blnDeathBlue == false) { // Bomb Key
             intLoop = intLoop + 1;
             if (intLoop == 1) {
                 ssm.sendText("!bb_p");
@@ -991,7 +991,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 ssm.sendText("!yd_p");
                 bombermanpanel.blnDown_yellow = true;
             }
-        } else if (evt.getKeyCode() == 32 && blnYellow == true && blnIsKeyboard) { // Bomb Key
+        } else if (evt.getKeyCode() == 32 && blnYellow == true && blnIsKeyboard && blnDeathYellow == false) { // Bomb Key
             intLoop = intLoop + 1;
             if (intLoop == 1) {
                 ssm.sendText("!yb_p");
@@ -1021,7 +1021,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 ssm.sendText("!rd_p");
                 bombermanpanel.blnDown_red = true;
             }
-        } else if (evt.getKeyCode() == 32 && blnRed == true && blnIsKeyboard) { // Bomb Key
+        } else if (evt.getKeyCode() == 32 && blnRed == true && blnIsKeyboard && blnDeathRed == false) { // Bomb Key
             intLoop = intLoop + 1;
             if (intLoop == 1) {
                 ssm.sendText("!rb_p");
@@ -1051,7 +1051,7 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 ssm.sendText("!wd_p");
                 bombermanpanel.blnDown_white = true;
             }
-        } else if (evt.getKeyCode() == 32 && blnWhite == true && blnIsKeyboard) { // Bomb Key
+        } else if (evt.getKeyCode() == 32 && blnWhite == true && blnIsKeyboard && blnDeathWhite == false) { // Bomb Key
             intLoop = intLoop + 1;
             if (intLoop == 1) {
                 ssm.sendText("!wb_p");
@@ -1085,7 +1085,6 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!bl_p");
-                    System.out.println("Ha gay");
                     bombermanpanel.blnLeft = true;
                 }
             } else if (blnYellow == true) { // Yellow
@@ -1094,22 +1093,20 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     ssm.sendText("!yl_p");
                     bombermanpanel.blnLeft_yellow = true;
                 }
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!rl_p");
                     bombermanpanel.blnLeft_red = true;
                 }
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!wl_p");
                     bombermanpanel.blnLeft_white = true;
                 }
             }
-        }
-
-        if (evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Right Arrow Key
+        } else if (evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Right Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
@@ -1122,22 +1119,20 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     ssm.sendText("!yr_p");
                     bombermanpanel.blnRight_yellow = true;
                 }
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!rr_p");
                     bombermanpanel.blnRight_red = true;
                 }
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!wr_p");
                     bombermanpanel.blnRight_white = true;
                 }
             }
-        }
-
-        if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse) { // On-Screen Up Arrow Key
+        } else if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse) { // On-Screen Up Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
@@ -1150,22 +1145,20 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     ssm.sendText("!yu_p");
                     bombermanpanel.blnUp_yellow = true;
                 }
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!ru_p");
                     bombermanpanel.blnUp_red = true;
                 }
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!wu_p");
                     bombermanpanel.blnUp_white = true;
                 }
             }
-        }
-
-        if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Down Arrow Key
+        } else if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Down Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
@@ -1178,41 +1171,39 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                     ssm.sendText("!yd_p");
                     bombermanpanel.blnDown_yellow = true;
                 }
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!rd_p");
                     bombermanpanel.blnDown_red = true;
                 }
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!wd_p");
                     bombermanpanel.blnDown_white = true;
                 }
             }
-        }
-
-        if (evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse) { // On-Screen Place Bomb Button
-            if (blnBlue == true) { // Blue
+        } else if (evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse) { // On-Screen Place Bomb Button
+            if (blnBlue == true && blnDeathBlue == false) { // Blue
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!bb_p");
                     bombermanpanel.blnPlaceBomb = true;
                 }
-            } else if (blnYellow == true) { // Yellow
+            } else if (blnYellow == true && blnDeathYellow == false) { // Yellow
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!yb_p");
                     bombermanpanel.blnPlaceBomb_yellow = true;
                 }
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true && blnDeathRed == false) { // Red
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!rb_p");
                     bombermanpanel.blnPlaceBomb_red = true;
                 }
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true && blnDeathWhite == false) { // White
                 intLoop = intLoop + 1;
                 if (intLoop == 1) {
                     ssm.sendText("!wb_p");
@@ -1233,18 +1224,16 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intLoop = 0;
                 ssm.sendText("!yl_r");
                 bombermanpanel.blnLeft_yellow = false;
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = 0;
                 ssm.sendText("!rl_r");
                 bombermanpanel.blnLeft_red = false;
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = 0;
                 ssm.sendText("!wl_r");
                 bombermanpanel.blnLeft_white = false;
             }
-        }
-
-        if (evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Right Arrow Key
+        } else if (evt.getX() > 1137 && evt.getX() < 1212 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Right Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = 0;
                 ssm.sendText("!br_r");
@@ -1253,18 +1242,16 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intLoop = 0;
                 ssm.sendText("!yr_r");
                 bombermanpanel.blnRight_yellow = false;
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = 0;
                 ssm.sendText("!rr_r");
                 bombermanpanel.blnRight_red = false;
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = 0;
                 ssm.sendText("!wr_r");
                 bombermanpanel.blnRight_white = false;
             }
-        }
-
-        if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse) { // On-Screen Up Arrow Key
+        } else if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 252 && evt.getY() < 327 && blnIsMouse) { // On-Screen Up Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = 0;
                 ssm.sendText("!bu_r");
@@ -1273,18 +1260,16 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intLoop = 0;
                 ssm.sendText("!yu_r");
                 bombermanpanel.blnUp_yellow = false;
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = 0;
                 ssm.sendText("!ru_r");
                 bombermanpanel.blnUp_red = false;
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = 0;
                 ssm.sendText("!wu_r");
                 bombermanpanel.blnUp_white = false;
             }
-        }
-
-        if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Down Arrow Key
+        } else if (evt.getX() > 1051 && evt.getX() < 1127 && evt.getY() > 337 && evt.getY() < 414 && blnIsMouse) { // On-Screen Down Arrow Key
             if (blnBlue == true) { // Blue
                 intLoop = 0;
                 ssm.sendText("!bd_r");
@@ -1293,31 +1278,29 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
                 intLoop = 0;
                 ssm.sendText("!yd_r");
                 bombermanpanel.blnDown_yellow = false;
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true) { // Red
                 intLoop = 0;
                 ssm.sendText("!rd_r");
                 bombermanpanel.blnDown_red = false;
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true) { // White
                 intLoop = 0;
                 ssm.sendText("!wd_r");
                 bombermanpanel.blnDown_white = false;
             }
-        }
-
-        if (evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse) { // On-Screen Place Bomb Button
-            if (blnBlue == true) { // Blue
+        } else if (evt.getX() > 971 && evt.getX() < 1215 && evt.getY() > 428 && evt.getY() < 477 && blnIsMouse) { // On-Screen Place Bomb Button
+            if (blnBlue == true && blnDeathBlue == false) { // Blue
                 intLoop = 0;
                 ssm.sendText("!bb_r");
                 bombermanpanel.blnPlaceBomb = false;
-            } else if (blnYellow == true) { // Yellow
+            } else if (blnYellow == true && blnDeathYellow == false) { // Yellow
                 intLoop = 0;
                 ssm.sendText("!yb_r");
                 bombermanpanel.blnPlaceBomb_yellow = false;
-            } else if (blnBlue == true) { // Red
+            } else if (blnRed == true && blnDeathRed == false) { // Red
                 intLoop = 0;
                 ssm.sendText("!rb_r");
                 bombermanpanel.blnPlaceBomb_red = false;
-            } else if (blnBlue == true) { // White
+            } else if (blnWhite == true && blnDeathWhite == false) { // White
                 intLoop = 0;
                 ssm.sendText("!wb_r");
                 bombermanpanel.blnPlaceBomb_white = false;
@@ -1613,4 +1596,5 @@ public class Bomberman implements ActionListener, KeyListener, MouseListener, Mo
         new Bomberman();
     }
 }
-/**//**/
+/**/
+/**/
