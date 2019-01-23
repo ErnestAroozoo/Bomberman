@@ -2669,7 +2669,7 @@ public class BombermanPanel extends JPanel {
             down2_white = ImageIO.read(new File("down2_white.png"));
             left1_white = ImageIO.read(new File("left1_white.png"));
             left2_white = ImageIO.read(new File("left2_white.png"));
-
+			
             fire_downend = ImageIO.read(new File("fire_downend.png"));
             fire_leftend = ImageIO.read(new File("fire_leftend.png"));
             fire_mid = ImageIO.read(new File("fire_mid.png"));
@@ -2701,6 +2701,9 @@ public class BombermanPanel extends JPanel {
             gui_mouse = ImageIO.read(new File("gui_mouse.png"));
             deathscreen = ImageIO.read(new File("deathscreen.png"));
             death = ImageIO.read(new File("death.png"));
+            wall_fire = ImageIO.read(new File("fire.wall.jpg"));
+            break_fire = ImageIO.read(new File("fire.wallbreakable.jpg"));
+            ground_fire = ImageIO.read(new File("fire.ground.jpg"));
 
         } catch (IOException e) {
             System.out.println("Unable to load image"); // Output error message if image doesn't load. Classic try cath statement.
