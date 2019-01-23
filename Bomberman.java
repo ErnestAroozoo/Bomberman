@@ -95,7 +95,8 @@ MouseMotionListener {
 	static String strName;
 	static String strArray[][];
 	static int intPlayers = 0;
-
+	static FileWriter thefilehighscores = null;
+	static PrintWriter thefiledatahighscores = null;
 	// Methods
 
 	public static void generateitem(int intitemnum) {
@@ -234,7 +235,26 @@ MouseMotionListener {
 						}
 					}
 				}
-
+				try{
+					thefilehighscores = new FileWriter("highscores.txt");
+					thefiledatahighscores = new PrintWriter(thefilehighscores);
+				}catch(IOException e){
+					System.out.println("unable to write to the file");
+				}
+				
+				if(blnBlue){
+						thefiledatahighscores.println(strUsername);
+						thefiledatahighscores.println(intScoreBlue);
+				}else if(blnRed){
+					thefiledatahighscores.println(strUsername);
+					thefiledatahighscores.println(intScoreRed);
+				}else if(blnYellow){
+					thefiledatahighscores.println(strUsername);
+					thefiledatahighscores.println(intScoreYellow);
+				}else if(blnWhite){
+					thefiledatahighscores.println(strUsername);
+					thefiledatahighscores.println(intScoreWhite);
+				}
 				intMenu = 2; // Change to HighscoresMenu
 			}
 			// [Help Button]
