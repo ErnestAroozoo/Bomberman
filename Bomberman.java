@@ -1716,19 +1716,19 @@ MouseMotionListener {
 	public static void main(String[] args) {
 		new Bomberman();
 		// Blue Bomberman Blueprint (Slow but strong)
-		bombermanblueprint blue = new bombermanblueprint("Blue", 2, 2); // [Colour] [Speed] [Number of Bombs]
+		bombermanblueprint blue = new bombermanblueprint("Blue", 2, 1); // [Colour] [Speed] [Number of Bombs]
 		blue.speed();
 		blue.bombrange();
 		// Red Bomberman Blueprint (Fast but weak)
-		bombermanblueprint red = new bombermanblueprint("Red", 4, 1); // [Colour] [Speed] [Number of Bombs]
+		bombermanblueprint red = new bombermanblueprint("Red", 4, 0); // [Colour] [Speed] [Number of Extra Bombs]
 		red.speed();
 		red.bombrange();
 		// Yellow Bomberman Blueprint (Slow but strong)
-		bombermanblueprint yellow = new bombermanblueprint("Yellow", 2, 2); // [Colour] [Speed] [Number of Bombs]
+		bombermanblueprint yellow = new bombermanblueprint("Yellow", 2, 1); // [Colour] [Speed] [Number of Extra Bombs]
 		yellow.speed();
 		yellow.bombrange();
 		// White Bomberman Blueprint (Fast but weak)
-		bombermanblueprint white = new bombermanblueprint("White", 4, 1); // [Colour] [Speed] [Number of Bombs]
+		bombermanblueprint white = new bombermanblueprint("White", 4, 0); // [Colour] [Speed] [Number of Extra Bombs]
 		white.speed();
 		white.bombrange();
 	}
