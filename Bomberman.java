@@ -11,6 +11,11 @@ import java.io. * ;
  * @author  Ernest Aroozoo, Bryan Chung, Austin Chay
  * @version 1.0
  * 
+ * Welcome to our bomberman game!!!  This game was created uniquely to give you a twist on the classic bomberman game that we all know and love!!!
+ * In this game each player will initially start off with bombs that do not harm anyone and only destroys the destructable blocks in the game.  However, 
+ * standing on the same spot as where you placed the bomb will kill you.  Another twist that we have added to the game is simulating real life situations
+ * where explosions go through walls!!!  Once you grab an increased bomb range power-up, the bombs will function as they would in a normal bomberman game 
+ * but the explosions will be able to go through walls!!!  Best of luck and happy gaming!!!
  */
 
 public class Bomberman implements ActionListener,
