@@ -2520,7 +2520,13 @@ public class BombermanPanel extends JPanel {
                 					g.drawImage(down1_yellow,intRow*60,intCol*60,null);
                 				}else if(Bomberman.strMap[intRow][intCol].equals("c4")){
                 					g.drawImage(down1_white,intRow*60,intCol*60,null);
-                				}
+                				} else if (Bomberman.strMap[intRow][intCol].equals("itm1")) {
+									g.drawImage(flameitem, intCol * 60, intRow * 60, null);
+								} else if (Bomberman.strMap[intRow][intCol].equals("itm2")) {
+									g.drawImage(multiplebombitem, intCol * 60, intRow * 60, null);
+								} else if (Bomberman.strMap[intRow][intCol].equals("itm3")) {
+									g.drawImage(vestitem, intCol * 60, intRow * 60, null);
+								}
                 			}
                 		}
                 		for(intRow = 0; intRow < 11; intRow++){
@@ -2547,6 +2553,12 @@ public class BombermanPanel extends JPanel {
                 					g.drawImage(break_fire,intCol*60,intRow*60,null);
                 				}else if(Bomberman.strMap[intRow][intCol].equals("g")){
                 					g.drawImage(ground_fire,intCol*60,intRow*60,null);
+								} else if (Bomberman.strMap[intRow][intCol].equals("itm1")) {
+									g.drawImage(flameitem, intCol * 60, intRow * 60, null);
+								} else if (Bomberman.strMap[intRow][intCol].equals("itm2")) {
+									g.drawImage(multiplebombitem, intCol * 60, intRow * 60, null);
+								} else if (Bomberman.strMap[intRow][intCol].equals("itm3")) {
+									g.drawImage(vestitem, intCol * 60, intRow * 60, null);
 								}
 								}catch(NullPointerException e){
 									System.out.println("Map 3 not working");
