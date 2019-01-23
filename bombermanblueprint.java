@@ -23,20 +23,20 @@ public class bombermanblueprint{
 		}
 	}
 	
-	/*public void bombrange(){
+	public void bombrange(){
 		if(this.strColour.equals("Blue")){
-			BombermanPanel.intSpeedBlue = this.intSpeed;
+			BombermanPanel.intbombcount_blue = this.intbcount;
 		}
 		else if(this.strColour.equals("Red")){
-			BombermanPanel.intSpeedRed = this.intSpeed;
+			BombermanPanel.intbombcount_red = this.intbcount;
 		}
 		else if(this.strColour.equals("Yellow")){
-			BombermanPanel.intSpeedYellow = this.intSpeed;
+			BombermanPanel.intbombcount_yellow= this.intbcount;
 		}
 		else if(this.strColour.equals("White")){
-			BombermanPanel.intSpeedWhite = this.intSpeed;
+			BombermanPanel.intbombcount_white = this.intbcount;
 		}
-	}*/
+	}
 
 
 
@@ -44,7 +44,7 @@ public class bombermanblueprint{
 
 	
 	// Constructor
-	public bombermanblueprint(String strColour,int intSpeed,int intbrange,int intbcount){
+	public bombermanblueprint(String strColour,int intSpeed,int intbcount){
 		this.intSpeed = intSpeed;
 		this.strColour = strColour;
 		this.intbrange = intbrange;
