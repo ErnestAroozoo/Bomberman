@@ -20,7 +20,10 @@ public class BombermanPanel extends JPanel {
     static int intY_white = 540;
     static int intRow = 0;
     static int intCol = 0;
-    static int intSpeed;
+    static int intSpeedBlue;
+    static int intSpeedRed;
+    static int intSpeedWhite;
+    static int intSpeedYellow;
 
 
     static boolean blnUp = false;
@@ -231,13 +234,13 @@ public class BombermanPanel extends JPanel {
         boolean blnresult = true;
 
         if (blnUP == true) { //up
-            intYfuture = intYfuture - 2;
+            intYfuture = intYfuture - intSpeedBlue;
         } else if (blnDOWN == true) { //down
-            intYfuture = intYfuture + 2;
+            intYfuture = intYfuture + intSpeedBlue;
         } else if (blnRIGHT == true) { //right
-            intXfuture = intXfuture + 2;
+            intXfuture = intXfuture + intSpeedBlue;
         } else if (blnLEFT == true) { //left
-            intXfuture = intXfuture - 2;
+            intXfuture = intXfuture - intSpeedBlue;
         }
         intnewtopleftposx = intXfuture;
         intnewtopleftposy = intYfuture;
@@ -371,13 +374,13 @@ public class BombermanPanel extends JPanel {
         boolean blnresult = true;
 
         if (blnUP == true) {
-            intYfuture = intYfuture - 5;
+            intYfuture = intYfuture - intSpeedRed;
         } else if (blnDOWN == true) {
-            intYfuture = intYfuture + 5;
+            intYfuture = intYfuture + intSpeedRed;
         } else if (blnRIGHT == true) {
-            intXfuture = intXfuture + 5;
+            intXfuture = intXfuture + intSpeedRed;
         } else if (blnLEFT == true) {
-            intXfuture = intXfuture - 5;
+            intXfuture = intXfuture - intSpeedRed;
         }
         intnewtopleftposx = intXfuture;
         intnewtopleftposy = intYfuture;
@@ -496,13 +499,13 @@ public class BombermanPanel extends JPanel {
         boolean blnresult = true;
 
         if (blnUP == true) {
-            intYfuture = intYfuture - 5;
+            intYfuture = intYfuture - intSpeedYellow;
         } else if (blnDOWN == true) {
-            intYfuture = intYfuture + 5;
+            intYfuture = intYfuture + intSpeedYellow;
         } else if (blnRIGHT == true) {
-            intXfuture = intXfuture + 5;
+            intXfuture = intXfuture + intSpeedYellow;
         } else if (blnLEFT == true) {
-            intXfuture = intXfuture - 5;
+            intXfuture = intXfuture - intSpeedYellow;
         }
         intnewtopleftposx = intXfuture;
         intnewtopleftposy = intYfuture;
@@ -617,13 +620,13 @@ public class BombermanPanel extends JPanel {
         boolean blnresult = true;
 
         if (blnUP == true) {
-            intYfuture = intYfuture - 5;
+            intYfuture = intYfuture - intSpeedWhite;
         } else if (blnDOWN == true) {
-            intYfuture = intYfuture + 5;
+            intYfuture = intYfuture + intSpeedWhite;
         } else if (blnRIGHT == true) {
-            intXfuture = intXfuture + 5;
+            intXfuture = intXfuture + intSpeedWhite;
         } else if (blnLEFT == true) {
-            intXfuture = intXfuture - 5;
+            intXfuture = intXfuture - intSpeedWhite;
         }
         intnewtopleftposx = intXfuture;
         intnewtopleftposy = intYfuture;

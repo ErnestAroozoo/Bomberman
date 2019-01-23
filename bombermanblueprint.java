@@ -4,18 +4,50 @@ public class bombermanblueprint{
 	public String strName;
 	public int intSpeed;
 	public String strColour;
-	public int intbombrange;
-	public int intnumbombs;
-	public boolean blninvincibility;
+	public int intbrange;
+	public int intbcount;
+	
+	// Methods
+	public void speed(){
+		if(this.strColour.equals("Blue")){
+			BombermanPanel.intSpeedBlue = this.intSpeed;
+		}
+		else if(this.strColour.equals("Red")){
+			BombermanPanel.intSpeedRed = this.intSpeed;
+		}
+		else if(this.strColour.equals("Yellow")){
+			BombermanPanel.intSpeedYellow = this.intSpeed;
+		}
+		else if(this.strColour.equals("White")){
+			BombermanPanel.intSpeedWhite = this.intSpeed;
+		}
+	}
+	
+	/*public void bombrange(){
+		if(this.strColour.equals("Blue")){
+			BombermanPanel.intSpeedBlue = this.intSpeed;
+		}
+		else if(this.strColour.equals("Red")){
+			BombermanPanel.intSpeedRed = this.intSpeed;
+		}
+		else if(this.strColour.equals("Yellow")){
+			BombermanPanel.intSpeedYellow = this.intSpeed;
+		}
+		else if(this.strColour.equals("White")){
+			BombermanPanel.intSpeedWhite = this.intSpeed;
+		}
+	}*/
+
+
+
+
+
 	
 	// Constructor
-	public bombermanblueprint(String strName,int intSpeed,String strColour,int intbombrange,int intnumbombs,boolean blninvincibility){
-		this.strName = strName;
+	public bombermanblueprint(String strColour,int intSpeed,int intbrange,int intbcount){
 		this.intSpeed = intSpeed;
 		this.strColour = strColour;
-		this.intbombrange = intbombrange;
-		this.intnumbombs = intnumbombs;
-		this.blninvincibility = blninvincibility;
-	
+		this.intbrange = intbrange;
+		this.intbcount = intbcount;
 	}
 }
