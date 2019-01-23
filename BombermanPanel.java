@@ -211,8 +211,6 @@ public class BombermanPanel extends JPanel {
     static boolean blnDeathYellow = false;
     static boolean blnDeathWhite = false;
 
-    ///JButton test;
-    ///GamePanel thepanel;
 
     // Methods
     //Movements for the blue character
@@ -340,7 +338,7 @@ public class BombermanPanel extends JPanel {
                 Bombermantools.trysleep();
                 g.drawImage(left2, intXfuture, intY, null);
                 Bombermantools.trysleep();
-                // initizlies the future to be the current position
+                // initialzies the future to be the current position
                 intX = intXfuture;
             }
         }
@@ -738,17 +736,23 @@ public class BombermanPanel extends JPanel {
         if (intposxmod > 30 && intposxdiv > 0) {
             intposxdiv += 1;
         }
-
+		// calculates the bomb position of the bottom left corner 
+      	// explosion display up and right
         if (intposxdiv == 1 && intposydiv == 9) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
             blnobfound = false;
+            // checks if they have a extend item 
             while (intcountrange <= intrange && blnobfound == false) {
+				// if so then add to the range
                 intcountrange += 1;
+                // check if the explosion touches any non breakable blocks
                 if (!Bomberman.strMap[intposydiv - intcountrange][intposxdiv].equals("ob")) {
+					// if they do have a range item then add the extension
                     if (intcountrange <= intrange) {
                         g.drawImage(fire_vertical, intBombX, intBombY - (60 * intcountrange), null);
                     } else {
+						// draws the end of the the flame
                         g.drawImage(fire_upend, intBombX, intBombY - (60 * intcountrange), null);
                     }
                 } else {
@@ -776,6 +780,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // same logic but this time for the bottom right corner
+          // explosion of up and left
         } else if (intposxdiv == 13 && intposydiv == 9) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -813,6 +819,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // same logic just different position of top left
+          // draws explosion for down and right
         } else if (intposxdiv == 1 && intposydiv == 1) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
 
@@ -851,6 +859,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // same logic just for top right
+          // explosion displays for down and left
         } else if (intposxdiv == 13 && intposydiv == 1) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -888,6 +898,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // checks for the first column
+          // has an explosion animation of up, down and right
         } else if (intposxdiv == 1) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -942,6 +954,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // for the furtherest left column
+          // animation of explosion is up, down and left
         } else if (intposxdiv == 13) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -996,6 +1010,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // same logic just for the top row 
+          // has an animation of right, left and down
         } else if (intposydiv == 1) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
 
@@ -1051,7 +1067,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
-
+// checks for the last row of the map
+          	// animation of explosion is right, left and up
         } else if (intposydiv == 9) {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -1107,6 +1124,8 @@ public class BombermanPanel extends JPanel {
                     }
                 }
             }
+            // anything else that is not in the box that is drawn has a the same animation
+          // left, right, up and down
         } else {
             g.drawImage(fire_mid, intBombX, intBombY, null);
             intcountrange = 0;
@@ -1212,7 +1231,7 @@ public class BombermanPanel extends JPanel {
         if (intposxmod > 30 && intposxdiv > 0) {
             intposxdiv += 1;
         }
-
+		// checking for items under the random blocks on each position 
         if (intposxdiv == 1 && intposydiv == 9) {
             intcountrange = 0;
             blnobfound = false;
@@ -1731,8 +1750,9 @@ public class BombermanPanel extends JPanel {
 
 
     }
-
+// displays the bombs for each player
     public static void bombdisplay(Graphics g) {
+		// checks if they place a bomb and if they have one bomb
         if (blnPlaceBomb && blnbomb1set == false) {
             intBombX_blue = intX;
             intBombY_blue = intY;
@@ -1741,12 +1761,13 @@ public class BombermanPanel extends JPanel {
             bomb1duration_blue = System.currentTimeMillis() / 1000;
             blnbomb1set = true;
             blnPlaceBomb = false;
+            // displays animation twice 
         } else if (blnPlaceBomb == false && blnbomb1set) {
             g.drawImage(bomb_item, intBombX_blue, intBombY_blue, null);
             Bombermantools.trysleep();
         }
 
-
+// intbombcount is used to check how many bombs they have 
         if (blnPlaceBomb && blnbomb2set == false && intbombcount_blue == 1) {
             intBomb2X_blue = intX;
             intBomb2Y_blue = intY;
@@ -1947,6 +1968,7 @@ public class BombermanPanel extends JPanel {
             Bombermantools.trysleep();
         }
     }
+     // displays the explosion of the players and checks if there is a character there
     public static void bombexplosion(Graphics g) {
         int inttime;
         if (blnbomb1set) {
@@ -2373,12 +2395,6 @@ public class BombermanPanel extends JPanel {
     }
 
 
-    // intX greater X pixel of the bomb but less than the range of the x bomb pixel
-    /* if(intX >= intBombX_blue && intX <= (intBomb4X_blue +(60* intbombrange_blue)) 
-        																		&& intY >= intBombY_blue && (intY <= (intBombY_blue +(60* intbombrange_blue)))){
-           Bomberman.blnDeathYellow = true;
-           } */
-
     /**********************************************************************
      * 
      * 
@@ -2468,6 +2484,7 @@ public class BombermanPanel extends JPanel {
             g.drawString("" + Bomberman.intScoreYellow, 642, 700);
             g.drawString("" + Bomberman.intScoreWhite, 884, 700);
             // Bomberman Animation
+            // drawing the map from the map array
             if (Bomberman.intRand == 1) {
                 for (intRow = 0; intRow < 11; intRow++) {
                     for (intCol = 0; intCol < 15; intCol++) {
@@ -2531,18 +2548,8 @@ public class BombermanPanel extends JPanel {
                 		}
                 		for(intRow = 0; intRow < 11; intRow++){
                 			for(intCol = 0; intCol < 15; intCol++){
-                			//	stritem[intRow][intCol] = "na";
                 			}
-                		}
-                	/*	for(intRow = 0; intRow < 4; intRow++){
-                			BombermanPanel.generateitem(1);
-                		}
-                		for(intRow = 0; intRow < 4; intRow++){
-                			BombermanPanel.generateitem(2);
-                		}
-                		for(intRow = 0; intRow < 3; intRow++){
-                			BombermanPanel.generateitem(3);
-                		} */
+                		}    	
                 	}else if(Bomberman.intRand == 3){
                 		for(intRow = 0; intRow < 11; intRow++){
                 			for(intCol = 0; intCol < 15; intCol++){
@@ -2562,17 +2569,7 @@ public class BombermanPanel extends JPanel {
 								}
 								}catch(NullPointerException e){
 									System.out.println("Map 3 not working");
-								}
-                				/*}else if(Bomberman.strMap[intRow][intCol].equals("c1")){
-                					g.drawImage(down1_blue,intRow*60,intCol*60,null);
-                				}else if(Bomberman.strMap[intRow][intCol].equals("c2")){
-                					g.drawImage(down1_red,intRow*60,intCol*60,null);
-                				}else if(Bomberman.strMap[intRow][intCol].equals("c3")){
-                					g.drawImage(down1_yellow,intRow*60,intCol*60,null);
-                				}else if(Bomberman.strMap[intRow][intCol].equals("c4")){
-                					g.drawImage(down1_white,intRow*60,intCol*60,null);
-                				}*/
-                			
+								}         			
                 		}
 					 }
             }
